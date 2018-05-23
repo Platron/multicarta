@@ -70,15 +70,15 @@ class DataHelper {
 	 */
 	private function getDataSet() {
 		$matchTable = $this->getMatchTable();
-		if (!isset($matchTable[$this->enrollmentResult->getValue()]
-			[$this->threeDSecureResult->getValue()]
-			[$this->paymentSystem->getValue()]
+		if (!isset($matchTable[(string)$this->enrollmentResult]
+			[(string)$this->threeDSecureResult]
+			[(string)$this->paymentSystem]
 		)) {
 			throw new Error("Wrong parameter combination");
 		}
-		$dataSet = $matchTable[$this->enrollmentResult->getValue()]
-			[$this->threeDSecureResult->getValue()]
-			[$this->paymentSystem->getValue()];
+		$dataSet = $matchTable[(string)$this->enrollmentResult]
+			[(string)$this->threeDSecureResult]
+			[(string)$this->paymentSystem];
 		return $dataSet;
 	}
 
