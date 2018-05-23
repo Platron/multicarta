@@ -3,6 +3,7 @@
     "description": "multicarta SDK",
     "version": "1.0.0",
     "require": {
+    	"php": ">=5.4",
         "myclabs/php-enum": "^1.6"
     },
     "autoload": {
