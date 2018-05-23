@@ -31,24 +31,24 @@ class CreateOrderRequestBuilder extends RequestBuilder {
 	}
 
 	/**
-	 * @param string $interfaceLanguage
+	 * @param InterfaceLanguage $interfaceLanguage
 	 */
-	public function setInterfaceLanguage(string $interfaceLanguage) {
-		$this->xmlData->Request->addChild('Language', $interfaceLanguage);
+	public function setInterfaceLanguage(InterfaceLanguage $interfaceLanguage) {
+		$this->xmlData->Request->addChild('Language', (string)$interfaceLanguage);
 	}
 
 	/**
-	 * @param string $currencyCode
+	 * @param CurrencyCode $currencyCode
 	 */
-	public function setCurrencyCode(string $currencyCode) {
-		$this->xmlData->Request->Order->addChild('Currency', $currencyCode);
+	public function setCurrencyCode(CurrencyCode $currencyCode) {
+		$this->xmlData->Request->Order->addChild('Currency', (string)$currencyCode);
 	}
 
 	protected function initDefaultValues() {
 		parent::initDefaultValues();
 		$this->initOrderType();
-		$this->setInterfaceLanguage(InterfaceLanguageHandbook::RUSSIAN);
-		$this->setCurrencyCode(CurrencyCodeHandbook::RUBLE);
+		$this->setInterfaceLanguage(InterfaceLanguage::RUSSIAN());
+		$this->setCurrencyCode(CurrencyCode::RUBLE());
 	}
 
 	protected function initXmlData() {
