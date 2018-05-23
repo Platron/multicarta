@@ -1,4 +1,6 @@
 {
+	"name": "payprocessing/multicarta-sdk",
+    "description": "multicarta SDK",
     "require": {
         "myclabs/php-enum": "^1.6"
     },
