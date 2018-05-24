@@ -7,7 +7,6 @@ use SimpleXMLElement;
 class GetPaReqRequestBuilder extends RequestBuilder {
 
 	/**
-	 * @param SslData $sslData
 	 * @param string $merchantId
 	 * @param string $pan
 	 * @param string $orderId
@@ -15,14 +14,13 @@ class GetPaReqRequestBuilder extends RequestBuilder {
 	 * @param string $expDate
 	 */
 	public function __construct(
-		SslData $sslData,
 		string $merchantId,
 		string $pan,
 		string $orderId,
 		string $sessionId,
 		string $expDate
 	) {
-		parent::__construct($sslData, $merchantId);
+		parent::__construct($merchantId);
 		$this->setPan($pan);
 		$this->setOrderId($orderId);
 		$this->setSessionId($sessionId);

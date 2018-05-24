@@ -7,20 +7,18 @@ use SimpleXMLElement;
 class EnrollCheckingRequestBuilder extends RequestBuilder {
 
 	/**
-	 * @param SslData $sslData
  	 * @param string $merchantId
 	 * @param string $pan
 	 * @param string $orderId
 	 * @param string $sessionId
 	 */
 	public function __construct(
-		SslData $sslData,
 		string $merchantId,
 		string $pan,
 		string $orderId,
 		string $sessionId
 	) {
-		parent::__construct($sslData, $merchantId);
+		parent::__construct($merchantId);
 		$this->setPan($pan);
 		$this->setOrderId($orderId);
 		$this->setSessionId($sessionId);

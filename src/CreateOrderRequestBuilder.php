@@ -7,8 +7,6 @@ use SimpleXMLElement;
 class CreateOrderRequestBuilder extends RequestBuilder {
 
 	/**
-	 *
-	 * @param SslData $sslData
 	 * @param string $merchantId
 	 * @param int $amount
 	 * @param string $description
@@ -16,14 +14,13 @@ class CreateOrderRequestBuilder extends RequestBuilder {
 	 * @param string $vendorName
 	 */
 	public function __construct(
-		SslData $sslData,
 		string $merchantId,
 		int $amount,
 		string $description,
 		string $vendorId,
 		string $vendorName
 	) {
-		parent::__construct($sslData, $merchantId);
+		parent::__construct($merchantId);
 		$this->setAmount($amount);
 		$this->setDescription($description);
 		$this->setVendorId($vendorId);

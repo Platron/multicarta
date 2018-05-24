@@ -12,12 +12,10 @@ abstract class ResponseParser {
 	protected $xmlData;
 
 	/**
-	 * @param Response $response
+	 * @param string $response
 	 */
-	public function __construct(Response $response) {
-		$this->xmlData = new SimpleXMLElement(
-			$response->getResult()
-		);
+	public function __construct(string $response) {
+		$this->xmlData = new SimpleXMLElement($response);
 	}
 
 	/**
