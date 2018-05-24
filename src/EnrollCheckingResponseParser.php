@@ -25,6 +25,13 @@ class EnrollCheckingResponseParser extends ResponseParser {
 	}
 
 	/**
+	 * @return bool
+	 */
+	public function isEnrolled() {
+		return ($this->getEnrollmentResult() == EnrollmentResult::Y);
+	}
+
+	/**
 	 * @return EnrollmentResult
 	 */
 	public function getEnrollmentResult() {
@@ -44,7 +51,7 @@ class EnrollCheckingResponseParser extends ResponseParser {
 	 * @return string
 	 */
 	public function getAcctId() {
-		if ($this->getEnrolled() == 'Y') {
+		if ($this->isEnrolled()) {
 			return (string)$this->xmlData
 				->Response
 				->VERes
@@ -60,7 +67,7 @@ class EnrollCheckingResponseParser extends ResponseParser {
 	 * @return string
 	 */
 	public function getUrl() {
-		if ($this->getEnrolled() == 'Y') {
+		if ($this->isEnrolled()) {
 			return (string)$this->xmlData
 				->Response
 				->VERes
