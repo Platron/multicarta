@@ -29,7 +29,7 @@ class GetPaReqRequestBuilder extends RequestBuilder {
 	 * @param string $pan
 	 */
 	protected function setPan(string $pan) {
-		$this->xmlData
+		$this->request
 			->Request
 			->addChild('PAN', $pan);
 	}
@@ -38,7 +38,7 @@ class GetPaReqRequestBuilder extends RequestBuilder {
 	 * @param string $orderId
 	 */
 	protected function setOrderId(string $orderId) {
-		$this->xmlData
+		$this->request
 			->Request
 			->Order
 			->addChild('OrderID', $orderId);
@@ -48,7 +48,7 @@ class GetPaReqRequestBuilder extends RequestBuilder {
 	 * @param string $sessionId
 	 */
 	protected function setSessionId(string $sessionId) {
-		$this->xmlData
+		$this->request
 			->Request
 			->addChild('SessionID', $sessionId);
 	}
@@ -57,7 +57,7 @@ class GetPaReqRequestBuilder extends RequestBuilder {
 	 * @param string $expDate
 	 */
 	protected function setExpDate(string $expDate) {
-		$this->xmlData
+		$this->request
 			->Request
 			->addChild('ExpDate', $expDate);
 	}
@@ -68,7 +68,7 @@ class GetPaReqRequestBuilder extends RequestBuilder {
 	}
 
 	protected function initEncodedPaReq() {
-		$this->xmlData
+		$this->request
 			->Request
 			->addChild('EncodedPAReq', 'true');
 	}

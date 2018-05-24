@@ -9,7 +9,7 @@ class GetPaReqResponseParser extends ResponseParser {
 	 */
 	public function getUrl() {
 		if ($this->isSuccess()) {
-			return (string)$this->xmlData
+			return (string)$this->response
 				->Response
 				->url;
 		}
@@ -20,7 +20,7 @@ class GetPaReqResponseParser extends ResponseParser {
 	 */
 	public function getPaReq() {
 		if ($this->isSuccess()) {
-			return (string)$this->xmlData
+			return (string)$this->response
 				->Response
 				->pareq;
 		}

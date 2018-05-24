@@ -7,24 +7,24 @@ use SimpleXMLElement;
 abstract class RequestBuilder {
 
 	/**
-	 * @param SimpleXMLElement $xmlData
+	 * @param SimpleXMLElement $request
 	 */
-	protected $xmlData;
+	protected $request;
 
 	/**
 	 * @param string $merchantId
 	 */
 	public function __construct(string $merchantId) {
-		$this->initXmlData();
+		$this->initRequest();
 		$this->initDefaultValues();
 		$this->setMerchantId($merchantId);
 	}
 
 	/**
-	 * @return string
+	 * @return SimpleXMLElement
 	 */
-	public function buildRequest() {
-		return $this->xmlData->asXML();
+	public function getRequest() {
+		return $this->request;
 	}
 
 	/**
@@ -36,7 +36,7 @@ abstract class RequestBuilder {
 	 * @param string $merchantId
 	 */
 	protected function setMerchantId(string $merchantId) {
-		$this->xmlData
+		$this->request
 			->Request
 			->Order
 			->addChild('Merchant', $merchantId);
@@ -46,19 +46,19 @@ abstract class RequestBuilder {
 		$this->initOperation();
 	}
 
-	protected function initXmlData() {
-		$this->xmlData = new SimpleXMLElement(
+	protected function initRequest() {
+		$this->request = new SimpleXMLElement(
 			'<?xml version="1.0" encoding="UTF-8"?><TKKPG/>'
 		);
-		$this->xmlData
+		$this->request
 			->addChild('Request');
-		$this->xmlData
+		$this->request
 			->Request
 			->addChild('Order');
 	}
 
 	protected function initOperation() {
-		$this->xmlData
+		$this->request
 			->Request
 			->addChild('Operation', $this->getOperation());
 	}

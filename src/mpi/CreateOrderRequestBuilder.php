@@ -31,14 +31,14 @@ class CreateOrderRequestBuilder extends RequestBuilder {
 	 * @param InterfaceLanguage $interfaceLanguage
 	 */
 	public function setInterfaceLanguage(InterfaceLanguage $interfaceLanguage) {
-		$this->xmlData->Request->addChild('Language', (string)$interfaceLanguage);
+		$this->request->Request->addChild('Language', (string)$interfaceLanguage);
 	}
 
 	/**
 	 * @param CurrencyCode $currencyCode
 	 */
 	public function setCurrencyCode(CurrencyCode $currencyCode) {
-		$this->xmlData->Request->Order->addChild('Currency', (string)$currencyCode);
+		$this->request->Request->Order->addChild('Currency', (string)$currencyCode);
 	}
 
 	protected function initDefaultValues() {
@@ -48,16 +48,16 @@ class CreateOrderRequestBuilder extends RequestBuilder {
 		$this->setCurrencyCode(CurrencyCode::RUBLE());
 	}
 
-	protected function initXmlData() {
-		parent::initXmlData();
-		$this->xmlData
+	protected function initRequest() {
+		parent::initRequest();
+		$this->request
 			->Request
 			->Order
 			->addChild('AddParams');
 	}
 
 	protected function initOrderType() {
-		$this->xmlData
+		$this->request
 			->Request
 			->Order
 			->addChild('OrderType', $this->getOrderType());
@@ -81,7 +81,7 @@ class CreateOrderRequestBuilder extends RequestBuilder {
 	 * @param int $amount
 	 */
 	protected function setAmount(int $amount) {
-		$this->xmlData
+		$this->request
 			->Request
 			->Order
 			->addChild('Amount', (string)$amount);
@@ -94,7 +94,7 @@ class CreateOrderRequestBuilder extends RequestBuilder {
 		if (strrchr($description, '#')) {
 			throw new BuilderError("Invalid character '#' in description");
 		}
-		$this->xmlData
+		$this->request
 			->Request
 			->Order
 			->addChild('Description', $description);
@@ -104,7 +104,7 @@ class CreateOrderRequestBuilder extends RequestBuilder {
 	 * @param string $vendorId
 	 */
 	protected function setVendorId(string $vendorId) {
-		$this->xmlData
+		$this->request
 			->Request
 			->Order
 			->AddParams
@@ -118,7 +118,7 @@ class CreateOrderRequestBuilder extends RequestBuilder {
 		if (strlen($vendorName) > 25) {
 			throw new BuilderError("Excess of maximum length (25 characters) in vendor name");
 		}
-		$this->xmlData
+		$this->request
 			->Request
 			->Order
 			->AddParams

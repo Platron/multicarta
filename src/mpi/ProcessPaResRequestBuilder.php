@@ -29,7 +29,7 @@ class ProcessPaResRequestBuilder extends RequestBuilder {
 	 * @param string $pan
 	 */
 	protected function setPan(string $pan) {
-		$this->xmlData
+		$this->request
 			->Request
 			->addChild('PAN', $pan);
 	}
@@ -38,7 +38,7 @@ class ProcessPaResRequestBuilder extends RequestBuilder {
 	 * @param string $orderId
 	 */
 	protected function setOrderId(string $orderId) {
-		$this->xmlData
+		$this->request
 			->Request
 			->Order
 			->addChild('OrderID', $orderId);
@@ -48,7 +48,7 @@ class ProcessPaResRequestBuilder extends RequestBuilder {
 	 * @param string $sessionId
 	 */
 	protected function setSessionId(string $sessionId) {
-		$this->xmlData
+		$this->request
 			->Request
 			->addChild('SessionID', $sessionId);
 	}
@@ -57,7 +57,7 @@ class ProcessPaResRequestBuilder extends RequestBuilder {
 	 * @param string $paRes
 	 */
 	protected function setPaRes(string $paRes) {
-		$this->xmlData
+		$this->request
 			->Request
 			->addChild('PARes', $paRes);
 	}

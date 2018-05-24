@@ -2,6 +2,8 @@
 
 namespace Platron\multicarta\mpi;
 
+use SimpleXMLElement;
+
 class Client {
 
 	/**
@@ -24,10 +26,10 @@ class Client {
 
 	/**
 	 * @param string $url
-	 * @param string $request
-	 * @return string
+	 * @param SimpleXMLElement $request
+	 * @return SimpleXMLElement
 	 */
-	public function sendRequest(string $url, string $request) {
+	public function sendRequest(string $url, SimpleXMLElement $request) {
 		$curl = curl_init();
 		curl_setopt($curl, CURLOPT_URL, $url);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -35,17 +37,18 @@ class Client {
 		curl_setopt($curl, CURLOPT_POST, 1);
 		curl_setopt($curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-		curl_setopt($curl, CURLOPT_POSTFIELDS, $request);
+		curl_setopt($curl, CURLOPT_POSTFIELDS, $request->asXML());
 		curl_setopt($curl, CURLOPT_SSLCERT, $this->getCertificatePath());
 		curl_setopt($curl, CURLOPT_SSLKEY, $this->getPrivateKeyPath());
 
-		$response = curl_exec($curl);
+		$resultMessage = curl_exec($curl);
 		$errorMessage = curl_error($curl);
 		$errorCode = curl_errno($curl);
 		curl_close($curl);
-		if ($response === false) {
+		if ($resultMessage === false) {
 			throw new ClientError($errorMessage, $errorCode);
 		}
+		$response = new SimpleXMLElement($resultMessage);
 
 		return $response;
 	}

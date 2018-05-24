@@ -36,7 +36,7 @@ class EnrollCheckingResponseParser extends ResponseParser {
 	 */
 	public function getEnrollmentResult() {
 		if ($this->isSuccess()) {
-			return new EnrollmentResult((string)$this->xmlData
+			return new EnrollmentResult((string)$this->response
 				->Response
 				->VERes
 				->ThreeDSecure
@@ -52,7 +52,7 @@ class EnrollCheckingResponseParser extends ResponseParser {
 	 */
 	public function getAcctId() {
 		if ($this->isEnrolled()) {
-			return (string)$this->xmlData
+			return (string)$this->response
 				->Response
 				->VERes
 				->ThreeDSecure
@@ -68,7 +68,7 @@ class EnrollCheckingResponseParser extends ResponseParser {
 	 */
 	public function getUrl() {
 		if ($this->isEnrolled()) {
-			return (string)$this->xmlData
+			return (string)$this->response
 				->Response
 				->VERes
 				->ThreeDSecure
@@ -83,7 +83,7 @@ class EnrollCheckingResponseParser extends ResponseParser {
 	 */
 	public function getVersion() {
 		if ($this->hasError()) {
-			return (string)$this->xmlData
+			return (string)$this->response
 				->Response
 				->VERes
 				->ThreeDSecure
@@ -91,7 +91,7 @@ class EnrollCheckingResponseParser extends ResponseParser {
 				->Error
 				->version;
 		} else {
-			return (string)$this->xmlData
+			return (string)$this->response
 				->Response
 				->VERes
 				->ThreeDSecure
@@ -106,7 +106,7 @@ class EnrollCheckingResponseParser extends ResponseParser {
 	 */
 	public function getErrorCode() {
 		if ($this->hasError()) {
-			return (string)$this->xmlData
+			return (string)$this->response
 				->Response
 				->VERes
 				->ThreeDSecure
@@ -121,7 +121,7 @@ class EnrollCheckingResponseParser extends ResponseParser {
 	 */
 	public function getErrorMessage() {
 		if ($this->hasError()) {
-			return (string)$this->xmlData
+			return (string)$this->response
 				->Response
 				->VERes
 				->ThreeDSecure
@@ -136,7 +136,7 @@ class EnrollCheckingResponseParser extends ResponseParser {
 	 */
 	public function getErrorDetail() {
 		if ($this->hasError()) {
-			return (string)$this->xmlData
+			return (string)$this->response
 				->Response
 				->VERes
 				->ThreeDSecure
@@ -150,7 +150,7 @@ class EnrollCheckingResponseParser extends ResponseParser {
 	 * @return boolean
 	 */
 	public function hasError() {
-		return isset($this->xmlData
+		return isset($this->response
 			->Response
 			->VERes
 			->ThreeDSecure

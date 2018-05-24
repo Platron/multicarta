@@ -12,7 +12,7 @@ class ProcessPaResResponseParser extends ResponseParser {
 	 */
 	public function getOrderId() {
 		if ($this->isSuccess()) {
-			return (string)$this->xmlData
+			return (string)$this->response
 				->Response
 				->XMLOut
 				->Message
@@ -25,7 +25,7 @@ class ProcessPaResResponseParser extends ResponseParser {
 	 */
 	public function getPaymentSystemBrand() {
 		if ($this->isSuccess()) {
-			return new PaymentSystemBrand((string)$this->xmlData
+			return new PaymentSystemBrand((string)$this->response
 				->Response
 				->XMLOut
 				->Message
@@ -38,7 +38,7 @@ class ProcessPaResResponseParser extends ResponseParser {
 	 */
 	public function getOrderStatus() {
 		if ($this->isSuccess()) {
-			return new OrderStatus((string)$this->xmlData
+			return new OrderStatus((string)$this->response
 				->Response
 				->XMLOut
 				->Message
@@ -51,7 +51,7 @@ class ProcessPaResResponseParser extends ResponseParser {
 	 */
 	public function getEci() {
 		if ($this->isSuccess()) {
-			return (string)$this->xmlData
+			return (string)$this->response
 				->Response
 				->XMLOut
 				->Message
@@ -66,7 +66,7 @@ class ProcessPaResResponseParser extends ResponseParser {
 	 */
 	public function getThreeDSecureResult() {
 		if ($this->isSuccess()) {
-			return new ThreeDSecureResult((string)$this->xmlData
+			return new ThreeDSecureResult((string)$this->response
 				->Response
 				->XMLOut
 				->Message
@@ -81,7 +81,7 @@ class ProcessPaResResponseParser extends ResponseParser {
 	 */
 	public function getCavv() {
 		if ($this->isSuccess()) {
-			return (string)$this->xmlData
+			return (string)$this->response
 				->Response
 				->XMLOut
 				->Message
@@ -96,7 +96,7 @@ class ProcessPaResResponseParser extends ResponseParser {
 	 */
 	public function getXid() {
 		if ($this->isSuccess()) {
-			return (string)$this->xmlData
+			return (string)$this->response
 				->Response
 				->XMLOut
 				->Message

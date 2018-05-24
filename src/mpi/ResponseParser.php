@@ -7,15 +7,15 @@ use SimpleXMLElement;
 abstract class ResponseParser {
 
 	/**
-	 * @param SimpleXMLElement $xmlData
+	 * @param SimpleXMLElement $response
 	 */
-	protected $xmlData;
+	protected $response;
 
 	/**
-	 * @param string $response
+	 * @param SimpleXMLElement $response
 	 */
-	public function __construct(string $response) {
-		$this->xmlData = new SimpleXMLElement($response);
+	public function __construct(SimpleXMLElement $response) {
+		$this->response = $response;
 	}
 
 	/**
@@ -36,7 +36,7 @@ abstract class ResponseParser {
 	 * @return Status
 	 */
 	public function getStatus() {
-		return new Status((string)$this->xmlData
+		return new Status((string)$this->response
 			->Response
 			->Status);
 	}
@@ -45,7 +45,7 @@ abstract class ResponseParser {
 	 * @return string
 	 */
 	public function getOperation() {
-		return (string)$this->xmlData
+		return (string)$this->response
 			->Response
 			->Operation;
 	}
