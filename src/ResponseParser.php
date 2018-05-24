@@ -35,12 +35,12 @@ abstract class ResponseParser {
 	}
 
 	/**
-	 * @return string
+	 * @return Status
 	 */
 	public function getStatus() {
-		return (string)$this->xmlData
+		return new Status((string)$this->xmlData
 			->Response
-			->Status;
+			->Status);
 	}
 
 	/**
@@ -61,6 +61,6 @@ abstract class ResponseParser {
 	 * @return string
 	 */
 	protected function getSuccessStatus() {
-		return '00';
+		return Status::SUCCESS;
 	}
 }

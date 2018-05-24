@@ -10,5 +10,3 @@ class ThreeDSecureResult extends Enum {
 	const U = 'U';
 	const A = 'A';
 }
-
-?>

@@ -15,9 +15,9 @@ class DataHelper {
 	private $threeDSecureResult;
 
 	/**
-	 * @var PaymentSystem $paymentSystem
+	 * @var PaymentSystemBrand $paymentSystemBrand
 	 */
-	private $paymentSystem;
+	private $paymentSystemBrand;
 
 	/**
 	 * @param EnrollmentResult $enrollmentResult
@@ -34,10 +34,10 @@ class DataHelper {
 	}
 
 	/**
-	 * @param PaymentSystem $paymentSystem
+	 * @param PaymentSystemBrand $paymentSystemBrand
 	 */
-	public function setPaymentSystem(PaymentSystem $paymentSystem) {
-		$this->paymentSystem = $paymentSystem;
+	public function setPaymentSystemBrand(PaymentSystemBrand $paymentSystemBrand) {
+		$this->paymentSystemBrand = $paymentSystemBrand;
 	}
 
 	/**
@@ -72,13 +72,13 @@ class DataHelper {
 		$matchTable = $this->getMatchTable();
 		if (!isset($matchTable[(string)$this->enrollmentResult]
 			[(string)$this->threeDSecureResult]
-			[(string)$this->paymentSystem]
+			[(string)$this->paymentSystemBrand]
 		)) {
 			throw new Error("Wrong parameter combination");
 		}
 		$dataSet = $matchTable[(string)$this->enrollmentResult]
 			[(string)$this->threeDSecureResult]
-			[(string)$this->paymentSystem];
+			[(string)$this->paymentSystemBrand];
 		return $dataSet;
 	}
 
@@ -89,17 +89,17 @@ class DataHelper {
 		return [
 			'' => [
 				'' => [
-					PaymentSystem::VISA => [
+					PaymentSystemBrand::VISA => [
 						'7',
 						false,
 						'4',
 					],
-					PaymentSystem::MASTERCARD => [
+					PaymentSystemBrand::MASTERCARD => [
 						'0',
 						false,
 						'4',
 					],
-					PaymentSystem::MIR => [
+					PaymentSystemBrand::MIR => [
 						'3',
 						false,
 						'4',
@@ -108,17 +108,17 @@ class DataHelper {
 			],
 			EnrollmentResult::U => [
 				'' => [
-					PaymentSystem::VISA => [
+					PaymentSystemBrand::VISA => [
 						'6',
 						false,
 						'2',
 					],
-					PaymentSystem::MASTERCARD => [
+					PaymentSystemBrand::MASTERCARD => [
 						'0',
 						false,
 						'4',
 					],
-					PaymentSystem::MIR => [
+					PaymentSystemBrand::MIR => [
 						'3',
 						false,
 						'4',
@@ -127,17 +127,17 @@ class DataHelper {
 			],
 			EnrollmentResult::N => [
 				'' => [
-					PaymentSystem::VISA => [
+					PaymentSystemBrand::VISA => [
 						'6',
 						false,
 						'2',
 					],
-					PaymentSystem::MASTERCARD => [
+					PaymentSystemBrand::MASTERCARD => [
 						'0',
 						false,
 						'4',
 					],
-					PaymentSystem::MIR => [
+					PaymentSystemBrand::MIR => [
 						'3',
 						false,
 						'4',
@@ -146,51 +146,51 @@ class DataHelper {
 			],
 			EnrollmentResult::Y => [
 				ThreeDSecureResult::Y => [
-					PaymentSystem::VISA => [
+					PaymentSystemBrand::VISA => [
 						'5',
 						true,
 						'5',
 					],
-					PaymentSystem::MASTERCARD => [
+					PaymentSystemBrand::MASTERCARD => [
 						'2',
 						true,
 						'5',
 					],
-					PaymentSystem::MIR => [
+					PaymentSystemBrand::MIR => [
 						'2',
 						true,
 						'5',
 					],
 				],
 				ThreeDSecureResult::A => [
-					PaymentSystem::VISA => [
+					PaymentSystemBrand::VISA => [
 						'6',
 						true,
 						'2',
 					],
-					PaymentSystem::MASTERCARD => [
+					PaymentSystemBrand::MASTERCARD => [
 						'1',
 						true,
 						'2',
 					],
-					PaymentSystem::MIR => [
+					PaymentSystemBrand::MIR => [
 						'1',
 						true,
 						'2',
 					],
 				],
 				ThreeDSecureResult::U => [
-					PaymentSystem::VISA => [
+					PaymentSystemBrand::VISA => [
 						'6',
 						false,
 						'2',
 					],
-					PaymentSystem::MASTERCARD => [
+					PaymentSystemBrand::MASTERCARD => [
 						'0',
 						false,
 						'4',
 					],
-					PaymentSystem::MIR => [
+					PaymentSystemBrand::MIR => [
 						'3',
 						false,
 						'4',

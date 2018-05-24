@@ -20,28 +20,28 @@ class ProcessPaResResponseParser extends ResponseParser {
 	}
 
 	/**
-	 * @return string
+	 * @return PaymentSystemBrand
 	 */
-	public function getBrand() {
+	public function getPaymentSystemBrand() {
 		if ($this->isSuccess()) {
-			return (string)$this->xmlData
+			return new PaymentSystemBrand((string)$this->xmlData
 				->Response
 				->XMLOut
 				->Message
-				->Brand;
+				->Brand);
 		}
 	}
 
 	/**
-	 * @return string
+	 * @return OrderStatus
 	 */
 	public function getOrderStatus() {
 		if ($this->isSuccess()) {
-			return (string)$this->xmlData
+			return new OrderStatus((string)$this->xmlData
 				->Response
 				->XMLOut
 				->Message
-				->OrderStatus;
+				->OrderStatus);
 		}
 	}
 
@@ -61,17 +61,17 @@ class ProcessPaResResponseParser extends ResponseParser {
 	}
 
 	/**
-	 * @return string
+	 * @return ThreeDSecureResult
 	 */
-	public function getThreeDSecureVerificaion() {
+	public function getThreeDSecureResult() {
 		if ($this->isSuccess()) {
-			return (string)$this->xmlData
+			return new ThreeDSecureResult((string)$this->xmlData
 				->Response
 				->XMLOut
 				->Message
 				->ThreeDSVars
 				->AnswerVars
-				->ThreeDSVerificaion;
+				->ThreeDSVerificaion);
 		}
 	}
 

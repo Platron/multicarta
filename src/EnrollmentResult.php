@@ -9,5 +9,3 @@ class EnrollmentResult extends Enum {
 	const N = 'N';
 	const U = 'U';
 }
-
-?>

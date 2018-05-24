@@ -10,7 +10,7 @@ class CreateOrderRequestBuilder extends RequestBuilder {
 	 *
 	 * @param SslData $sslData
 	 * @param string $merchantId
-	 * @param string $amount
+	 * @param int $amount
 	 * @param string $description
 	 * @param string $vendorId
 	 * @param string $vendorName
@@ -18,7 +18,7 @@ class CreateOrderRequestBuilder extends RequestBuilder {
 	public function __construct(
 		SslData $sslData,
 		string $merchantId,
-		string $amount,
+		int $amount,
 		string $description,
 		string $vendorId,
 		string $vendorName
@@ -81,19 +81,22 @@ class CreateOrderRequestBuilder extends RequestBuilder {
 	}
 
 	/**
-	 * @param string $amount
+	 * @param int $amount
 	 */
-	protected function setAmount(string $amount) {
+	protected function setAmount(int $amount) {
 		$this->xmlData
 			->Request
 			->Order
-			->addChild('Amount', $amount);
+			->addChild('Amount', (string)$amount);
 	}
 
 	/**
 	 * @param string $description
 	 */
 	protected function setDescription(string $description) {
+		if (strrchr($description, '#')) {
+			throw new Error("Invalid character '#' in description");
+		}
 		$this->xmlData
 			->Request
 			->Order
@@ -115,6 +118,9 @@ class CreateOrderRequestBuilder extends RequestBuilder {
 	 * @param string $vendorName
 	 */
 	protected function setVendorName(string $vendorName) {
+		if (strlen($vendorName) > 25) {
+			throw new Error("Excess of maximum length (25 characters) in vendor name");
+		}
 		$this->xmlData
 			->Request
 			->Order

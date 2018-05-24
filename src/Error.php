@@ -7,5 +7,3 @@ use Exception;
 class Error extends Exception {
 
 }
-
-?>

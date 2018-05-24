@@ -25,18 +25,18 @@ class EnrollCheckingResponseParser extends ResponseParser {
 	}
 
 	/**
-	 * @return string
+	 * @return EnrollmentResult
 	 */
-	public function getEnrolled() {
+	public function getEnrollmentResult() {
 		if ($this->isSuccess()) {
-			return (string)$this->xmlData
+			return new EnrollmentResult((string)$this->xmlData
 				->Response
 				->VERes
 				->ThreeDSecure
 				->Message
 				->VERes
 				->CH
-				->enrolled;
+				->enrolled);
 		}
 	}
 
