@@ -1,30 +1,25 @@
 <?php
 
-namespace Platron\multicarta;
+namespace Platron\multicarta\mpi;
 
-use SimpleXMLElement;
-
-class GetPaReqRequestBuilder extends RequestBuilder {
+class EnrollCheckingRequestBuilder extends RequestBuilder {
 
 	/**
-	 * @param string $merchantId
+ 	 * @param string $merchantId
 	 * @param string $pan
 	 * @param string $orderId
 	 * @param string $sessionId
-	 * @param string $expDate
 	 */
 	public function __construct(
 		string $merchantId,
 		string $pan,
 		string $orderId,
-		string $sessionId,
-		string $expDate
+		string $sessionId
 	) {
 		parent::__construct($merchantId);
 		$this->setPan($pan);
 		$this->setOrderId($orderId);
 		$this->setSessionId($sessionId);
-		$this->setExpDate($expDate);
 	}
 
 	/**
@@ -56,29 +51,9 @@ class GetPaReqRequestBuilder extends RequestBuilder {
 	}
 
 	/**
-	 * @param string $expDate
-	 */
-	protected function setExpDate(string $expDate) {
-		$this->xmlData
-			->Request
-			->addChild('ExpDate', $expDate);
-	}
-
-	protected function initDefaultValues() {
-		parent::initDefaultValues();
-		$this->initEncodedPaReq();
-	}
-
-	protected function initEncodedPaReq() {
-		$this->xmlData
-			->Request
-			->addChild('EncodedPAReq', 'true');
-	}
-
-	/**
 	 * @return string
 	 */
 	protected function getOperation() {
-		return 'GetPAReqForm';
+		return 'Check3DSEnrolled';
 	}
 }

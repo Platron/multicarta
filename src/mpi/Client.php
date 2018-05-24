@@ -1,6 +1,6 @@
 <?php
 
-namespace Platron\multicarta;
+namespace Platron\multicarta\mpi;
 
 class Client {
 

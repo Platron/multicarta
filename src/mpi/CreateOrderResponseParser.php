@@ -1,30 +1,30 @@
 <?php
 
-namespace Platron\multicarta;
+namespace Platron\multicarta\mpi;
 
-use SimpleXMLElement;
-
-class GetPaReqResponseParser extends ResponseParser {
+class CreateOrderResponseParser extends ResponseParser {
 
 	/**
 	 * @return string
 	 */
-	public function getUrl() {
+	public function getOrderId() {
 		if ($this->isSuccess()) {
 			return (string)$this->xmlData
-				->Response
-				->url;
+			->Response
+			->Order
+			->OrderID;
 		}
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getPaReq() {
+	public function getSessionId() {
 		if ($this->isSuccess()) {
 			return (string)$this->xmlData
 				->Response
-				->pareq;
+				->Order
+				->SessionID;
 		}
 	}
 
@@ -32,6 +32,6 @@ class GetPaReqResponseParser extends ResponseParser {
 	 * @return string
 	 */
 	protected function getValidOperation() {
-		return 'GetPAReqForm';
+		return 'CreateOrder';
 	}
 }

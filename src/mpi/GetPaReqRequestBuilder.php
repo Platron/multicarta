@@ -1,30 +1,28 @@
 <?php
 
-namespace Platron\multicarta;
+namespace Platron\multicarta\mpi;
 
-use SimpleXMLElement;
-
-class ProcessPaResRequestBuilder extends RequestBuilder {
+class GetPaReqRequestBuilder extends RequestBuilder {
 
 	/**
 	 * @param string $merchantId
 	 * @param string $pan
 	 * @param string $orderId
 	 * @param string $sessionId
-	 * @param string $paRes
+	 * @param string $expDate
 	 */
 	public function __construct(
 		string $merchantId,
 		string $pan,
 		string $orderId,
 		string $sessionId,
-		string $paRes
+		string $expDate
 	) {
 		parent::__construct($merchantId);
 		$this->setPan($pan);
 		$this->setOrderId($orderId);
 		$this->setSessionId($sessionId);
-		$this->setPaRes($paRes);
+		$this->setExpDate($expDate);
 	}
 
 	/**
@@ -56,18 +54,29 @@ class ProcessPaResRequestBuilder extends RequestBuilder {
 	}
 
 	/**
-	 * @param string $paRes
+	 * @param string $expDate
 	 */
-	protected function setPaRes(string $paRes) {
+	protected function setExpDate(string $expDate) {
 		$this->xmlData
 			->Request
-			->addChild('PARes', $paRes);
+			->addChild('ExpDate', $expDate);
+	}
+
+	protected function initDefaultValues() {
+		parent::initDefaultValues();
+		$this->initEncodedPaReq();
+	}
+
+	protected function initEncodedPaReq() {
+		$this->xmlData
+			->Request
+			->addChild('EncodedPAReq', 'true');
 	}
 
 	/**
 	 * @return string
 	 */
 	protected function getOperation() {
-		return 'ProcessPARes';
+		return 'GetPAReqForm';
 	}
 }

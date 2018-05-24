@@ -1,8 +1,9 @@
 <?php
 
-namespace Platron\multicarta;
+namespace Platron\multicarta\mpi;
 
-use SimpleXMLElement;
+use Platron\multicarta\PaymentSystemBrand;
+use Platron\multicarta\ThreeDSecureResult;
 
 class ProcessPaResResponseParser extends ResponseParser {
 

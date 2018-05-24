@@ -1,27 +1,28 @@
 <?php
 
-namespace Platron\multicarta;
+namespace Platron\multicarta\mpi;
 
-use SimpleXMLElement;
-
-class EnrollCheckingRequestBuilder extends RequestBuilder {
+class ProcessPaResRequestBuilder extends RequestBuilder {
 
 	/**
- 	 * @param string $merchantId
+	 * @param string $merchantId
 	 * @param string $pan
 	 * @param string $orderId
 	 * @param string $sessionId
+	 * @param string $paRes
 	 */
 	public function __construct(
 		string $merchantId,
 		string $pan,
 		string $orderId,
-		string $sessionId
+		string $sessionId,
+		string $paRes
 	) {
 		parent::__construct($merchantId);
 		$this->setPan($pan);
 		$this->setOrderId($orderId);
 		$this->setSessionId($sessionId);
+		$this->setPaRes($paRes);
 	}
 
 	/**
@@ -53,9 +54,18 @@ class EnrollCheckingRequestBuilder extends RequestBuilder {
 	}
 
 	/**
+	 * @param string $paRes
+	 */
+	protected function setPaRes(string $paRes) {
+		$this->xmlData
+			->Request
+			->addChild('PARes', $paRes);
+	}
+
+	/**
 	 * @return string
 	 */
 	protected function getOperation() {
-		return 'Check3DSEnrolled';
+		return 'ProcessPARes';
 	}
 }
