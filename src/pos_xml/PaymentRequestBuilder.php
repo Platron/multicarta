@@ -46,8 +46,8 @@ class PaymentRequestBuilder extends TerminalRequestBuilder {
 	 * @param int $pan
 	 */
 	protected function setPan(int $pan) {
-		if (strlen($pan) > 4) {
-			throw new BuilderError("Excess of maximum length (4 digits) in pan");
+		if (strlen($pan) > 19) {
+			throw new BuilderError("Excess of maximum length (19 digits) in pan");
 		}
 		$this->request['PAN'] = (string)$pan;
 	}
