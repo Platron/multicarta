@@ -2,6 +2,7 @@
 
 namespace Platron\multicarta\pos_xml;
 
+use Platron\multicarta\Error;
 use Platron\multicarta\CurrencyCode;
 use DateTime;
 
@@ -47,7 +48,7 @@ class PaymentRequestBuilder extends TerminalRequestBuilder {
 	 */
 	protected function setPan(int $pan) {
 		if (strlen($pan) > 19) {
-			throw new BuilderError("Excess of maximum length (19 digits) in pan");
+			throw new Error("Excess of maximum length (19 digits) in pan");
 		}
 		$this->request['PAN'] = (string)$pan;
 	}
@@ -71,7 +72,7 @@ class PaymentRequestBuilder extends TerminalRequestBuilder {
 	 */
 	protected function setSecurityCode(int $securityCode) {
 		if (strlen($securityCode) > 4) {
-			throw new BuilderError("Excess of maximum length (4 digits) in security code");
+			throw new Error("Excess of maximum length (4 digits) in security code");
 		}
 		$this->request['CVV2'] = (string)$securityCode;
 	}
@@ -81,7 +82,7 @@ class PaymentRequestBuilder extends TerminalRequestBuilder {
 	 */
 	protected function setCondition(int $condition) {
 		if (strlen($condition) > 1) {
-			throw new BuilderError("Excess of maximum length (1 digits) in condition");
+			throw new Error("Excess of maximum length (1 digits) in condition");
 		}
 		$this->request['CONDITION'] = (string)$condition;
 	}
@@ -91,7 +92,7 @@ class PaymentRequestBuilder extends TerminalRequestBuilder {
 	 */
 	protected function setTdsData(string $tdsData) {
 		if (strlen($tdsData) > 80) {
-			throw new BuilderError("Excess of maximum length (80 characters) in tds data");
+			throw new Error("Excess of maximum length (80 characters) in tds data");
 		}
 		$this->request['TDSDATA'] = (string)$tdsData;
 	}
@@ -101,7 +102,7 @@ class PaymentRequestBuilder extends TerminalRequestBuilder {
 	 */
 	protected function setInvoice(string $invoice) {
 		if (strlen($invoice) > 16) {
-			throw new BuilderError("Excess of maximum length (16 characters) in invoice");
+			throw new Error("Excess of maximum length (16 characters) in invoice");
 		}
 		$this->request['INVOICE'] = (string)$invoice;
 	}

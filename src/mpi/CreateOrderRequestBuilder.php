@@ -2,6 +2,7 @@
 
 namespace Platron\multicarta\mpi;
 
+use Platron\multicarta\Error;
 use Platron\multicarta\CurrencyCode;
 
 class CreateOrderRequestBuilder extends RequestBuilder {
@@ -92,7 +93,7 @@ class CreateOrderRequestBuilder extends RequestBuilder {
 	 */
 	protected function setDescription(string $description) {
 		if (strrchr($description, '#')) {
-			throw new BuilderError("Invalid character '#' in description");
+			throw new Error("Invalid character '#' in description");
 		}
 		$this->request
 			->Request
@@ -116,7 +117,7 @@ class CreateOrderRequestBuilder extends RequestBuilder {
 	 */
 	protected function setVendorName(string $vendorName) {
 		if (strlen($vendorName) > 25) {
-			throw new BuilderError("Excess of maximum length (25 characters) in vendor name");
+			throw new Error("Excess of maximum length (25 characters) in vendor name");
 		}
 		$this->request
 			->Request

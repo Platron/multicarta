@@ -16,6 +16,21 @@ class Client {
 	 */
 	private $privateKeyPath;
 
+	/**
+	 * @var string
+	 */
+	private $resultMessage;
+
+	/**
+	 * @var string
+	 */
+	private $errorCode;
+
+	/**
+	 * @var string
+	 */
+	private $errorMessage;
+
 	public function __construct(
 		string $certificatePath,
 		string $privateKeyPath
@@ -41,16 +56,37 @@ class Client {
 		curl_setopt($curl, CURLOPT_SSLCERT, $this->getCertificatePath());
 		curl_setopt($curl, CURLOPT_SSLKEY, $this->getPrivateKeyPath());
 
-		$resultMessage = curl_exec($curl);
-		$errorMessage = curl_error($curl);
-		$errorCode = curl_errno($curl);
+		$this->resultMessage = curl_exec($curl);
+		$this->errorCode = curl_errno($curl);
+		$this->errorMessage = curl_error($curl);
 		curl_close($curl);
-		if ($resultMessage === false) {
-			throw new ClientError($errorMessage, $errorCode);
+		if ($this->resultMessage !== false) {
+			$response = simplexml_load_string($this->resultMessage);
+			if ($response !== false) {
+				return $response;
+			}
 		}
-		$response = new SimpleXMLElement($resultMessage);
+	}
 
-		return $response;
+	/**
+	 * @return string
+	 */
+	public function getResultMessage() {
+		return $this->resultMessage;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getErrorCode() {
+		return $this->errorCode;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getErrorMessage() {
+		return $this->errorMessage;
 	}
 
 	/**
