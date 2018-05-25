@@ -24,7 +24,7 @@ class PaymentRequestBuilder extends TerminalRequestBuilder {
 		$this->setPan($pan);
 		$this->setExpiryDate($expiryDate);
 		$this->setAmount($amount);
-		$this->setCurrencyCode($currencyCode);
+		$this->setSecurityCode($securityCode);
 		$this->setCondition($condition);
 		$this->setTdsData($tdsData);
 		$this->setInvoice($invoice);
