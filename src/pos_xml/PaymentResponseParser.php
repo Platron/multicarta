@@ -47,7 +47,7 @@ class PaymentResponseParser extends TerminalResponseParser {
 	/**
 	 * @return string
 	 */
-	public function getTrXid() {
+	public function getTrXId() {
 		$authInfo = $this->getAuthInfo();
 		if ($authInfo) {
 			return (string)$authInfo->trxid;
