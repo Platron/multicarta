@@ -11,11 +11,11 @@ class ReversalRequestBuilder extends TerminalRequestBuilder {
 	 */
 	public function __construct(
 		string $terminalId,
-		int $id,
+		int $trXId,
 		string $session
 	) {
 		parent::__construct($terminalId);
-		$this->setId($id);
+		$this->setTrXId($trXId);
 		$this->setSession($session);
 	}
 
