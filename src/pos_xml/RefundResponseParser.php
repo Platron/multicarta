@@ -30,7 +30,7 @@ class RefundResponseParser extends TerminalResponseParser {
 	protected function getAuthInfo() {
 		$result = $this->getResult();
 		if ($result) {
-			return $this->result->authinfo;
+			return $result->authinfo;
 		}
 	}
 
