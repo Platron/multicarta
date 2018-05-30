@@ -10,6 +10,13 @@ class PaymentRequestBuilder extends TerminalRequestBuilder {
 
 	/**
 	 * @param string $terminalId
+	 * @param int $pan
+	 * @param DateTime $expiryDate
+	 * @param int $amount
+	 * @param int $securityCode
+	 * @param int $condition
+	 * @param string $tdsData
+	 * @param string $invoice
 	 */
 	public function __construct(
 		string $terminalId,
