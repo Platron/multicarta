@@ -70,7 +70,7 @@ abstract class ResponseParser {
 	 * @return string
 	 */
 	public function getErrorMessage() {
-		if ($this->isSuccess()) {
+		if (!$this->isSuccess()) {
 			$footer = $this->getFooter();
 			return (string)$footer->errormsg;
 		}
@@ -94,7 +94,7 @@ abstract class ResponseParser {
 	 * @return SimpleXMLElement
 	 */
 	protected function getResult() {
-		if (!$this->isSuccess()) {
+		if ($this->isSuccess()) {
 			return $this->response->result;
 		}
 	}
