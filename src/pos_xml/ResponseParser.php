@@ -62,7 +62,8 @@ abstract class ResponseParser {
 	 */
 	public function getProcessingTime() {
 		$footer = $this->getFooter();
-		return DateTime::createFromFormat('U', (string)$footer->timestamp);
+		$dateTime = new DateTime();
+		return $dateTime->setTimestamp((string)$footer->timestamp);
 	}
 
 	/**
