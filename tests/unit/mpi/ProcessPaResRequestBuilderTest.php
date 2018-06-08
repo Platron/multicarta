@@ -23,7 +23,7 @@ use Platron\multicarta\mpi\ProcessPaResRequestBuilder;
 class ProcessPaResRequestBuilderTest extends RequestBuilderTest {
 
 	const CORRECT_MERCHANT = 'Merchant';
-	const CORRECT_PAN = 'PAN';
+	const CORRECT_PAN = 123456789;
 	const CORRECT_ORDER_ID = 'OrderID';
 	const CORRECT_SESSION_ID = 'SessionID';
 	const CORRECT_PARES = 'PARes';
