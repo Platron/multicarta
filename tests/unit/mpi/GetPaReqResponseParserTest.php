@@ -1,67 +1,67 @@
 <?php
 
-namespace Platron\multicarta\tests\unit;
+namespace Platron\multicarta\tests\unit\mpi;
 
-use Platron\multicarta\mpi\CreateOrderResponseParser;
+use Platron\multicarta\mpi\GetPaReqResponseParser;
 
 /*
 	Пример ответа из документации
 	<?xml version="1.0" encoding="UTF-8"?>
 	<TKKPG>
 		<Response>
-			<Operation>CreateOrder</Operation>
+			<Operation>GetPAReqForm</Operation>
 			<Status>NN</Status>
-			<Order>
-				<OrderID>OrderID</OrderID>
-				<SessionID>SessionID</SessionID>
-				<URL>PayGateURL</URL>
-			</Order>
+			<url>URLACS</url>
+			<MD></MD>
+			<termURL></termURL>
+			<pareq>PaReq</pareq>
 		</Response>
 	</TKKPG>
 */
-class CreateOrderResponseParserTest extends ResponseParserTest {
+class GetPaReqResponseParserTest extends ResponseParserTest {
 
 	const CORRECT_STATUS = '00';
-	const CORRECT_OPERATION = 'CreateOrder';
+	const CORRECT_OPERATION = 'GetPAReqForm';
 
-	const CORRECT_ORDER_ID = 'OrderID';
-	const CORRECT_SESSION_ID = 'SessionID';
-	const CORRECT_URL = 'URL';
+	const CORRECT_URL = 'url';
+	const CORRECT_MD = 'MD';
+	const CORRECT_TERM_URL = 'termURL';
+	const CORRECT_PAREQ = 'pareq';
 
 	public function testSuccessResponse(){
 
 		$Status = self::CORRECT_STATUS;
 		$Operation = self::CORRECT_OPERATION;
 
-		$OrderID = self::CORRECT_ORDER_ID;
-		$SessionID = self::CORRECT_SESSION_ID;
-		$URL = self::CORRECT_URL;
+		$url = self::CORRECT_URL;
+		$MD = self::CORRECT_MD;
+		$termURL = self::CORRECT_TERM_URL;
+		$pareq = self::CORRECT_PAREQ;
 
 		$xml = '<?xml version="1.0" encoding="UTF-8"?>
 			<TKKPG>
 				<Response>
 					<Operation>'.$Operation.'</Operation>
 					<Status>'.$Status.'</Status>
-					<Order>
-						<OrderID>'.$OrderID.'</OrderID>
-						<SessionID>'.$SessionID.'</SessionID>
-						<URL>'.$URL.'</URL>
-					</Order>
+					<url>'.$url.'</url>
+					<MD>'.$MD.'</MD>
+					<termURL>'.$termURL.'</termURL>
+					<pareq>'.$pareq.'</pareq>
 				</Response>
 			</TKKPG>';
 
-		$parser = new CreateOrderResponseParser($this->createResponse($xml));
+		$parser = new GetPaReqResponseParser($this->createResponse($xml));
 
 		$this->assertTrue($parser->isValid());
 		$this->assertTrue($parser->isSuccess());
 		$this->assertEquals($Status, $parser->getStatus());
 		$this->assertEquals($Operation, $parser->getOperation());
 
-		$this->assertEquals($OrderID, $parser->getOrderID());
-		$this->assertEquals($SessionID, $parser->getSessionID());
+		$this->assertEquals($url, $parser->getUrl());
+		$this->assertEquals($pareq, $parser->getPareq());
 	}
 
-	public function testFailStatus(){
+	public function testFailStatus() {
 
 		$Status = '30';
 		$Operation = self::CORRECT_OPERATION;
@@ -74,7 +74,7 @@ class CreateOrderResponseParserTest extends ResponseParserTest {
 				</Response>
 			</TKKPG>';
 
-		$parser = new CreateOrderResponseParser($this->createResponse($xml));
+		$parser = new GetPaReqResponseParser($this->createResponse($xml));
 
 		$this->assertTrue($parser->isValid());
 		$this->assertFalse($parser->isSuccess());
@@ -82,8 +82,7 @@ class CreateOrderResponseParserTest extends ResponseParserTest {
 		$this->assertEquals($parser->getOperation(), $Operation);
 	}
 
-	public function testInvalidResponse(){
-
+	public function testInvalidResponse() {
 		$Status = self::CORRECT_STATUS;
 		$Operation = 'Operation';
 
@@ -95,7 +94,7 @@ class CreateOrderResponseParserTest extends ResponseParserTest {
 				</Response>
 			</TKKPG>';
 
-		$parser = new CreateOrderResponseParser($this->createResponse($xml));
+		$parser = new GetPaReqResponseParser($this->createResponse($xml));
 
 		$this->assertFalse($parser->isValid());
 		$this->assertEquals($parser->getOperation(), $Operation);

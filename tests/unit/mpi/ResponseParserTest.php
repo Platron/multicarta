@@ -1,6 +1,6 @@
 <?php
 
-namespace Platron\multicarta\tests\unit;
+namespace Platron\multicarta\tests\unit\mpi;
 
 use PHPUnit\Framework\TestCase;
 use SimpleXMLElement;

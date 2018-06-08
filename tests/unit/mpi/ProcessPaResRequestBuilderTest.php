@@ -1,34 +1,32 @@
 <?php
 
-namespace Platron\multicarta\tests\unit;
+namespace Platron\multicarta\tests\unit\mpi;
 
-use Platron\multicarta\mpi\GetPaReqRequestBuilder;
-use DateTime;
+use Platron\multicarta\mpi\ProcessPaResRequestBuilder;
 
 /*
 	Пример запроса из документации
 	<?xml version=”1.0” encoding=”UTF-8”?>
 	<TKKPG>
 		<Request>
-			<Operation>GetPAReqForm</Operation>
+			<Operation>ProcessPARes</Operation>
 			<Order>
 				<Merchant>CN</Merchant>
 				<OrderID>OrderID</OrderID>
 			</Order>
-			<SessionID>SessionI </SessionID>
+			<SessionID>SessionID</SessionID>
+			<PARes></PARes>
 			<PAN>PAN</PAN>
-			<ExpDate>YYMM</ExpDate>
-			<EncodedPAReq>true</EncodedPAReq>
 		</Request>
 	</TKKPG>
 */
-class GetPaReqRequestBuilderTest extends RequestBuilderTest {
+class ProcessPaResRequestBuilderTest extends RequestBuilderTest {
 
 	const CORRECT_MERCHANT = 'Merchant';
 	const CORRECT_PAN = 'PAN';
 	const CORRECT_ORDER_ID = 'OrderID';
 	const CORRECT_SESSION_ID = 'SessionID';
-	const CORRECT_EXP_DATE = '1901';
+	const CORRECT_PARES = 'PARes';
 
 	public function testSuccessBuild(){
 
@@ -36,14 +34,14 @@ class GetPaReqRequestBuilderTest extends RequestBuilderTest {
 		$PAN = self::CORRECT_PAN;
 		$OrderID = self::CORRECT_ORDER_ID;
 		$SessionID = self::CORRECT_SESSION_ID;
-		$ExpDate = self::CORRECT_EXP_DATE;
+		$PARes = self::CORRECT_PARES;
 
-		$builder = new GetPaReqRequestBuilder(
+		$builder = new ProcessPaResRequestBuilder(
 			$Merchant,
 			$PAN,
 			$OrderID,
 			$SessionID,
-			DateTime::createFromFormat('ym', $ExpDate)
+			$PARes
 		);
 		$actualRequest = $builder->getRequest();
 
@@ -57,11 +55,10 @@ class GetPaReqRequestBuilderTest extends RequestBuilderTest {
 							<xs:element name="Request">
 								<xs:complexType>
 									<xs:all>
-										<xs:element name="EncodedPAReq" fixed="true"/>
-										<xs:element name="Operation" fixed="GetPAReqForm"/>
+										<xs:element name="Operation" fixed="ProcessPARes"/>
 										<xs:element name="SessionID" fixed="'.$SessionID.'"/>
+										<xs:element name="PARes" fixed="'.$PARes.'"/>
 										<xs:element name="PAN" fixed="'.$PAN.'"/>
-										<xs:element name="ExpDate" fixed="'.$ExpDate.'"/>
 										<xs:element name="Order">
 											<xs:complexType>
 												<xs:all>
