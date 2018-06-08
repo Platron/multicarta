@@ -3,6 +3,7 @@ Platron Multicarta SDK
 ## Install
 <pre><code>composer require payprocessing/multicarta-sdk</pre></code>
 
+## Tests
 To use unit tests
 ```
 vendor/bin/phpunit tests/unit
@@ -26,6 +27,7 @@ Than use
 vendor/bin/phpunit tests/integration
 ```
 
+## Example
 
 ```php
 
