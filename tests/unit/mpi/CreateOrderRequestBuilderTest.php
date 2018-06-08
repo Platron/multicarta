@@ -37,49 +37,6 @@ class CreateOrderRequestBuilderTest extends RequestBuilderTest {
 	const CORRECT_TDS_VENDORMER_ID = 'TDSVendorMerID';
 	const CORRECT_TDS_VENDOR_NAME = 'TDSVendorName';
 
-	public function testFailDescription(){
-		$Language = self::CORRECT_LANGUAGE;
-		$Merchant = self::CORRECT_MERCHANT;
-		$Amount = self::CORRECT_AMOUNT;
-		$Currency = self::CORRECT_CURRENCY;
-		$Description = 'qwe#qwe';
-		$TDSVendorMerID = self::CORRECT_TDS_VENDORMER_ID;
-		$TDSVendorName = self::CORRECT_TDS_VENDOR_NAME;
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new CreateOrderRequestBuilder(
-			$Merchant,
-			$Amount,
-			$Description,
-			$TDSVendorMerID,
-			$TDSVendorName
-		);
-	}
-
-	public function testFailTDSVendorName(){
-		$Language = self::CORRECT_LANGUAGE;
-		$Merchant = self::CORRECT_MERCHANT;
-		$Amount = self::CORRECT_AMOUNT;
-		$Currency = self::CORRECT_CURRENCY;
-		$Description = self::CORRECT_DESCRIPTION;
-		$TDSVendorMerID = self::CORRECT_TDS_VENDORMER_ID;
-		$TDSVendorName = '';
-		while (strlen($TDSVendorName) < 26) {
-			$TDSVendorName .= 'a';
-		}
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new CreateOrderRequestBuilder(
-			$Merchant,
-			$Amount,
-			$Description,
-			$TDSVendorMerID,
-			$TDSVendorName
-		);
-	}
-
 	public function testSuccessBuild(){
 
 		$Language = self::CORRECT_LANGUAGE;
@@ -148,6 +105,49 @@ class CreateOrderRequestBuilderTest extends RequestBuilderTest {
 		$this->assertXmlContent(
 			$xsdSchema,
 			$actualRequest->asXML()
+		);
+	}
+
+	public function testFailDescription(){
+		$Language = self::CORRECT_LANGUAGE;
+		$Merchant = self::CORRECT_MERCHANT;
+		$Amount = self::CORRECT_AMOUNT;
+		$Currency = self::CORRECT_CURRENCY;
+		$Description = 'qwe#qwe';
+		$TDSVendorMerID = self::CORRECT_TDS_VENDORMER_ID;
+		$TDSVendorName = self::CORRECT_TDS_VENDOR_NAME;
+
+		$this->setExpectedException('Platron\multicarta\Error');
+
+		$builder = new CreateOrderRequestBuilder(
+			$Merchant,
+			$Amount,
+			$Description,
+			$TDSVendorMerID,
+			$TDSVendorName
+		);
+	}
+
+	public function testFailTDSVendorName(){
+		$Language = self::CORRECT_LANGUAGE;
+		$Merchant = self::CORRECT_MERCHANT;
+		$Amount = self::CORRECT_AMOUNT;
+		$Currency = self::CORRECT_CURRENCY;
+		$Description = self::CORRECT_DESCRIPTION;
+		$TDSVendorMerID = self::CORRECT_TDS_VENDORMER_ID;
+		$TDSVendorName = '';
+		while (strlen($TDSVendorName) < 26) {
+			$TDSVendorName .= 'a';
+		}
+
+		$this->setExpectedException('Platron\multicarta\Error');
+
+		$builder = new CreateOrderRequestBuilder(
+			$Merchant,
+			$Amount,
+			$Description,
+			$TDSVendorMerID,
+			$TDSVendorName
 		);
 	}
 }
