@@ -2,72 +2,74 @@
 
 namespace Platron\multicarta\mpi;
 
+use DateTime;
+
 class GetPaReqRequestBuilder extends RequestBuilder {
 
 	/**
-	 * @param string $merchantId
-	 * @param string $pan
-	 * @param string $orderId
-	 * @param string $sessionId
-	 * @param string $expDate
+	 * @param string $Merchant
+	 * @param string $PAN
+	 * @param string $OrderID
+	 * @param string $SessionID
+	 * @param DateTime $ExpDate
 	 */
 	public function __construct(
-		string $merchantId,
-		string $pan,
-		string $orderId,
-		string $sessionId,
-		string $expDate
+		string $Merchant,
+		string $PAN,
+		string $OrderID,
+		string $SessionID,
+		DateTime $ExpDate
 	) {
-		parent::__construct($merchantId);
-		$this->setPan($pan);
-		$this->setOrderId($orderId);
-		$this->setSessionId($sessionId);
-		$this->setExpDate($expDate);
+		parent::__construct($Merchant);
+		$this->setPAN($PAN);
+		$this->setOrderID($OrderID);
+		$this->setSessionID($SessionID);
+		$this->setExpDate($ExpDate);
 	}
 
 	/**
-	 * @param string $pan
+	 * @param string $PAN
 	 */
-	protected function setPan(string $pan) {
+	protected function setPAN(string $PAN) {
 		$this->request
 			->Request
-			->addChild('PAN', $pan);
+			->addChild('PAN', $PAN);
 	}
 
 	/**
-	 * @param string $orderId
+	 * @param string $OrderID
 	 */
-	protected function setOrderId(string $orderId) {
+	protected function setOrderID(string $OrderID) {
 		$this->request
 			->Request
 			->Order
-			->addChild('OrderID', $orderId);
+			->addChild('OrderID', $OrderID);
 	}
 
 	/**
-	 * @param string $sessionId
+	 * @param string $SessionID
 	 */
-	protected function setSessionId(string $sessionId) {
+	protected function setSessionID(string $SessionID) {
 		$this->request
 			->Request
-			->addChild('SessionID', $sessionId);
+			->addChild('SessionID', $SessionID);
 	}
 
 	/**
-	 * @param string $expDate
+	 * @param DateTime $ExpDate
 	 */
-	protected function setExpDate(string $expDate) {
+	protected function setExpDate(DateTime $ExpDate) {
 		$this->request
 			->Request
-			->addChild('ExpDate', $expDate);
+			->addChild('ExpDate', $ExpDate->format('ym'));
 	}
 
 	protected function initDefaultValues() {
 		parent::initDefaultValues();
-		$this->initEncodedPaReq();
+		$this->initEncodedPAReq();
 	}
 
-	protected function initEncodedPaReq() {
+	protected function initEncodedPAReq() {
 		$this->request
 			->Request
 			->addChild('EncodedPAReq', 'true');

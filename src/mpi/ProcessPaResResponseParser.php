@@ -10,7 +10,7 @@ class ProcessPaResResponseParser extends ResponseParser {
 	/**
 	 * @return string
 	 */
-	public function getOrderId() {
+	public function getOrderID() {
 		if ($this->isSuccess()) {
 			return (string)$this->response
 				->Response
@@ -23,7 +23,7 @@ class ProcessPaResResponseParser extends ResponseParser {
 	/**
 	 * @return PaymentSystemBrand
 	 */
-	public function getPaymentSystemBrand() {
+	public function getBrand() {
 		if ($this->isSuccess()) {
 			return new PaymentSystemBrand((string)$this->response
 				->Response
@@ -64,7 +64,7 @@ class ProcessPaResResponseParser extends ResponseParser {
 	/**
 	 * @return ThreeDSecureResult
 	 */
-	public function getThreeDSecureResult() {
+	public function getThreeDSVerificaion() {
 		if ($this->isSuccess()) {
 			return new ThreeDSecureResult((string)$this->response
 				->Response
@@ -79,7 +79,7 @@ class ProcessPaResResponseParser extends ResponseParser {
 	/**
 	 * @return string
 	 */
-	public function getCavv() {
+	public function getCAVV() {
 		if ($this->isSuccess()) {
 			return (string)$this->response
 				->Response

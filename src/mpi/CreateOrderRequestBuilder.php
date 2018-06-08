@@ -8,45 +8,53 @@ use Platron\multicarta\CurrencyCode;
 class CreateOrderRequestBuilder extends RequestBuilder {
 
 	/**
-	 * @param string $merchantId
-	 * @param int $amount
-	 * @param string $description
-	 * @param string $vendorId
-	 * @param string $vendorName
+	 * @param string $Merchant
+	 * @param int $Amount
+	 * @param string $Description
+	 * @param string $TDSVendorMerID
+	 * @param string $TDSVendorName
 	 */
 	public function __construct(
-		string $merchantId,
-		int $amount,
-		string $description,
-		string $vendorId,
-		string $vendorName
+		string $Merchant,
+		int $Amount,
+		string $Description,
+		string $TDSVendorMerID,
+		string $TDSVendorName
 	) {
-		parent::__construct($merchantId);
-		$this->setAmount($amount);
-		$this->setDescription($description);
-		$this->setVendorId($vendorId);
-		$this->setVendorName($vendorName);
+		parent::__construct($Merchant);
+		$this->setAmount($Amount);
+		$this->setDescription($Description);
+		$this->setTDSVendorMerID($TDSVendorMerID);
+		$this->setTDSVendorName($TDSVendorName);
 	}
 
 	/**
-	 * @param InterfaceLanguage $interfaceLanguage
+	 * @param InterfaceLanguage $Language
 	 */
-	public function setInterfaceLanguage(InterfaceLanguage $interfaceLanguage) {
-		$this->request->Request->addChild('Language', (string)$interfaceLanguage);
+	public function setLanguage(InterfaceLanguage $Language) {
+		if ($this->request->Request->Language) {
+			$this->request->Request->Language = (string)$Language;
+		} else {
+			$this->request->Request->addChild('Language', (string)$Language);
+		}
 	}
 
 	/**
-	 * @param CurrencyCode $currencyCode
+	 * @param CurrencyCode $Currency
 	 */
-	public function setCurrencyCode(CurrencyCode $currencyCode) {
-		$this->request->Request->Order->addChild('Currency', (string)$currencyCode);
+	public function setCurrency(CurrencyCode $Currency) {
+		if ($this->request->Request->Order->Currency) {
+			$this->request->Request->Order->Currency = (string)$Currency;
+		} else {
+			$this->request->Request->Order->addChild('Currency', (string)$Currency);
+		}
 	}
 
 	protected function initDefaultValues() {
 		parent::initDefaultValues();
 		$this->initOrderType();
-		$this->setInterfaceLanguage(InterfaceLanguage::RUSSIAN());
-		$this->setCurrencyCode(CurrencyCode::RUBLE());
+		$this->setLanguage(new InterfaceLanguage(InterfaceLanguage::RUSSIAN));
+		$this->setCurrency(new CurrencyCode(CurrencyCode::RUBLE));
 	}
 
 	protected function initRequest() {
@@ -79,50 +87,50 @@ class CreateOrderRequestBuilder extends RequestBuilder {
 	}
 
 	/**
-	 * @param int $amount
+	 * @param int $Amount
 	 */
-	protected function setAmount(int $amount) {
+	protected function setAmount(int $Amount) {
 		$this->request
 			->Request
 			->Order
-			->addChild('Amount', (string)$amount);
+			->addChild('Amount', (string)$Amount);
 	}
 
 	/**
-	 * @param string $description
+	 * @param string $Description
 	 */
-	protected function setDescription(string $description) {
-		if (strrchr($description, '#')) {
+	protected function setDescription(string $Description) {
+		if (strrchr($Description, '#')) {
 			throw new Error("Invalid character '#' in description");
 		}
 		$this->request
 			->Request
 			->Order
-			->addChild('Description', $description);
+			->addChild('Description', $Description);
 	}
 
 	/**
-	 * @param string $vendorId
+	 * @param string $TDSVendorMerID
 	 */
-	protected function setVendorId(string $vendorId) {
+	protected function setTDSVendorMerID(string $TDSVendorMerID) {
 		$this->request
 			->Request
 			->Order
 			->AddParams
-			->addChild('TDSVendorMerID', $vendorId);
+			->addChild('TDSVendorMerID', $TDSVendorMerID);
 	}
 
 	/**
-	 * @param string $vendorName
+	 * @param string $TDSVendorName
 	 */
-	protected function setVendorName(string $vendorName) {
-		if (strlen($vendorName) > 25) {
+	protected function setTDSVendorName(string $TDSVendorName) {
+		if (strlen($TDSVendorName) > 25) {
 			throw new Error("Excess of maximum length (25 characters) in vendor name");
 		}
 		$this->request
 			->Request
 			->Order
 			->AddParams
-			->addChild('TDSVendorName', $vendorName);
+			->addChild('TDSVendorName', $TDSVendorName);
 	}
 }

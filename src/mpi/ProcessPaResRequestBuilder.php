@@ -5,61 +5,61 @@ namespace Platron\multicarta\mpi;
 class ProcessPaResRequestBuilder extends RequestBuilder {
 
 	/**
-	 * @param string $merchantId
-	 * @param string $pan
-	 * @param string $orderId
-	 * @param string $sessionId
-	 * @param string $paRes
+	 * @param string $Merchant
+	 * @param string $PAN
+	 * @param string $OrderID
+	 * @param string $SessionID
+	 * @param string $PARes
 	 */
 	public function __construct(
-		string $merchantId,
-		string $pan,
-		string $orderId,
-		string $sessionId,
-		string $paRes
+		string $Merchant,
+		string $PAN,
+		string $OrderID,
+		string $SessionID,
+		string $PARes
 	) {
-		parent::__construct($merchantId);
-		$this->setPan($pan);
-		$this->setOrderId($orderId);
-		$this->setSessionId($sessionId);
-		$this->setPaRes($paRes);
+		parent::__construct($Merchant);
+		$this->setPAN($PAN);
+		$this->setOrderID($OrderID);
+		$this->setSessionID($SessionID);
+		$this->setPARes($PARes);
 	}
 
 	/**
-	 * @param string $pan
+	 * @param string $PAN
 	 */
-	protected function setPan(string $pan) {
+	protected function setPAN(string $PAN) {
 		$this->request
 			->Request
-			->addChild('PAN', $pan);
+			->addChild('PAN', $PAN);
 	}
 
 	/**
-	 * @param string $orderId
+	 * @param string $OrderID
 	 */
-	protected function setOrderId(string $orderId) {
+	protected function setOrderID(string $OrderID) {
 		$this->request
 			->Request
 			->Order
-			->addChild('OrderID', $orderId);
+			->addChild('OrderID', $OrderID);
 	}
 
 	/**
-	 * @param string $sessionId
+	 * @param string $SessionID
 	 */
-	protected function setSessionId(string $sessionId) {
+	protected function setSessionID(string $SessionID) {
 		$this->request
 			->Request
-			->addChild('SessionID', $sessionId);
+			->addChild('SessionID', $SessionID);
 	}
 
 	/**
-	 * @param string $paRes
+	 * @param string $PARes
 	 */
-	protected function setPaRes(string $paRes) {
+	protected function setPARes(string $PARes) {
 		$this->request
 			->Request
-			->addChild('PARes', $paRes);
+			->addChild('PARes', $PARes);
 	}
 
 	/**

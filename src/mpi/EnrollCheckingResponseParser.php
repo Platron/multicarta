@@ -13,8 +13,10 @@ class EnrollCheckingResponseParser extends ResponseParser {
 		if (!parent::isValid()) {
 			return false;
 		}
-
-		return ($this->getVersion() == $this->getValidVersion());
+		if ($this->getVersion()) {
+			return ($this->getVersion() == $this->getValidVersion());
+		}
+		return true;
 	}
 
 	/**
@@ -28,13 +30,13 @@ class EnrollCheckingResponseParser extends ResponseParser {
 	 * @return bool
 	 */
 	public function isEnrolled() {
-		return ($this->getEnrollmentResult() == EnrollmentResult::Y);
+		return ($this->getEnrolled() == EnrollmentResult::Y);
 	}
 
 	/**
 	 * @return EnrollmentResult
 	 */
-	public function getEnrollmentResult() {
+	public function getEnrolled() {
 		if ($this->isSuccess()) {
 			return new EnrollmentResult((string)$this->response
 				->Response
@@ -50,7 +52,7 @@ class EnrollCheckingResponseParser extends ResponseParser {
 	/**
 	 * @return string
 	 */
-	public function getAcctId() {
+	public function getAcctID() {
 		if ($this->isEnrolled()) {
 			return (string)$this->response
 				->Response
@@ -90,7 +92,7 @@ class EnrollCheckingResponseParser extends ResponseParser {
 				->Message
 				->Error
 				->version;
-		} else {
+		} else if ($this->isSuccess()) {
 			return (string)$this->response
 				->Response
 				->VERes

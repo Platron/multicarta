@@ -18,7 +18,7 @@ class GetPaReqResponseParser extends ResponseParser {
 	/**
 	 * @return string
 	 */
-	public function getPaReq() {
+	public function getPareq() {
 		if ($this->isSuccess()) {
 			return (string)$this->response
 				->Response

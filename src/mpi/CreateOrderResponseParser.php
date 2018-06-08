@@ -7,7 +7,7 @@ class CreateOrderResponseParser extends ResponseParser {
 	/**
 	 * @return string
 	 */
-	public function getOrderId() {
+	public function getOrderID() {
 		if ($this->isSuccess()) {
 			return (string)$this->response
 			->Response
@@ -19,7 +19,7 @@ class CreateOrderResponseParser extends ResponseParser {
 	/**
 	 * @return string
 	 */
-	public function getSessionId() {
+	public function getSessionID() {
 		if ($this->isSuccess()) {
 			return (string)$this->response
 				->Response

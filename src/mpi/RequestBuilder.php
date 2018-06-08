@@ -12,12 +12,12 @@ abstract class RequestBuilder {
 	protected $request;
 
 	/**
-	 * @param string $merchantId
+	 * @param string $merchant
 	 */
-	public function __construct(string $merchantId) {
+	public function __construct(string $merchant) {
 		$this->initRequest();
 		$this->initDefaultValues();
-		$this->setMerchantId($merchantId);
+		$this->setMerchant($merchant);
 	}
 
 	/**
@@ -33,13 +33,13 @@ abstract class RequestBuilder {
 	abstract protected function getOperation();
 
 	/**
-	 * @param string $merchantId
+	 * @param string $merchant
 	 */
-	protected function setMerchantId(string $merchantId) {
+	protected function setMerchant(string $merchant) {
 		$this->request
 			->Request
 			->Order
-			->addChild('Merchant', $merchantId);
+			->addChild('Merchant', $merchant);
 	}
 
 	protected function initDefaultValues() {
