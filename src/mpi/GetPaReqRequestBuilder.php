@@ -8,14 +8,14 @@ class GetPaReqRequestBuilder extends RequestBuilder {
 
 	/**
 	 * @param string $Merchant
-	 * @param string $PAN
+	 * @param int $PAN
 	 * @param string $OrderID
 	 * @param string $SessionID
 	 * @param DateTime $ExpDate
 	 */
 	public function __construct(
 		string $Merchant,
-		string $PAN,
+		int $PAN,
 		string $OrderID,
 		string $SessionID,
 		DateTime $ExpDate
@@ -28,12 +28,12 @@ class GetPaReqRequestBuilder extends RequestBuilder {
 	}
 
 	/**
-	 * @param string $PAN
+	 * @param int $PAN
 	 */
-	protected function setPAN(string $PAN) {
+	protected function setPAN(int $PAN) {
 		$this->request
 			->Request
-			->addChild('PAN', $PAN);
+			->addChild('PAN', (string)$PAN);
 	}
 
 	/**
