@@ -135,10 +135,7 @@ class CreateOrderRequestBuilderTest extends RequestBuilderTest {
 		$Currency = self::CORRECT_CURRENCY;
 		$Description = self::CORRECT_DESCRIPTION;
 		$TDSVendorMerID = self::CORRECT_TDS_VENDORMER_ID;
-		$TDSVendorName = '';
-		while (strlen($TDSVendorName) < 26) {
-			$TDSVendorName .= 'a';
-		}
+		$TDSVendorName = str_repeat('a', 26);
 
 		$this->setExpectedException('Platron\multicarta\Error');
 
