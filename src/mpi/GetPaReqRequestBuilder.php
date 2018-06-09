@@ -33,7 +33,7 @@ class GetPaReqRequestBuilder extends RequestBuilder {
 	protected function setPAN(string $PAN) {
 		$this->request
 			->Request
-			->addChild('PAN', (string)$PAN);
+			->addChild('PAN', $PAN);
 	}
 
 	/**
