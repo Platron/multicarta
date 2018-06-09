@@ -6,14 +6,14 @@ class ProcessPaResRequestBuilder extends RequestBuilder {
 
 	/**
 	 * @param string $Merchant
-	 * @param int $PAN
+	 * @param string $PAN
 	 * @param string $OrderID
 	 * @param string $SessionID
 	 * @param string $PARes
 	 */
 	public function __construct(
 		string $Merchant,
-		int $PAN,
+		string $PAN,
 		string $OrderID,
 		string $SessionID,
 		string $PARes
@@ -26,9 +26,9 @@ class ProcessPaResRequestBuilder extends RequestBuilder {
 	}
 
 	/**
-	 * @param int $PAN
+	 * @param string $PAN
 	 */
-	protected function setPAN(int $PAN) {
+	protected function setPAN(string $PAN) {
 		$this->request
 			->Request
 			->addChild('PAN', (string)$PAN);

@@ -25,7 +25,7 @@ use DateTime;
 class GetPaReqRequestBuilderTest extends RequestBuilderTest {
 
 	const CORRECT_MERCHANT = 'Merchant';
-	const CORRECT_PAN = 123456789;
+	const CORRECT_PAN = '123456789';
 	const CORRECT_ORDER_ID = 'OrderID';
 	const CORRECT_SESSION_ID = 'SessionID';
 	const CORRECT_EXP_DATE = '1901';
