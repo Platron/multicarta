@@ -110,8 +110,8 @@ class ProcessPaResResponseParserTest extends ResponseParserTest {
 
 		$this->assertTrue($parser->isValid());
 		$this->assertFalse($parser->isSuccess());
-		$this->assertEquals($parser->getStatus(), $Status);
-		$this->assertEquals($parser->getOperation(), $Operation);
+		$this->assertEquals($Status, $parser->getStatus());
+		$this->assertEquals($Operation, $parser->getOperation());
 	}
 
 	public function testInvalidResponse() {
@@ -129,6 +129,6 @@ class ProcessPaResResponseParserTest extends ResponseParserTest {
 		$parser = new ProcessPaResResponseParser($this->createResponse($xml));
 
 		$this->assertFalse($parser->isValid());
-		$this->assertEquals($parser->getOperation(), $Operation);
+		$this->assertEquals($Operation, $parser->getOperation());
 	}
 }

@@ -102,8 +102,8 @@ class EnrollCheckingResponseParserTest extends ResponseParserTest {
 
 		$this->assertTrue($parser->isValid());
 		$this->assertTrue($parser->isSuccess());
-		$this->assertEquals($parser->getStatus(), $Status);
-		$this->assertEquals($parser->getOperation(), $Operation);
+		$this->assertEquals($Status, $parser->getStatus());
+		$this->assertEquals($Operation, $parser->getOperation());
 
 		$this->assertFalse($parser->hasError());
 
@@ -130,8 +130,8 @@ class EnrollCheckingResponseParserTest extends ResponseParserTest {
 
 		$this->assertTrue($parser->isValid());
 		$this->assertFalse($parser->isSuccess());
-		$this->assertEquals($parser->getStatus(), $Status);
-		$this->assertEquals($parser->getOperation(), $Operation);
+		$this->assertEquals($Status, $parser->getStatus());
+		$this->assertEquals($Operation, $parser->getOperation());
 	}
 
 	public function testInvalidResponse(){
@@ -149,7 +149,7 @@ class EnrollCheckingResponseParserTest extends ResponseParserTest {
 		$parser = new EnrollCheckingResponseParser($this->createResponse($xml));
 
 		$this->assertFalse($parser->isValid());
-		$this->assertEquals($parser->getOperation(), $Operation);
+		$this->assertEquals($Operation, $parser->getOperation());
 	}
 
 	public function testError(){
@@ -187,8 +187,8 @@ class EnrollCheckingResponseParserTest extends ResponseParserTest {
 
 		$this->assertTrue($parser->isValid());
 		$this->assertFalse($parser->isSuccess());
-		$this->assertEquals($parser->getStatus(), $Status);
-		$this->assertEquals($parser->getOperation(), $Operation);
+		$this->assertEquals($Status, $parser->getStatus());
+		$this->assertEquals($Operation, $parser->getOperation());
 
 		$this->assertTrue($parser->hasError());
 
@@ -232,8 +232,8 @@ class EnrollCheckingResponseParserTest extends ResponseParserTest {
 
 		$this->assertTrue($parser->isValid());
 		$this->assertTrue($parser->isSuccess());
-		$this->assertEquals($parser->getStatus(), $Status);
-		$this->assertEquals($parser->getOperation(), $Operation);
+		$this->assertEquals($Status, $parser->getStatus());
+		$this->assertEquals($Operation, $parser->getOperation());
 
 		$this->assertFalse($parser->hasError());
 
@@ -281,8 +281,8 @@ class EnrollCheckingResponseParserTest extends ResponseParserTest {
 
 		$this->assertTrue($parser->isValid());
 		$this->assertTrue($parser->isSuccess());
-		$this->assertEquals($parser->getStatus(), $Status);
-		$this->assertEquals($parser->getOperation(), $Operation);
+		$this->assertEquals($Status, $parser->getStatus());
+		$this->assertEquals($Operation, $parser->getOperation());
 
 		$this->assertFalse($parser->hasError());
 
