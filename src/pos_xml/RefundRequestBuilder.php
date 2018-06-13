@@ -8,28 +8,28 @@ use Platron\multicarta\CurrencyCode;
 class RefundRequestBuilder extends TerminalRequestBuilder {
 
 	/**
-	 * @param string $terminalId
-	 * @param int $trXId
+	 * @param string $termid
+	 * @param string $id
 	 * @param string $session
-	 * @param int $amount
+	 * @param string $amount
 	 */
 	public function __construct(
-		string $terminalId,
-		int $trXId,
+		string $termid,
+		string $id,
 		string $session,
-		int $amount
+		string $amount
 	) {
-		parent::__construct($terminalId);
-		$this->setTrXId($trXId);
+		parent::__construct($termid);
+		$this->setId($id);
 		$this->setSession($session);
 		$this->setAmount($amount);
 	}
 
 	/**
-	 * @param CurrencyCode $currencyCode
+	 * @param CurrencyCode $currency
 	 */
-	public function setCurrencyCode(CurrencyCode $currencyCode) {
-		$this->request['CURRENCY'] = (string)$currencyCode;
+	public function setCurrency(CurrencyCode $currency) {
+		$this->request['CURRENCY'] = (string)$currency;
 	}
 
 	/**
@@ -44,17 +44,20 @@ class RefundRequestBuilder extends TerminalRequestBuilder {
 
 	protected function initDefaultValues() {
 		parent::initDefaultValues();
-		$this->setCurrencyCode(CurrencyCode::RUBLE());
+		$this->setCurrency(CurrencyCode::RUBLE());
 	}
 
 	/**
-	 * @param int $trXId
+	 * @param string $id
 	 */
-	protected function setTrXId(int $trXId) {
-		if (strlen($trXId) > 12) {
-			throw new Error("Excess of maximum length (12 digits) in trXId");
+	protected function setId(string $id) {
+		if (!preg_match('/^\d{0,12}$/', $id)) {
+			throw new Error(
+				"Id does not match the format
+				(number with maximum length of 12 digits)"
+			);
 		}
-		$this->request['ID'] = (string)$trXId;
+		$this->request['ID'] = $id;
 	}
 
 	/**
@@ -68,10 +71,16 @@ class RefundRequestBuilder extends TerminalRequestBuilder {
 	}
 
 	/**
-	 * @param int $amount
+	 * @param string $amount
 	 */
-	protected function setAmount(int $amount) {
-		$this->request['AMOUNT'] = (string)$amount;
+	protected function setAmount(string $amount) {
+		if (!preg_match('/^\d{0,18}$/', $amount)) {
+			throw new Error(
+				"Amount does not match the format
+				(number with maximum length of 19 digits)"
+			);
+		}
+		$this->request['AMOUNT'] = $amount;
 	}
 
 	/**

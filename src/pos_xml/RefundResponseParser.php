@@ -8,7 +8,7 @@ class RefundResponseParser extends TerminalResponseParser {
 	 * @return string
 	 */
 	public function getRrn() {
-		$authInfo = $this->getAuthInfo();
+		$authInfo = $this->getAuthinfo();
 		if ($authInfo) {
 			return (string)$authInfo->rrn;
 		}
@@ -17,8 +17,8 @@ class RefundResponseParser extends TerminalResponseParser {
 	/**
 	 * @return string
 	 */
-	public function getTrXId() {
-		$authInfo = $this->getAuthInfo();
+	public function getTrxid() {
+		$authInfo = $this->getAuthinfo();
 		if ($authInfo) {
 			return (string)$authInfo->trxid;
 		}
@@ -27,7 +27,7 @@ class RefundResponseParser extends TerminalResponseParser {
 	/**
 	 * @return SimpleXMLElement
 	 */
-	protected function getAuthInfo() {
+	protected function getAuthinfo() {
 		$result = $this->getResult();
 		if ($result) {
 			return $result->authinfo;
@@ -42,10 +42,10 @@ class RefundResponseParser extends TerminalResponseParser {
 	}
 
 	/**
-	 * @param string $responseCode
+	 * @param string $respcode
 	 * @return RefundResponseCode
 	 */
-	protected function createResponseCode(string $responseCode) {
-		return new RefundResponseCode($responseCode);
+	protected function createResponseCode(string $respcode) {
+		return new RefundResponseCode($respcode);
 	}
 }

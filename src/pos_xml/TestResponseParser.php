@@ -12,10 +12,10 @@ class TestResponseParser extends ResponseParser {
 	}
 
 	/**
-	 * @param string $responseCode
+	 * @param string $respcode
 	 * @return ResponseCode
 	 */
-	protected function createResponseCode(string $responseCode) {
-		return new ResponseCode($responseCode);
+	protected function createResponseCode(string $respcode) {
+		return new ResponseCode($respcode);
 	}
 }

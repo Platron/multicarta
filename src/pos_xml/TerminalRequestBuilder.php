@@ -7,20 +7,20 @@ use Platron\multicarta\Error;
 abstract class TerminalRequestBuilder extends RequestBuilder {
 
 	/**
-	 * @param string $terminalId
+	 * @param string $termid
 	 */
-	public function __construct(string $terminalId) {
+	public function __construct(string $termid) {
 		parent::__construct();
-		$this->setTerminalId($terminalId);
+		$this->setTermid($termid);
 	}
 
 	/**
-	 * @param string $terminalId
+	 * @param string $termid
 	 */
-	protected function setTerminalId(string $terminalId) {
-		if (strlen($terminalId) > 16) {
-			throw new Error("Excess of maximum length (16 characters) in terminal id");
+	protected function setTermid(string $termid) {
+		if (strlen($termid) > 16) {
+			throw new Error("Excess of maximum length (16 characters) in termid");
 		}
-		$this->request['TERMID'] = $terminalId;
+		$this->request['TERMID'] = $termid;
 	}
 }

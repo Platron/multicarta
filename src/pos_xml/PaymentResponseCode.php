@@ -27,8 +27,8 @@ class PaymentResponseCode extends ResponseCode {
 	const PAYMENT_YOU_NEED_TO_COMMUNICATE_WITH_THE_ISSUER = '401'; // Необходима связь с эмитентом (call issuer)
 	const PAYMENT_INVALID_DATA_VALUE_OF_THREE_D_SECURE = '410'; // Неверное значение данных 3D-Secure (CAVV)
 	const PAYMENT_INVALID_SECURE_CODE_VALUE = '411'; // Неверное значение CVV2/CVC2
-	const PAYMENT_CARD_EXPIRED_CARD_CAPTURE_REQUIRED = '501'; // Карта просрочена – необходим захват карты
-	const PAYMENT_REFUSAL_FROM_THE_ISSUER_YOU_NEED_TO_SEIZE_THE_CARD = '502'; // Отказ от эмитента – необходим захват карты
+	const PAYMENT_CARD_EXPIRED_NEED_WITHDRAWAL = '501'; // Карта просрочена – необходим захват карты
+	const PAYMENT_REFUSAL_FROM_THE_ISSUER_NEED_WITHDRAWAL = '502'; // Отказ от эмитента – необходим захват карты
 	const PAYMENT_SYSTEM_ERROR_SECOND = '809'; // Системная ошибка
 
 	// TODO need to rename constant

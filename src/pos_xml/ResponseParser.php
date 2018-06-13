@@ -23,14 +23,18 @@ abstract class ResponseParser {
 	 * @return bool
 	 */
 	public function isValid() {
-		return ($this->getCommand() == $this->getValidCommand());
+		return (
+			($this->getVersion() == '110')
+			&&
+			($this->getCommand() == $this->getValidCommand())
+		);
 	}
 
 	/**
 	 * @return bool
 	 */
 	public function isSuccess() {
-		return ($this->getResponseCode() == $this->getSuccessResponseCode());
+		return ($this->getRespcode() == $this->getSuccessRespcode());
 	}
 
 	/**
@@ -52,7 +56,7 @@ abstract class ResponseParser {
 	/**
 	 * @return ResponseCode
 	 */
-	public function getResponseCode() {
+	public function getRespcode() {
 		$header = $this->getHeader();
 		return $this->createResponseCode((string)$header->respcode);
 	}
@@ -60,16 +64,18 @@ abstract class ResponseParser {
 	/**
 	 * @return DateTime
 	 */
-	public function getProcessingTime() {
+	public function getTimestamp() {
 		$footer = $this->getFooter();
-		$dateTime = new DateTime();
-		return $dateTime->setTimestamp((string)$footer->timestamp);
+		return DateTime::createFromFormat(
+			'dmYHis',
+			(string)$footer->timestamp
+		);
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getErrorMessage() {
+	public function getErrormsg() {
 		if (!$this->isSuccess()) {
 			$footer = $this->getFooter();
 			return (string)$footer->errormsg;
@@ -105,15 +111,15 @@ abstract class ResponseParser {
 	abstract protected function getValidCommand();
 
 	/**
-	 * @param string $responseCode
+	 * @param string $respcode
 	 * @return ResponseCode
 	 */
-	abstract protected function createResponseCode(string $responseCode);
+	abstract protected function createResponseCode(string $respcode);
 
 	/**
 	 * @return string
 	 */
-	protected function getSuccessResponseCode() {
+	protected function getSuccessRespcode() {
 		return ResponseCode::SUCCESS;
 	}
 }

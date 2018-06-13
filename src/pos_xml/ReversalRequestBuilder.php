@@ -7,28 +7,31 @@ use Platron\multicarta\Error;
 class ReversalRequestBuilder extends TerminalRequestBuilder {
 
 	/**
-	 * @param string $terminalId
-	 * @param int $trXId
+	 * @param string $termid
+	 * @param string $id
 	 * @param string $session
 	 */
 	public function __construct(
-		string $terminalId,
-		int $trXId,
+		string $termid,
+		string $id,
 		string $session
 	) {
-		parent::__construct($terminalId);
-		$this->setTrXId($trXId);
+		parent::__construct($termid);
+		$this->setId($id);
 		$this->setSession($session);
 	}
 
 	/**
-	 * @param int $trXId
+	 * @param string $id
 	 */
-	protected function setTrXId(int $trXId) {
-		if (strlen($trXId) > 12) {
-			throw new Error("Excess of maximum length (12 digits) in trXId");
+	protected function setId(string $id) {
+		if (!preg_match('/^\d{0,12}$/', $id)) {
+			throw new Error(
+				"Id does not match the format
+				(number with maximum length of 12 digits)"
+			);
 		}
-		$this->request['ID'] = (string)$trXId;
+		$this->request['ID'] = $id;
 	}
 
 	/**
@@ -38,7 +41,7 @@ class ReversalRequestBuilder extends TerminalRequestBuilder {
 		if (strlen($session) != 40) {
 			throw new Error("Invalid length (40 characters) in session");
 		}
-		$this->request['SESSION'] = (string)$session;
+		$this->request['SESSION'] = $session;
 	}
 
 	/**

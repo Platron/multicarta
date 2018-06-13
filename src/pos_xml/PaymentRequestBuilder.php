@@ -9,79 +9,88 @@ use DateTime;
 class PaymentRequestBuilder extends TerminalRequestBuilder {
 
 	/**
-	 * @param string $terminalId
-	 * @param int $pan
-	 * @param DateTime $expiryDate
-	 * @param int $amount
-	 * @param int $securityCode
+	 * @param string $termid
+	 * @param string $pan
+	 * @param DateTime $expdate
+	 * @param string $amount
+	 * @param int $cvv2
 	 * @param int $condition
-	 * @param string $tdsData
+	 * @param string $tdsdata
 	 * @param string $invoice
 	 */
 	public function __construct(
-		string $terminalId,
-		int $pan,
-		DateTime $expiryDate,
-		int $amount,
-		int $securityCode,
+		string $termid,
+		string $pan,
+		DateTime $expdate,
+		string $amount,
+		int $cvv2,
 		int $condition,
-		string $tdsData,
+		string $tdsdata,
 		string $invoice
 	) {
-		parent::__construct($terminalId);
+		parent::__construct($termid);
 		$this->setPan($pan);
-		$this->setExpiryDate($expiryDate);
+		$this->setExpdate($expdate);
 		$this->setAmount($amount);
-		$this->setSecurityCode($securityCode);
+		$this->setCvv2($cvv2);
 		$this->setCondition($condition);
-		$this->setTdsData($tdsData);
+		$this->setTdsdata($tdsdata);
 		$this->setInvoice($invoice);
 	}
 
 	/**
-	 * @param CurrencyCode $currencyCode
+	 * @param CurrencyCode $currency
 	 */
-	public function setCurrencyCode(CurrencyCode $currencyCode) {
-		$this->request['CURRENCY'] = (string)$currencyCode;
+	public function setCurrency(CurrencyCode $currency) {
+		$this->request['CURRENCY'] = (string)$currency;
 	}
 
 	protected function initDefaultValues() {
 		parent::initDefaultValues();
-		$this->setCurrencyCode(CurrencyCode::RUBLE());
+		$this->setCurrency(CurrencyCode::RUBLE());
 	}
 
 	/**
-	 * @param int $pan
+	 * @param string $pan
 	 */
-	protected function setPan(int $pan) {
-		if (strlen($pan) > 19) {
-			throw new Error("Excess of maximum length (19 digits) in pan");
+	protected function setPan(string $pan) {
+		if (!preg_match('/^\d{0,19}$/', $pan)) {
+			throw new Error(
+				"Pan does not match the format
+				(number with maximum length of 19 digits)"
+			);
 		}
-		$this->request['PAN'] = (string)$pan;
+		$this->request['PAN'] = $pan;
 	}
 
 	/**
-	 * @param DateTime $expiryDate
+	 * @param DateTime $expdate
 	 */
-	protected function setExpiryDate(DateTime $expiryDate) {
-		$this->request['EXPDATE'] = $expiryDate->format('ym');
+	protected function setExpdate(DateTime $expdate) {
+		$this->request['EXPDATE'] = $expdate->format('ym');
 	}
 
 	/**
-	 * @param int $amount
+	 * @param string $amount
 	 */
-	protected function setAmount(int $amount) {
-		$this->request['AMOUNT'] = (string)$amount;
-	}
-
-	/**
-	 * @param int $securityCode
-	 */
-	protected function setSecurityCode(int $securityCode) {
-		if (strlen($securityCode) > 4) {
-			throw new Error("Excess of maximum length (4 digits) in security code");
+	protected function setAmount(string $amount) {
+		if (!preg_match('/^\d{0,18}$/', $amount)) {
+			throw new Error(
+				"Amount does not match the format
+				(number with maximum length of 19 digits)"
+			);
 		}
-		$this->request['CVV2'] = (string)$securityCode;
+		$this->request['AMOUNT'] = $amount;
+	}
+
+	/**
+	 * @param int $cvv2
+	 */
+	protected function setCvv2(int $cvv2) {
+		if (strlen($cvv2) > 4) {
+			throw new Error("Excess of maximum length (4 digits) in cvv2");
+		}
+		$this->request['CVV2'] = (string)$cvv2;
 	}
 
 	/**
@@ -95,13 +104,13 @@ class PaymentRequestBuilder extends TerminalRequestBuilder {
 	}
 
 	/**
-	 * @param string $tdsData
+	 * @param string $tdsdata
 	 */
-	protected function setTdsData(string $tdsData) {
-		if (strlen($tdsData) > 80) {
-			throw new Error("Excess of maximum length (80 characters) in tds data");
+	protected function setTdsdata(string $tdsdata) {
+		if (strlen($tdsdata) > 80) {
+			throw new Error("Excess of maximum length (80 characters) in tdsdata");
 		}
-		$this->request['TDSDATA'] = (string)$tdsData;
+		$this->request['TDSDATA'] = $tdsdata;
 	}
 
 	/**
@@ -111,7 +120,7 @@ class PaymentRequestBuilder extends TerminalRequestBuilder {
 		if (strlen($invoice) > 16) {
 			throw new Error("Excess of maximum length (16 characters) in invoice");
 		}
-		$this->request['INVOICE'] = (string)$invoice;
+		$this->request['INVOICE'] = $invoice;
 	}
 
 	/**

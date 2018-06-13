@@ -8,7 +8,7 @@ class PaymentResponseParser extends TerminalResponseParser {
 	 * @return string
 	 */
 	public function getInvoice() {
-		$authInfo = $this->getAuthInfo();
+		$authInfo = $this->getAuthinfo();
 		if ($authInfo) {
 			return (string)$authInfo->invoice;
 		}
@@ -18,7 +18,7 @@ class PaymentResponseParser extends TerminalResponseParser {
 	 * @return string
 	 */
 	public function getApproval() {
-		$authInfo = $this->getAuthInfo();
+		$authInfo = $this->getAuthinfo();
 		if ($authInfo) {
 			return (string)$authInfo->approval;
 		}
@@ -28,7 +28,7 @@ class PaymentResponseParser extends TerminalResponseParser {
 	 * @return string
 	 */
 	public function getRrn() {
-		$authInfo = $this->getAuthInfo();
+		$authInfo = $this->getAuthinfo();
 		if ($authInfo) {
 			return (string)$authInfo->rrn;
 		}
@@ -37,8 +37,8 @@ class PaymentResponseParser extends TerminalResponseParser {
 	/**
 	 * @return string
 	 */
-	public function getEtId() {
-		$authInfo = $this->getAuthInfo();
+	public function getEtid() {
+		$authInfo = $this->getAuthinfo();
 		if ($authInfo) {
 			return (string)$authInfo->etid;
 		}
@@ -47,8 +47,8 @@ class PaymentResponseParser extends TerminalResponseParser {
 	/**
 	 * @return string
 	 */
-	public function getTrXId() {
-		$authInfo = $this->getAuthInfo();
+	public function getTrxid() {
+		$authInfo = $this->getAuthinfo();
 		if ($authInfo) {
 			return (string)$authInfo->trxid;
 		}
@@ -58,7 +58,7 @@ class PaymentResponseParser extends TerminalResponseParser {
 	 * @return string
 	 */
 	public function getSession() {
-		$authInfo = $this->getAuthInfo();
+		$authInfo = $this->getAuthinfo();
 		if ($authInfo) {
 			return (string)$authInfo->session;
 		}
@@ -67,7 +67,7 @@ class PaymentResponseParser extends TerminalResponseParser {
 	/**
 	 * @return SimpleXMLElement
 	 */
-	protected function getAuthInfo() {
+	protected function getAuthinfo() {
 		$result = $this->getResult();
 		if ($result) {
 			return $result->authinfo;
@@ -82,10 +82,10 @@ class PaymentResponseParser extends TerminalResponseParser {
 	}
 
 	/**
-	 * @param string $responseCode
+	 * @param string $respcode
 	 * @return PaymentResponseCode
 	 */
-	protected function createResponseCode(string $responseCode) {
-		return new PaymentResponseCode($responseCode);
+	protected function createResponseCode(string $respcode) {
+		return new PaymentResponseCode($respcode);
 	}
 }

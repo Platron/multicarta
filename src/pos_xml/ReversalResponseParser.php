@@ -12,10 +12,10 @@ class ReversalResponseParser extends TerminalResponseParser {
 	}
 
 	/**
-	 * @param string $responseCode
+	 * @param string $respcode
 	 * @return ReversalResponseCode
 	 */
-	protected function createResponseCode(string $responseCode) {
-		return new ReversalResponseCode($responseCode);
+	protected function createResponseCode(string $respcode) {
+		return new ReversalResponseCode($respcode);
 	}
 }
