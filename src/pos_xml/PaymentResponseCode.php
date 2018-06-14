@@ -30,33 +30,4 @@ class PaymentResponseCode extends ResponseCode {
 	const PAYMENT_CARD_EXPIRED_NEED_WITHDRAWAL = '501'; // Карта просрочена – необходим захват карты
 	const PAYMENT_REFUSAL_FROM_THE_ISSUER_NEED_WITHDRAWAL = '502'; // Отказ от эмитента – необходим захват карты
 	const PAYMENT_SYSTEM_ERROR_SECOND = '809'; // Системная ошибка
-
-	// TODO need to rename constant
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
