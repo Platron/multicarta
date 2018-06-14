@@ -8,6 +8,4 @@ class ReversalResponseCode extends ResponseCode {
 	const REVERSAL_UNABLE_TO_PERFORM_AN_OPERATION = '209'; // Невозможно провести операцию
 	const REVERSAL_SYSTEM_ERROR = '809'; // Системная ошибка
 	const REVERSAL_INVALID_SESSION_NUMBER = '888'; // Неверный номер сессии
-
-	// TODO need to rename constant
 }

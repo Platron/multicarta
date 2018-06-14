@@ -8,6 +8,4 @@ class RefundResponseCode extends ResponseCode {
 	const REFUND_UNABLE_TO_PERFORM_AN_OPERATION = '209'; // Невозможно провести операцию
 	const REFUND_SYSTEM_ERROR = '809'; // Системная ошибка
 	const REFUND_INVALID_SESSION_NUMBER = '888'; // Неверный номер сессии
-
-	// TODO need to rename constant
 }
