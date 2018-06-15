@@ -14,14 +14,15 @@ class PaymentRequestBuilderTest extends RequestBuilderTest {
 
 	const CORRECT_TERMID = 'termid';
 
+	const CORRECT_AMOUNT = '100';
+	const CORRECT_INVOICE = '123456';
+	const CORRECT_CONDITION = 1;
 	const CORRECT_PAN = '1234567890123456789';
 	const CORRECT_EXPDATE = '1901';
-	const CORRECT_AMOUNT = '100';
 	const CORRECT_CVV2 = 123;
-	const CORRECT_CONDITION = 1;
-	const CORRECT_TDSDATA = 'TDSDATA';
-	const CORRECT_INVOICE = '123456';
+
 	const CORRECT_CURRENCY = '643';
+	const CORRECT_TDSDATA = 'TDSDATA';
 
 	public function testSuccessBuild(){
 
@@ -30,26 +31,27 @@ class PaymentRequestBuilderTest extends RequestBuilderTest {
 
 		$termid = self::CORRECT_TERMID;
 
+		$amount = self::CORRECT_AMOUNT;
+		$invoice = self::CORRECT_INVOICE;
+		$condition = self::CORRECT_CONDITION;
 		$pan = self::CORRECT_PAN;
 		$expdate = self::CORRECT_EXPDATE;
-		$amount = self::CORRECT_AMOUNT;
 		$cvv2 = self::CORRECT_CVV2;
-		$condition = self::CORRECT_CONDITION;
-		$tdsdata = self::CORRECT_TDSDATA;
-		$invoice = self::CORRECT_INVOICE;
+
 		$currency = self::CORRECT_CURRENCY;
+		$tdsdata = self::CORRECT_TDSDATA;
 
 		$builder = new PaymentRequestBuilder(
 			$termid,
+			$amount,
+			$invoice,
+			$condition,
 			$pan,
 			DateTime::createFromFormat('ym', $expdate),
-			$amount,
-			$cvv2,
-			$condition,
-			$tdsdata,
-			$invoice
+			$cvv2
 		);
 		$builder->setCurrency(new CurrencyCode($currency));
+		$builder->setTdsdata($tdsdata);
 
 		$actualRequest = $builder->getRequest();
 
@@ -57,171 +59,185 @@ class PaymentRequestBuilderTest extends RequestBuilderTest {
 			'VERSION' => $version,
 			'COMMAND' => $command,
 			'TERMID' => $termid,
+			'AMOUNT' => $amount,
+			'INVOICE' => $invoice,
+			'CONDITION' => $condition,
 			'PAN' => $pan,
 			'EXPDATE' => $expdate,
-			'AMOUNT' => $amount,
 			'CVV2' => $cvv2,
-			'CONDITION' => $condition,
-			'TDSDATA' => $tdsdata,
-			'INVOICE' => $invoice,
-			'CURRENCY' => $currency
+			'CURRENCY' => $currency,
+			'TDSDATA' => $tdsdata
 		];
 		$this->assertArrayEquals($expectedRequest, $actualRequest);
 	}
 
-	public function testFailPan(){
+	public function testFailTermid(){
 
-		$termid = self::CORRECT_TERMID;
-		$pan = '12345678901234567890';
-		$expdate = self::CORRECT_EXPDATE;
+		$termid = str_repeat('a', 17);
+
 		$amount = self::CORRECT_AMOUNT;
-		$cvv2 = self::CORRECT_CVV2;
-		$condition = self::CORRECT_CONDITION;
-		$tdsdata = self::CORRECT_TDSDATA;
 		$invoice = self::CORRECT_INVOICE;
-		$currency = self::CORRECT_CURRENCY;
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new PaymentRequestBuilder(
-			$termid,
-			$pan,
-			DateTime::createFromFormat('ym', $expdate),
-			$amount,
-			$cvv2,
-			$condition,
-			$tdsdata,
-			$invoice
-		);
-	}
-
-	public function testFailCvv(){
-
-		$termid = self::CORRECT_TERMID;
+		$condition = self::CORRECT_CONDITION;
 		$pan = self::CORRECT_PAN;
 		$expdate = self::CORRECT_EXPDATE;
-		$amount = self::CORRECT_AMOUNT;
-		$cvv2 = 12345;
-		$condition = self::CORRECT_CONDITION;
-		$tdsdata = self::CORRECT_TDSDATA;
-		$invoice = self::CORRECT_INVOICE;
-		$currency = self::CORRECT_CURRENCY;
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new PaymentRequestBuilder(
-			$termid,
-			$pan,
-			DateTime::createFromFormat('ym', $expdate),
-			$amount,
-			$cvv2,
-			$condition,
-			$tdsdata,
-			$invoice
-		);
-	}
-
-	public function testFailCondition(){
-
-		$termid = self::CORRECT_TERMID;
-		$pan = self::CORRECT_PAN;
-		$expdate = self::CORRECT_EXPDATE;
-		$amount = self::CORRECT_AMOUNT;
 		$cvv2 = self::CORRECT_CVV2;
-		$condition = 123;
-		$tdsdata = self::CORRECT_TDSDATA;
-		$invoice = self::CORRECT_INVOICE;
-		$currency = self::CORRECT_CURRENCY;
 
 		$this->setExpectedException('Platron\multicarta\Error');
 
 		$builder = new PaymentRequestBuilder(
 			$termid,
+			$amount,
+			$invoice,
+			$condition,
 			$pan,
 			DateTime::createFromFormat('ym', $expdate),
-			$amount,
-			$cvv2,
-			$condition,
-			$tdsdata,
-			$invoice
-		);
-	}
-
-	public function testFailTdsdata(){
-
-		$termid = self::CORRECT_TERMID;
-		$pan = self::CORRECT_PAN;
-		$expdate = self::CORRECT_EXPDATE;
-		$amount = self::CORRECT_AMOUNT;
-		$cvv2 = self::CORRECT_CVV2;
-		$condition = self::CORRECT_CONDITION;
-		$tdsdata = str_repeat('a', 81);
-		$invoice = self::CORRECT_INVOICE;
-		$currency = self::CORRECT_CURRENCY;
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new PaymentRequestBuilder(
-			$termid,
-			$pan,
-			DateTime::createFromFormat('ym', $expdate),
-			$amount,
-			$cvv2,
-			$condition,
-			$tdsdata,
-			$invoice
-		);
-	}
-
-	public function testFailInvoice(){
-
-		$termid = self::CORRECT_TERMID;
-		$pan = self::CORRECT_PAN;
-		$expdate = self::CORRECT_EXPDATE;
-		$amount = self::CORRECT_AMOUNT;
-		$cvv2 = self::CORRECT_CVV2;
-		$condition = self::CORRECT_CONDITION;
-		$tdsdata = self::CORRECT_TDSDATA;
-		$invoice = str_repeat('a', 17);
-		$currency = self::CORRECT_CURRENCY;
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new PaymentRequestBuilder(
-			$termid,
-			$pan,
-			DateTime::createFromFormat('ym', $expdate),
-			$amount,
-			$cvv2,
-			$condition,
-			$tdsdata,
-			$invoice
+			$cvv2
 		);
 	}
 
 	public function testFailAmount(){
 
 		$termid = self::CORRECT_TERMID;
+
+		$amount = 'asd';
+		$invoice = self::CORRECT_INVOICE;
+		$condition = self::CORRECT_CONDITION;
 		$pan = self::CORRECT_PAN;
 		$expdate = self::CORRECT_EXPDATE;
-		$amount = 'asd';
 		$cvv2 = self::CORRECT_CVV2;
-		$condition = self::CORRECT_CONDITION;
-		$tdsdata = self::CORRECT_TDSDATA;
-		$invoice = self::CORRECT_INVOICE;
-		$currency = self::CORRECT_CURRENCY;
 
 		$this->setExpectedException('Platron\multicarta\Error');
 
 		$builder = new PaymentRequestBuilder(
 			$termid,
+			$amount,
+			$invoice,
+			$condition,
 			$pan,
 			DateTime::createFromFormat('ym', $expdate),
-			$amount,
-			$cvv2,
-			$condition,
-			$tdsdata,
-			$invoice
+			$cvv2
 		);
+	}
+
+	public function testFailInvoice(){
+
+		$termid = self::CORRECT_TERMID;
+
+		$amount = self::CORRECT_AMOUNT;
+		$invoice = str_repeat('a', 17);
+		$condition = self::CORRECT_CONDITION;
+		$pan = self::CORRECT_PAN;
+		$expdate = self::CORRECT_EXPDATE;
+		$cvv2 = self::CORRECT_CVV2;
+
+		$this->setExpectedException('Platron\multicarta\Error');
+
+		$builder = new PaymentRequestBuilder(
+			$termid,
+			$amount,
+			$invoice,
+			$condition,
+			$pan,
+			DateTime::createFromFormat('ym', $expdate),
+			$cvv2
+		);
+	}
+
+	public function testFailCondition(){
+
+		$termid = self::CORRECT_TERMID;
+
+		$amount = self::CORRECT_AMOUNT;
+		$invoice = self::CORRECT_INVOICE;
+		$condition = 123;
+		$pan = self::CORRECT_PAN;
+		$expdate = self::CORRECT_EXPDATE;
+		$cvv2 = self::CORRECT_CVV2;
+
+		$this->setExpectedException('Platron\multicarta\Error');
+
+		$builder = new PaymentRequestBuilder(
+			$termid,
+			$amount,
+			$invoice,
+			$condition,
+			$pan,
+			DateTime::createFromFormat('ym', $expdate),
+			$cvv2
+		);
+	}
+
+	public function testFailPan(){
+
+		$termid = self::CORRECT_TERMID;
+
+		$amount = self::CORRECT_AMOUNT;
+		$invoice = self::CORRECT_INVOICE;
+		$condition = self::CORRECT_CONDITION;
+		$pan = '12345678901234567890';
+		$expdate = self::CORRECT_EXPDATE;
+		$cvv2 = self::CORRECT_CVV2;
+
+		$this->setExpectedException('Platron\multicarta\Error');
+
+		$builder = new PaymentRequestBuilder(
+			$termid,
+			$amount,
+			$invoice,
+			$condition,
+			$pan,
+			DateTime::createFromFormat('ym', $expdate),
+			$cvv2
+		);
+	}
+
+	public function testFailCvv(){
+
+		$termid = self::CORRECT_TERMID;
+
+		$amount = self::CORRECT_AMOUNT;
+		$invoice = self::CORRECT_INVOICE;
+		$condition = self::CORRECT_CONDITION;
+		$pan = self::CORRECT_PAN;
+		$expdate = self::CORRECT_EXPDATE;
+		$cvv2 = 12345;
+
+		$this->setExpectedException('Platron\multicarta\Error');
+
+		$builder = new PaymentRequestBuilder(
+			$termid,
+			$amount,
+			$invoice,
+			$condition,
+			$pan,
+			DateTime::createFromFormat('ym', $expdate),
+			$cvv2
+		);
+	}
+
+	public function testFailTdsdata(){
+
+		$termid = self::CORRECT_TERMID;
+
+		$amount = self::CORRECT_AMOUNT;
+		$tdsdata = str_repeat('a', 81);
+		$condition = self::CORRECT_CONDITION;
+		$pan = self::CORRECT_PAN;
+		$expdate = self::CORRECT_EXPDATE;
+		$cvv2 = self::CORRECT_CVV2;
+		$invoice = self::CORRECT_INVOICE;
+
+		$this->setExpectedException('Platron\multicarta\Error');
+
+		$builder = new PaymentRequestBuilder(
+			$termid,
+			$amount,
+			$invoice,
+			$condition,
+			$pan,
+			DateTime::createFromFormat('ym', $expdate),
+			$cvv2
+		);
+		$builder->setTdsdata($tdsdata);
 	}
 }

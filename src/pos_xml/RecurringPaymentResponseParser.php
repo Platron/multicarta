@@ -2,7 +2,17 @@
 
 namespace Platron\multicarta\pos_xml;
 
-class PreauthResponseParser extends AuthResponseParser {
+class RecurringPaymentResponseParser extends AuthResponseParser {
+
+	/**
+	 * @return string
+	 */
+	public function getRrn() {
+		$authInfo = $this->getAuthinfo();
+		if ($authInfo) {
+			return (string)$authInfo->rrn;
+		}
+	}
 
 	/**
 	 * @return string
@@ -28,14 +38,14 @@ class PreauthResponseParser extends AuthResponseParser {
 	 * @return string
 	 */
 	protected function getValidCommand() {
-		return 'PREAUTH';
+		return 'PAYMENT';
 	}
 
 	/**
 	 * @param string $respcode
-	 * @return PreauthResponseCode
+	 * @return RecurringPaymentResponseCode
 	 */
 	protected function createResponseCode(string $respcode) {
-		return new PreauthResponseCode($respcode);
+		return new RecurringPaymentResponseCode($respcode);
 	}
 }

@@ -2,27 +2,7 @@
 
 namespace Platron\multicarta\pos_xml;
 
-class CompleteResponseParser extends TerminalResponseParser {
-
-	/**
-	 * @return string
-	 */
-	public function getInvoice() {
-		$authInfo = $this->getAuthinfo();
-		if ($authInfo) {
-			return (string)$authInfo->invoice;
-		}
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getApproval() {
-		$authInfo = $this->getAuthinfo();
-		if ($authInfo) {
-			return (string)$authInfo->approval;
-		}
-	}
+class CompleteResponseParser extends AuthResponseParser {
 
 	/**
 	 * @return string
@@ -31,26 +11,6 @@ class CompleteResponseParser extends TerminalResponseParser {
 		$authInfo = $this->getAuthinfo();
 		if ($authInfo) {
 			return (string)$authInfo->rrn;
-		}
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getTrxid() {
-		$authInfo = $this->getAuthinfo();
-		if ($authInfo) {
-			return (string)$authInfo->trxid;
-		}
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getSession() {
-		$authInfo = $this->getAuthinfo();
-		if ($authInfo) {
-			return (string)$authInfo->session;
 		}
 	}
 
@@ -73,7 +33,7 @@ class CompleteResponseParser extends TerminalResponseParser {
 
 	/**
 	 * @param string $respcode
-	 * @return PaymentResponseCode
+	 * @return CompleteResponseCode
 	 */
 	protected function createResponseCode(string $respcode) {
 		return new CompleteResponseCode($respcode);

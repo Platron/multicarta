@@ -2,14 +2,15 @@
 
 namespace Platron\multicarta\tests\unit\pos_xml;
 
-use Platron\multicarta\pos_xml\CompleteRequestBuilder;
+use Platron\multicarta\pos_xml\RecurringPaymentRequestBuilder;
 
 use Platron\multicarta\CurrencyCode;
+use DateTime;
 
-class CompleteRequestBuilderTest extends RequestBuilderTest {
+class RecurringPaymentRequestBuilderTest extends RequestBuilderTest {
 
 	const CORRECT_VERSION = '110';
-	const CORRECT_COMMAND = 'COMPLETE';
+	const CORRECT_COMMAND = 'PAYMENT';
 
 	const CORRECT_TERMID = 'termid';
 
@@ -17,8 +18,6 @@ class CompleteRequestBuilderTest extends RequestBuilderTest {
 	const CORRECT_INVOICE = '123456';
 	const CORRECT_CONDITION = 1;
 	const CORRECT_ID = 'trxid';
-	const CORRECT_AUTHCODE = 'authcode';
-	const CORRECT_INVOICEORIG = 'invoiceorig';
 
 	const CORRECT_CURRENCY = '643';
 
@@ -28,23 +27,20 @@ class CompleteRequestBuilderTest extends RequestBuilderTest {
 		$command = self::CORRECT_COMMAND;
 
 		$termid = self::CORRECT_TERMID;
+
 		$amount = self::CORRECT_AMOUNT;
 		$invoice = self::CORRECT_INVOICE;
 		$condition = self::CORRECT_CONDITION;
 		$id = self::CORRECT_ID;
-		$authcode = self::CORRECT_AUTHCODE;
-		$invoiceorig = self::CORRECT_INVOICEORIG;
 
 		$currency = self::CORRECT_CURRENCY;
 
-		$builder = new CompleteRequestBuilder(
+		$builder = new RecurringPaymentRequestBuilder(
 			$termid,
 			$amount,
 			$invoice,
 			$condition,
-			$id,
-			$authcode,
-			$invoiceorig
+			$id
 		);
 		$builder->setCurrency(new CurrencyCode($currency));
 
@@ -58,8 +54,6 @@ class CompleteRequestBuilderTest extends RequestBuilderTest {
 			'INVOICE' => $invoice,
 			'CONDITION' => $condition,
 			'ID' => $id,
-			'AUTHCODE' => $authcode,
-			'INVOICEORIG' => $invoiceorig,
 			'CURRENCY' => $currency
 		];
 		$this->assertArrayEquals($expectedRequest, $actualRequest);
@@ -73,19 +67,15 @@ class CompleteRequestBuilderTest extends RequestBuilderTest {
 		$invoice = self::CORRECT_INVOICE;
 		$condition = self::CORRECT_CONDITION;
 		$id = self::CORRECT_ID;
-		$authcode = self::CORRECT_AUTHCODE;
-		$invoiceorig = self::CORRECT_INVOICEORIG;
 
 		$this->setExpectedException('Platron\multicarta\Error');
 
-		$builder = new CompleteRequestBuilder(
+		$builder = new RecurringPaymentRequestBuilder(
 			$termid,
 			$amount,
 			$invoice,
 			$condition,
-			$id,
-			$authcode,
-			$invoiceorig
+			$id
 		);
 	}
 
@@ -97,19 +87,15 @@ class CompleteRequestBuilderTest extends RequestBuilderTest {
 		$invoice = self::CORRECT_INVOICE;
 		$condition = self::CORRECT_CONDITION;
 		$id = self::CORRECT_ID;
-		$authcode = self::CORRECT_AUTHCODE;
-		$invoiceorig = self::CORRECT_INVOICEORIG;
 
 		$this->setExpectedException('Platron\multicarta\Error');
 
-		$builder = new CompleteRequestBuilder(
+		$builder = new RecurringPaymentRequestBuilder(
 			$termid,
 			$amount,
 			$invoice,
 			$condition,
-			$id,
-			$authcode,
-			$invoiceorig
+			$id
 		);
 	}
 
@@ -121,19 +107,15 @@ class CompleteRequestBuilderTest extends RequestBuilderTest {
 		$invoice = str_repeat('a', 17);
 		$condition = self::CORRECT_CONDITION;
 		$id = self::CORRECT_ID;
-		$authcode = self::CORRECT_AUTHCODE;
-		$invoiceorig = self::CORRECT_INVOICEORIG;
 
 		$this->setExpectedException('Platron\multicarta\Error');
 
-		$builder = new CompleteRequestBuilder(
+		$builder = new RecurringPaymentRequestBuilder(
 			$termid,
 			$amount,
 			$invoice,
 			$condition,
-			$id,
-			$authcode,
-			$invoiceorig
+			$id
 		);
 	}
 
@@ -145,90 +127,35 @@ class CompleteRequestBuilderTest extends RequestBuilderTest {
 		$invoice = self::CORRECT_INVOICE;
 		$condition = 123;
 		$id = self::CORRECT_ID;
-		$authcode = self::CORRECT_AUTHCODE;
-		$invoiceorig = self::CORRECT_INVOICEORIG;
 
 		$this->setExpectedException('Platron\multicarta\Error');
 
-		$builder = new CompleteRequestBuilder(
+		$builder = new RecurringPaymentRequestBuilder(
 			$termid,
 			$amount,
 			$invoice,
 			$condition,
-			$id,
-			$authcode,
-			$invoiceorig
+			$id
 		);
 	}
 
-	public function testFailId() {
-		$termid = self::CORRECT_TERMID;
-
-		$amount = self::CORRECT_AMOUNT;
-		$invoice = self::CORRECT_INVOICE;
-		$condition = self::CORRECT_CONDITION;
-		$id = str_repeat('a', 13);
-		$authcode = self::CORRECT_AUTHCODE;
-		$invoiceorig = self::CORRECT_INVOICEORIG;
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new CompleteRequestBuilder(
-			$termid,
-			$amount,
-			$invoice,
-			$condition,
-			$id,
-			$authcode,
-			$invoiceorig
-		);
-	}
-
-	public function testFailAuthcode() {
+	public function testFailId(){
 
 		$termid = self::CORRECT_TERMID;
 
 		$amount = self::CORRECT_AMOUNT;
 		$invoice = self::CORRECT_INVOICE;
 		$condition = self::CORRECT_CONDITION;
-		$id = self::CORRECT_ID;
-		$authcode = str_repeat('a', 9);
-		$invoiceorig = self::CORRECT_INVOICEORIG;
+		$id = str_repeat('a', 13);;
 
 		$this->setExpectedException('Platron\multicarta\Error');
 
-		$builder = new CompleteRequestBuilder(
+		$builder = new RecurringPaymentRequestBuilder(
 			$termid,
 			$amount,
 			$invoice,
 			$condition,
-			$id,
-			$authcode,
-			$invoiceorig
-		);
-	}
-
-	public function testFailInvoiceorig() {
-
-		$termid = self::CORRECT_TERMID;
-
-		$amount = self::CORRECT_AMOUNT;
-		$invoice = self::CORRECT_INVOICE;
-		$condition = self::CORRECT_CONDITION;
-		$id = self::CORRECT_ID;
-		$authcode = self::CORRECT_AUTHCODE;
-		$invoiceorig = str_repeat('a', 17);
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new CompleteRequestBuilder(
-			$termid,
-			$amount,
-			$invoice,
-			$condition,
-			$id,
-			$authcode,
-			$invoiceorig
+			$id
 		);
 	}
 }
