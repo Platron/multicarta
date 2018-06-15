@@ -2,7 +2,7 @@
 
 namespace Platron\multicarta\pos_xml;
 
-class PreAuthResponseParser extends AuthResponseParser {
+class PreauthResponseParser extends AuthResponseParser {
 
 	/**
 	 * @return string
@@ -16,6 +16,6 @@ class PreAuthResponseParser extends AuthResponseParser {
 	 * @return PaymentResponseCode
 	 */
 	protected function createResponseCode(string $respcode) {
-		return new PreAuthResponseCode($respcode);
+		return new PreauthResponseCode($respcode);
 	}
 }

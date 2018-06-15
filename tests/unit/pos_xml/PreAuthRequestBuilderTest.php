@@ -2,12 +2,12 @@
 
 namespace Platron\multicarta\tests\unit\pos_xml;
 
-use Platron\multicarta\pos_xml\PreAuthRequestBuilder;
+use Platron\multicarta\pos_xml\PreauthRequestBuilder;
 
 use Platron\multicarta\CurrencyCode;
 use DateTime;
 
-class PreAuthRequestBuilderTest extends RequestBuilderTest {
+class PreauthRequestBuilderTest extends RequestBuilderTest {
 
 	const CORRECT_VERSION = '110';
 	const CORRECT_COMMAND = 'PREAUTH';
@@ -39,7 +39,7 @@ class PreAuthRequestBuilderTest extends RequestBuilderTest {
 		$invoice = self::CORRECT_INVOICE;
 		$currency = self::CORRECT_CURRENCY;
 
-		$builder = new PreAuthRequestBuilder(
+		$builder = new PreauthRequestBuilder(
 			$termid,
 			$pan,
 			DateTime::createFromFormat('ym', $expdate),
@@ -83,7 +83,7 @@ class PreAuthRequestBuilderTest extends RequestBuilderTest {
 
 		$this->setExpectedException('Platron\multicarta\Error');
 
-		$builder = new PreAuthRequestBuilder(
+		$builder = new PreauthRequestBuilder(
 			$termid,
 			$pan,
 			DateTime::createFromFormat('ym', $expdate),
@@ -109,7 +109,7 @@ class PreAuthRequestBuilderTest extends RequestBuilderTest {
 
 		$this->setExpectedException('Platron\multicarta\Error');
 
-		$builder = new PreAuthRequestBuilder(
+		$builder = new PreauthRequestBuilder(
 			$termid,
 			$pan,
 			DateTime::createFromFormat('ym', $expdate),
@@ -135,7 +135,7 @@ class PreAuthRequestBuilderTest extends RequestBuilderTest {
 
 		$this->setExpectedException('Platron\multicarta\Error');
 
-		$builder = new PreAuthRequestBuilder(
+		$builder = new PreauthRequestBuilder(
 			$termid,
 			$pan,
 			DateTime::createFromFormat('ym', $expdate),
@@ -161,7 +161,7 @@ class PreAuthRequestBuilderTest extends RequestBuilderTest {
 
 		$this->setExpectedException('Platron\multicarta\Error');
 
-		$builder = new PreAuthRequestBuilder(
+		$builder = new PreauthRequestBuilder(
 			$termid,
 			$pan,
 			DateTime::createFromFormat('ym', $expdate),
@@ -187,7 +187,7 @@ class PreAuthRequestBuilderTest extends RequestBuilderTest {
 
 		$this->setExpectedException('Platron\multicarta\Error');
 
-		$builder = new PreAuthRequestBuilder(
+		$builder = new PreauthRequestBuilder(
 			$termid,
 			$pan,
 			DateTime::createFromFormat('ym', $expdate),
@@ -213,7 +213,7 @@ class PreAuthRequestBuilderTest extends RequestBuilderTest {
 
 		$this->setExpectedException('Platron\multicarta\Error');
 
-		$builder = new PreAuthRequestBuilder(
+		$builder = new PreauthRequestBuilder(
 			$termid,
 			$pan,
 			DateTime::createFromFormat('ym', $expdate),

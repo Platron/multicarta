@@ -2,7 +2,7 @@
 
 namespace Platron\multicarta\pos_xml;
 
-class PreAuthResponseCode extends ResponseCode {
+class PreauthResponseCode extends ResponseCode {
 	const PREAUTH_ACCOUNT_NOT_FOUND = '201'; // Счет не найден
 	const PREAUTH_INVALID_AMOUNT = '203'; // Неверная сумма
 	const PREAUTH_UNABLE_TO_PERFORM_AN_OPERATION = '204'; // Невозможно провести операцию

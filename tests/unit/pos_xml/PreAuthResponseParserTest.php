@@ -2,9 +2,9 @@
 
 namespace Platron\multicarta\tests\unit\pos_xml;
 
-use Platron\multicarta\pos_xml\PreAuthResponseParser;
+use Platron\multicarta\pos_xml\PreauthResponseParser;
 
-class PreAuthResponseParserTest extends ResponseParserTest {
+class PreauthResponseParserTest extends ResponseParserTest {
 
 	const CORRECT_COMMAND = 'PREAUTH';
 	const CORRECT_VERSION = '110';
@@ -53,7 +53,7 @@ class PreAuthResponseParserTest extends ResponseParserTest {
 				</footer>
 			</response>';
 
-		$parser = new PreAuthResponseParser($this->createResponse($xml));
+		$parser = new PreauthResponseParser($this->createResponse($xml));
 
 		$this->assertTrue($parser->isValid());
 		$this->assertTrue($parser->isSuccess());
@@ -92,7 +92,7 @@ class PreAuthResponseParserTest extends ResponseParserTest {
 				</footer>
 			</response>';
 
-		$parser = new PreAuthResponseParser($this->createResponse($xml));
+		$parser = new PreauthResponseParser($this->createResponse($xml));
 
 		$this->assertTrue($parser->isValid());
 		$this->assertFalse($parser->isSuccess());
@@ -120,7 +120,7 @@ class PreAuthResponseParserTest extends ResponseParserTest {
 				</footer>
 			</response>';
 
-		$parser = new PreAuthResponseParser($this->createResponse($xml));
+		$parser = new PreauthResponseParser($this->createResponse($xml));
 
 		$this->assertFalse($parser->isValid());
 		$this->assertEquals($command, $parser->getCommand());

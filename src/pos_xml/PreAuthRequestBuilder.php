@@ -2,7 +2,7 @@
 
 namespace Platron\multicarta\pos_xml;
 
-class PreAuthRequestBuilder extends AuthRequestBuilder {
+class PreauthRequestBuilder extends AuthRequestBuilder {
 
 	/**
 	 * @return string
