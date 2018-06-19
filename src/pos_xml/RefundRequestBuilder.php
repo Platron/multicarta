@@ -39,7 +39,7 @@ class RefundRequestBuilder extends TerminalRequestBuilder {
 		if (strlen($sln) > 283) {
 			throw new Error("Excess of maximum length (283 characters) in sln");
 		}
-		$this->request['SLN'] = (string)$sln;
+		$this->request['SLN'] = $sln;
 	}
 
 	protected function initDefaultValues() {
@@ -67,7 +67,7 @@ class RefundRequestBuilder extends TerminalRequestBuilder {
 		if (strlen($session) != 40) {
 			throw new Error("Invalid length (40 characters) in session");
 		}
-		$this->request['SESSION'] = (string)$session;
+		$this->request['SESSION'] = $session;
 	}
 
 	/**

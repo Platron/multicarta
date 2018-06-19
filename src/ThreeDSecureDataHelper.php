@@ -2,7 +2,11 @@
 
 namespace Platron\multicarta;
 
-class DataHelper {
+class ThreeDSecureDataHelper {
+
+	const ECI = 0;
+	const NEED_TDS_DATA = 1;
+	const CONDITION = 2;
 
 	/**
 	 * @var EnrollmentResult $enrollmentResult
@@ -46,7 +50,7 @@ class DataHelper {
 	 */
 	public function checkEci(string $eci) {
 		$dataSet = $this->getDataSet();
-		return ($eci == $dataSet[0]);
+		return ($eci == $dataSet[self::ECI]);
 	}
 
 	/**
@@ -54,7 +58,7 @@ class DataHelper {
 	 */
 	public function needTdsData() {
 		$dataSet = $this->getDataSet();
-		return $dataSet[1];
+		return $dataSet[self::NEED_TDS_DATA];
 	}
 
 	/**
@@ -62,7 +66,7 @@ class DataHelper {
 	 */
 	public function getCondition() {
 		$dataSet = $this->getDataSet();
-		return $dataSet[2];
+		return $dataSet[self::CONDITION];
 	}
 
 	/**
@@ -90,110 +94,115 @@ class DataHelper {
 			'' => [
 				'' => [
 					PaymentSystemBrand::VISA => [
-						'7',
-						false,
-						'4',
+						self::ECI => '7',
+						self::NEED_TDS_DATA => false,
+						self::CONDITION => '4',
 					],
 					PaymentSystemBrand::MASTERCARD => [
-						'0',
-						false,
-						'4',
+						self::ECI => '0',
+						self::NEED_TDS_DATA => false,
+						self::CONDITION => '4',
 					],
 					PaymentSystemBrand::MIR => [
-						'3',
-						false,
-						'4',
+						self::ECI => '3',
+						self::NEED_TDS_DATA => false,
+						self::CONDITION => '4',
+					],
+					'' => [
+						self::ECI => null,
+						self::NEED_TDS_DATA => false,
+						self::CONDITION => '4',
 					],
 				],
 			],
 			EnrollmentResult::U => [
 				'' => [
 					PaymentSystemBrand::VISA => [
-						'6',
-						false,
-						'2',
+						self::ECI => '6',
+						self::NEED_TDS_DATA => false,
+						self::CONDITION => '2',
 					],
 					PaymentSystemBrand::MASTERCARD => [
-						'0',
-						false,
-						'4',
+						self::ECI => '0',
+						self::NEED_TDS_DATA => false,
+						self::CONDITION => '4',
 					],
 					PaymentSystemBrand::MIR => [
-						'3',
-						false,
-						'4',
+						self::ECI => '3',
+						self::NEED_TDS_DATA => false,
+						self::CONDITION => '4',
 					],
 				]
 			],
 			EnrollmentResult::N => [
 				'' => [
 					PaymentSystemBrand::VISA => [
-						'6',
-						false,
-						'2',
+						self::ECI => '6',
+						self::NEED_TDS_DATA => false,
+						self::CONDITION => '2',
 					],
 					PaymentSystemBrand::MASTERCARD => [
-						'0',
-						false,
-						'4',
+						self::ECI => '0',
+						self::NEED_TDS_DATA => false,
+						self::CONDITION => '4',
 					],
 					PaymentSystemBrand::MIR => [
-						'3',
-						false,
-						'4',
+						self::ECI => '3',
+						self::NEED_TDS_DATA => false,
+						self::CONDITION => '4',
 					],
 				]
 			],
 			EnrollmentResult::Y => [
 				ThreeDSecureResult::Y => [
 					PaymentSystemBrand::VISA => [
-						'5',
-						true,
-						'5',
+						self::ECI => '5',
+						self::NEED_TDS_DATA => true,
+						self::CONDITION => '5',
 					],
 					PaymentSystemBrand::MASTERCARD => [
-						'2',
-						true,
-						'5',
+						self::ECI => '2',
+						self::NEED_TDS_DATA => true,
+						self::CONDITION => '5',
 					],
 					PaymentSystemBrand::MIR => [
-						'2',
-						true,
-						'5',
+						self::ECI => '2',
+						self::NEED_TDS_DATA => true,
+						self::CONDITION => '5',
 					],
 				],
 				ThreeDSecureResult::A => [
 					PaymentSystemBrand::VISA => [
-						'6',
-						true,
-						'2',
+						self::ECI => '6',
+						self::NEED_TDS_DATA => true,
+						self::CONDITION => '2',
 					],
 					PaymentSystemBrand::MASTERCARD => [
-						'1',
-						true,
-						'2',
+						self::ECI => '1',
+						self::NEED_TDS_DATA => true,
+						self::CONDITION => '2',
 					],
 					PaymentSystemBrand::MIR => [
-						'1',
-						true,
-						'2',
+						self::ECI => '1',
+						self::NEED_TDS_DATA => true,
+						self::CONDITION => '2',
 					],
 				],
 				ThreeDSecureResult::U => [
 					PaymentSystemBrand::VISA => [
-						'6',
-						false,
-						'2',
+						self::ECI => '6',
+						self::NEED_TDS_DATA => false,
+						self::CONDITION => '2',
 					],
 					PaymentSystemBrand::MASTERCARD => [
-						'0',
-						false,
-						'4',
+						self::ECI => '0',
+						self::NEED_TDS_DATA => false,
+						self::CONDITION => '4',
 					],
 					PaymentSystemBrand::MIR => [
-						'3',
-						false,
-						'4',
+						self::ECI => '3',
+						self::NEED_TDS_DATA => false,
+						self::CONDITION => '4',
 					],
 				]
 			]
