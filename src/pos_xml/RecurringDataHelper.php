@@ -2,6 +2,8 @@
 
 namespace Platron\multicarta\pos_xml;
 
+use Platron\multicarta\PaymentSystemBrand;
+
 class RecurringDataHelper {
 
 	const CONDITION = 0;
