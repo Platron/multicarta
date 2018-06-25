@@ -24,6 +24,8 @@ class Client {
 	/**
 	 * @param string $url
 	 * @param array $request
+	 * @param string $certificatePath
+	 * @param string $privateKeyPath
 	 * @return SimpleXMLElement
 	 */
 	public function sendRequest(
