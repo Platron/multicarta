@@ -121,11 +121,13 @@ class MpiTest extends TestCase {
 		$url = $this->url;
 		$certificatePath = $this->certificatePath;
 		$privateKeyPath = $this->privateKeyPath;
-		$client = new Client(
+		$client = new Client();
+		$response = $client->sendRequest(
+			$url,
+			$request,
 			$certificatePath,
 			$privateKeyPath
 		);
-		$response = $client->sendRequest($url, $request);
 		return $response;
 	}
 }
