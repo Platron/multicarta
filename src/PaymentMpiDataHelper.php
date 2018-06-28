@@ -2,7 +2,7 @@
 
 namespace Platron\multicarta;
 
-class MpiDataHelper {
+class PaymentMpiDataHelper {
 
 	const ECI = 0;
 	const NEED_TDS_DATA = 1;
@@ -21,44 +21,44 @@ class MpiDataHelper {
 	}
 
 	/**
-	 * @param MpiData $mpiData
+	 * @param PaymentMpiData $paymentMpiData
 	 * @return string
 	 */
-	public function getCondition(MpiData $mpiData) {
-		$dataSet = $this->getDataSet($mpiData);
+	public function getCondition(PaymentMpiData $paymentMpiData) {
+		$dataSet = $this->getDataSet($paymentMpiData);
 		return $dataSet[self::CONDITION];
 	}
 
 	/**
-	 * @param MpiData $mpiData
+	 * @param PaymentMpiData $paymentMpiData
 	 * @return boolean
 	 */
-	public function needTdsData(MpiData $mpiData) {
-		$dataSet = $this->getDataSet($mpiData);
+	public function needTdsData(PaymentMpiData $paymentMpiData) {
+		$dataSet = $this->getDataSet($paymentMpiData);
 		return $dataSet[self::NEED_TDS_DATA];
 	}
 
 	/**
-	 * @param MpiData $mpiData
+	 * @param PaymentMpiData $paymentMpiData
 	 * @return string
 	 */
-	public function getTdsData(MpiData $mpiData) {
+	public function getTdsData(PaymentMpiData $paymentMpiData) {
 		$tdsDataGenerator = $this->getTdsDataGenerator();
 		$tdsData = $tdsDataGenerator->generate(
-			$mpiData->getPaymentSystemBrand(),
-			$mpiData->getCavv(),
-			$mpiData->getXid()
+			$paymentMpiData->getPaymentSystemBrand(),
+			$paymentMpiData->getCavv(),
+			$paymentMpiData->getXid()
 		);
 		return $tdsData;
 	}
 
 	/**
-	 * @param MpiData $mpiData
+	 * @param PaymentMpiData $paymentMpiData
 	 * @return boolean
 	 */
-	public function checkEci(MpiData $mpiData) {
-		$eci = $mpiData->getEci();
-		$dataSet = $this->getDataSet($mpiData);
+	public function checkEci(PaymentMpiData $paymentMpiData) {
+		$eci = $paymentMpiData->getEci();
+		$dataSet = $this->getDataSet($paymentMpiData);
 		return ($eci == $dataSet[self::ECI]);
 	}
 
@@ -70,13 +70,13 @@ class MpiDataHelper {
 	}
 
 	/**
-	 * @param MpiData $mpiData
+	 * @param PaymentMpiData $paymentMpiData
 	 * @return array
 	 */
-	private function getDataSet(MpiData $mpiData) {
-		$enrollmentResult = $mpiData->getEnrollmentResult();
-		$threeDSecureResult = $mpiData->getThreeDSecureResult();
-		$paymentSystemBrand = $mpiData->getPaymentSystemBrand();
+	private function getDataSet(PaymentMpiData $paymentMpiData) {
+		$enrollmentResult = $paymentMpiData->getEnrollmentResult();
+		$threeDSecureResult = $paymentMpiData->getThreeDSecureResult();
+		$paymentSystemBrand = $paymentMpiData->getPaymentSystemBrand();
 		$matchTable = $this->getMatchTable();
 		if (!isset($matchTable[(string)$enrollmentResult]
 			[(string)$threeDSecureResult]

@@ -2,7 +2,7 @@
 
 namespace Platron\multicarta;
 
-class MpiData {
+class PaymentMpiData {
 
 	/**
 	 * @var PaymentSystemBrand $paymentSystemBrand
