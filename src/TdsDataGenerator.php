@@ -5,70 +5,51 @@ namespace Platron\multicarta;
 class TdsDataGenerator {
 
 	/**
-	 * @var PaymentSystemBrand $paymentSystemBrand
-	 */
-	private $paymentSystemBrand;
-
-	/**
-	 * @var string $cavv
-	 */
-	private $cavv;
-
-	/**
-	 * @var string $xid
-	 */
-	private $xid;
-
-	/**
 	 * @param PaymentSystemBrand $paymentSystemBrand
 	 * @param string $cavv
 	 * @param string $xid
+	 * @return string
 	 */
-	public function __construct(
+	public function generate(
 		PaymentSystemBrand $paymentSystemBrand,
 		string $cavv,
 		string $xid
 	) {
-		$this->paymentSystemBrand = $paymentSystemBrand;
-		$this->cavv = $cavv;
-		$this->xid = $xid;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getTdsData() {
-		$firstSubField = $this->getFirstSubField();
-		$secondSubField = $this->getSecondSubField();
+		$firstSubField = $this->getFirstSubField($xid);
+		$secondSubField = $this->getSecondSubField($paymentSystemBrand, $cavv);
 
 		return $firstSubField . $secondSubField;
 	}
 
 	/**
+	 * @param string $xid
 	 * @return string
 	 */
-	private function getFirstSubField() {
-		$result = $this->convertBase64ToUpperCaseHex(
-			$this->xid
-		);
+	private function getFirstSubField(string $xid) {
+		$result = $this->convertBase64ToUpperCaseHex($xid);
 		return $result;
 	}
 
 	/**
+	 * @param PaymentSystemBrand $paymentSystemBrand
+	 * @param string $cavv
 	 * @return string
 	 */
-	private function getSecondSubField() {
-		switch ($this->paymentSystemBrand->getValue()) {
+	private function getSecondSubField(
+		PaymentSystemBrand $paymentSystemBrand,
+		string $cavv
+	) {
+		switch ($paymentSystemBrand->getValue()) {
 			case PaymentSystemBrand::VISA:
 			case PaymentSystemBrand::MIR:
 				$result = $this->convertBase64ToUpperCaseHex(
-					$this->cavv
+					$cavv
 				);
 				break;
 
 			case PaymentSystemBrand::MASTERCARD:
 				$result = $this->replaceSymbolListToHex(
-					$this->cavv,
+					$cavv,
 					['+', '/', '=']
 				);
 				break;

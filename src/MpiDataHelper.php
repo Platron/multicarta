@@ -2,92 +2,96 @@
 
 namespace Platron\multicarta;
 
-class ThreeDSecureDataHelper {
+class MpiDataHelper {
 
 	const ECI = 0;
 	const NEED_TDS_DATA = 1;
 	const CONDITION = 2;
 
 	/**
-	 * @var EnrollmentResult $enrollmentResult
+	 * @var TdsDataGenerator $tdsDataGenerator
 	 */
-	private $enrollmentResult;
+	private $tdsDataGenerator;
 
 	/**
-	 * @var ThreeDSecureResult $threeDSecureResult
+	 * @param TdsDataGenerator $tdsDataGenerator
 	 */
-	private $threeDSecureResult;
-
-	/**
-	 * @var PaymentSystemBrand $paymentSystemBrand
-	 */
-	private $paymentSystemBrand;
-
-	/**
-	 * @param EnrollmentResult $enrollmentResult
-	 */
-	public function setEnrollmentResult(EnrollmentResult $enrollmentResult) {
-		$this->enrollmentResult = $enrollmentResult;
+	public function __construct(TdsDataGenerator $tdsDataGenerator) {
+		$this->tdsDataGenerator = $tdsDataGenerator;
 	}
 
 	/**
-	 * @param ThreeDSecureResult $threeDSecureResult
-	 */
-	public function setThreeDSecureResult(ThreeDSecureResult $threeDSecureResult) {
-		$this->threeDSecureResult = $threeDSecureResult;
-	}
-
-	/**
-	 * @param PaymentSystemBrand $paymentSystemBrand
-	 */
-	public function setPaymentSystemBrand(PaymentSystemBrand $paymentSystemBrand) {
-		$this->paymentSystemBrand = $paymentSystemBrand;
-	}
-
-	/**
-	 * @param string $eci
-	 * @return boolean
-	 */
-	public function checkEci(string $eci) {
-		$dataSet = $this->getDataSet();
-		return ($eci == $dataSet[self::ECI]);
-	}
-
-	/**
-	 * @return boolean
-	 */
-	public function needTdsData() {
-		$dataSet = $this->getDataSet();
-		return $dataSet[self::NEED_TDS_DATA];
-	}
-
-	/**
+	 * @param MpiData $mpiData
 	 * @return string
 	 */
-	public function getCondition() {
-		$dataSet = $this->getDataSet();
+	public function getCondition(MpiData $mpiData) {
+		$dataSet = $this->getDataSet($mpiData);
 		return $dataSet[self::CONDITION];
 	}
 
 	/**
+	 * @param MpiData $mpiData
 	 * @return boolean
 	 */
-	private function getDataSet() {
+	public function needTdsData(MpiData $mpiData) {
+		$dataSet = $this->getDataSet($mpiData);
+		return $dataSet[self::NEED_TDS_DATA];
+	}
+
+	/**
+	 * @param MpiData $mpiData
+	 * @return string
+	 */
+	public function getTdsData(MpiData $mpiData) {
+		$tdsDataGenerator = $this->getTdsDataGenerator();
+		$tdsData = $tdsDataGenerator->generate(
+			$mpiData->getPaymentSystemBrand(),
+			$mpiData->getCavv(),
+			$mpiData->getXid()
+		);
+		return $tdsData;
+	}
+
+	/**
+	 * @param MpiData $mpiData
+	 * @return boolean
+	 */
+	public function checkEci(MpiData $mpiData) {
+		$eci = $mpiData->getEci();
+		$dataSet = $this->getDataSet($mpiData);
+		return ($eci == $dataSet[self::ECI]);
+	}
+
+	/**
+	 * @return TdsDataGenerator
+	 */
+	protected function getTdsDataGenerator() {
+		return $this->tdsDataGenerator;
+	}
+
+	/**
+	 * @param MpiData $mpiData
+	 * @return array
+	 */
+	private function getDataSet(MpiData $mpiData) {
+		$enrollmentResult = $mpiData->getEnrollmentResult();
+		$threeDSecureResult = $mpiData->getThreeDSecureResult();
+		$paymentSystemBrand = $mpiData->getPaymentSystemBrand();
 		$matchTable = $this->getMatchTable();
-		if (!isset($matchTable[(string)$this->enrollmentResult]
-			[(string)$this->threeDSecureResult]
-			[(string)$this->paymentSystemBrand]
+		if (!isset($matchTable[(string)$enrollmentResult]
+			[(string)$threeDSecureResult]
+			[(string)$paymentSystemBrand]
 		)) {
 			throw new Error("Wrong parameter combination");
 		}
-		$dataSet = $matchTable[(string)$this->enrollmentResult]
-			[(string)$this->threeDSecureResult]
-			[(string)$this->paymentSystemBrand];
+		$dataSet = $matchTable[(string)$enrollmentResult]
+			[(string)$threeDSecureResult]
+			[(string)$paymentSystemBrand];
 		return $dataSet;
 	}
 
 	/**
-	 * @return boolean
+	 * @return array
 	 */
 	private function getMatchTable() {
 		return [
