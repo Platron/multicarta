@@ -32,10 +32,11 @@ class Client {
 	 */
 	protected function setParameters(ClientParameters $parameters) {
 		$curl = $this->getCurl();
-		$urlWithGetRequest = $parameters->getUrlWithGetRequest();
+		$url = $parameters->getUrl();
+		$query = $parameters->getQuery();
 		$certificatePath = $parameters->getCertificatePath();
 		$privateKeyPath = $parameters->getPrivateKeyPath();
-		curl_setopt($curl, CURLOPT_URL, $urlWithGetRequest);
+		curl_setopt($curl, CURLOPT_URL, $url.'?'.$query);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);

@@ -45,10 +45,9 @@ class ClientParameters {
 	/**
 	 * @return string
 	 */
-	public function getUrlWithGetRequest() {
-		$url = $this->getUrl();
+	public function getQuery() {
 		$request = $this->getRequest();
-		return $url.'?'.http_build_query($request);
+		return http_build_query($request);
 	}
 
 	/**
