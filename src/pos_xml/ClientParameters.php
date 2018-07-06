@@ -45,9 +45,12 @@ class ClientParameters {
 	/**
 	 * @return string
 	 */
-	public function getQuery() {
+	public function getUrlWithHttpGetQuery() {
+		$url = $this->getUrl();
 		$request = $this->getRequest();
-		return http_build_query($request);
+		$httpGetQuery = http_build_query($request);
+		$urlWithHttpGetQuery = $url.'?'.$httpGetQuery;
+		return $urlWithHttpGetQuery;
 	}
 
 	/**
@@ -67,14 +70,14 @@ class ClientParameters {
 	/**
 	 * @return string
 	 */
-	public function getUrl() {
+	protected function getUrl() {
 		return $this->url;
 	}
 
 	/**
 	 * @return array
 	 */
-	public function getRequest() {
+	protected function getRequest() {
 		return $this->request;
 	}
 }

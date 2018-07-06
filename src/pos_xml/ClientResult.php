@@ -7,9 +7,9 @@ use SimpleXMLElement;
 class ClientResult {
 
 	/**
-	 * @var mixed $returnedData
+	 * @var string $message
 	 */
-	private $returnedData;
+	private $message;
 
 	/**
 	 * @var int $errorCode
@@ -22,16 +22,16 @@ class ClientResult {
 	private $errorMessage;
 
 	/**
-	 * mixed $returnedData
-	 * int $errorCode
-	 * string $errorMessage
+	 * @param string $message
+	 * @param int $errorCode
+	 * @param string $errorMessage
 	 */
 	public function __construct(
-		$returnedData,
+		string $message,
 		int $errorCode,
 		string $errorMessage
 	) {
-		$this->returnedData = $returnedData;
+		$this->message = $message;
 		$this->errorCode = $errorCode;
 		$this->errorMessage = $errorMessage;
 	}
@@ -40,33 +40,97 @@ class ClientResult {
 	 * @return SimpleXMLElement
 	 */
 	public function getResponse() {
-		$returnedData = $this->getReturnedData();
-		if ($returnedData !== false) {
-			$response = simplexml_load_string($returnedData);
-			if ($response !== false) {
-				return $response;
-			}
+		$message = $this->getMessage();
+		$response = simplexml_load_string($message);
+		if ($response !== false) {
+			return $response;
 		}
 	}
 
 	/**
-	 * @return mixed
+	 * @return ClientError
 	 */
-	public function getReturnedData() {
-		return $this->returnedData;
+	public function getError() {
+		$error = new ClientError(
+			$this->getMessage(),
+			$this->getErrorCode(),
+			$this->getErrorMessage()
+		);
+		return $error;
+	}
+
+	/**
+	 * @return string
+	 */
+	protected function getMessage() {
+		return $this->message;
 	}
 
 	/**
 	 * @return int
 	 */
-	public function getErrorCode() {
+	protected function getErrorCode() {
 		return $this->errorCode;
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getErrorMessage() {
+	protected function getErrorMessage() {
 		return $this->errorMessage;
+	}
+}
+
+class ClientError {
+
+	/**
+	 * @var string $resultMessage
+	 */
+	private $resultMessage;
+
+	/**
+	 * @var int $code
+	 */
+	private $code;
+
+	/**
+	 * @var string $message
+	 */
+	private $message;
+
+	/**
+	 * @param string $resultMessage
+	 * @param int $code
+	 * @param string $message
+	 */
+	public function __construct(
+		string $resultMessage,
+		int $code,
+		string $message
+	) {
+		$this->resultMessage = $resultMessage;
+		$this->code = $code;
+		$this->message = $message;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getResultMessage() {
+		return $this->resultMessage;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getCode() {
+		return $this->code;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getMessage() {
+		return $this->message;
 	}
 }
