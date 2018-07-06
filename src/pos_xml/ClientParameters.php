@@ -36,10 +36,10 @@ class ClientParameters {
 		string $certificatePath,
 		string $privateKeyPath
 	) {
-		$url = $this->url;
-		$request = $this->request;
-		$certificatePath = $this->certificatePath;
-		$privateKeyPath = $this->privateKeyPath;
+		$this->url = $url;
+		$this->request = $request;
+		$this->certificatePath = $certificatePath;
+		$this->privateKeyPath = $privateKeyPath;
 	}
 
 	/**
