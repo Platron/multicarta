@@ -70,14 +70,14 @@ class ClientParameters {
 	/**
 	 * @return string
 	 */
-	protected function getUrl() {
+	public function getUrl() {
 		return $this->url;
 	}
 
 	/**
 	 * @return array
 	 */
-	protected function getRequest() {
+	public function getRequest() {
 		return $this->request;
 	}
 }

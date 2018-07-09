@@ -48,14 +48,14 @@ class Client {
 	 */
 	protected function getResult() {
 		$curl = $this->getCurl();
-		$resultMessage = curl_exec($curl);
+		$returnMessage = curl_exec($curl);
 		$errorCode = curl_errno($curl);
 		$errorMessage = curl_error($curl);
-		if ($errorMessage === false) {
-			$errorMessage = '';
+		if ($returnMessage === false) {
+			$returnMessage = '';
 		}
 		$result = new ClientResult(
-			$resultMessage,
+			$returnMessage,
 			$errorCode,
 			$errorMessage
 		);
