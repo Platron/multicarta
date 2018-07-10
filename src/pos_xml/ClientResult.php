@@ -2,8 +2,6 @@
 
 namespace Platron\multicarta\pos_xml;
 
-use SimpleXMLElement;
-
 class ClientResult {
 
 	/**
@@ -34,17 +32,6 @@ class ClientResult {
 		$this->returnMessage = $returnMessage;
 		$this->errorCode = $errorCode;
 		$this->errorMessage = $errorMessage;
-	}
-
-	/**
-	 * @return SimpleXMLElement
-	 */
-	public function getResponse() {
-		$returnMessage = $this->getReturnMessage();
-		$response = simplexml_load_string($returnMessage);
-		if ($response !== false) {
-			return $response;
-		}
 	}
 
 	/**

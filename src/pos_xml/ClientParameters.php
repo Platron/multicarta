@@ -5,14 +5,9 @@ namespace Platron\multicarta\pos_xml;
 class ClientParameters {
 
 	/**
-	 * @var string $url
+	 * @var string $urlWithHttpGetQuery
 	 */
-	private $url;
-
-	/**
-	 * @var array $request
-	 */
-	private $request;
+	private $urlWithHttpGetQuery;
 
 	/**
 	 * @var string $certificatePath
@@ -25,19 +20,16 @@ class ClientParameters {
 	private $privateKeyPath;
 
 	/**
-	 * @param string $url
-	 * @param array $request
+	 * @param string $urlWithHttpGetQuery
 	 * @param string $certificatePath
 	 * @param string $privateKeyPath
 	 */
 	public function __construct(
-		string $url,
-		array $request,
+		string $urlWithHttpGetQuery,
 		string $certificatePath,
 		string $privateKeyPath
 	) {
-		$this->url = $url;
-		$this->request = $request;
+		$this->urlWithHttpGetQuery = $urlWithHttpGetQuery;
 		$this->certificatePath = $certificatePath;
 		$this->privateKeyPath = $privateKeyPath;
 	}
@@ -46,11 +38,7 @@ class ClientParameters {
 	 * @return string
 	 */
 	public function getUrlWithHttpGetQuery() {
-		$url = $this->getUrl();
-		$request = $this->getRequest();
-		$httpGetQuery = http_build_query($request);
-		$urlWithHttpGetQuery = $url.'?'.$httpGetQuery;
-		return $urlWithHttpGetQuery;
+		return $this->urlWithHttpGetQuery;
 	}
 
 	/**
@@ -65,19 +53,5 @@ class ClientParameters {
 	 */
 	public function getPrivateKeyPath() {
 		return $this->privateKeyPath;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getUrl() {
-		return $this->url;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getRequest() {
-		return $this->request;
 	}
 }
