@@ -44,13 +44,13 @@ class PreauthRequestBuilderTest extends RequestBuilderTest {
 		$builder = new PreauthRequestBuilder(
 			$termid,
 			$amount,
+			new CurrencyCode($currency),
 			$invoice,
 			$condition,
 			$pan,
 			DateTime::createFromFormat('ym', $expdate),
 			$cvv2
 		);
-		$builder->setCurrency(new CurrencyCode($currency));
 		$builder->setTdsdata($tdsdata);
 
 		$actualRequest = $builder->getRequest();
@@ -69,175 +69,5 @@ class PreauthRequestBuilderTest extends RequestBuilderTest {
 			'TDSDATA' => $tdsdata
 		];
 		$this->assertArrayEquals($expectedRequest, $actualRequest);
-	}
-
-	public function testFailTermid(){
-
-		$termid = str_repeat('a', 17);
-
-		$amount = self::CORRECT_AMOUNT;
-		$invoice = self::CORRECT_INVOICE;
-		$condition = self::CORRECT_CONDITION;
-		$pan = self::CORRECT_PAN;
-		$expdate = self::CORRECT_EXPDATE;
-		$cvv2 = self::CORRECT_CVV2;
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new PreauthRequestBuilder(
-			$termid,
-			$amount,
-			$invoice,
-			$condition,
-			$pan,
-			DateTime::createFromFormat('ym', $expdate),
-			$cvv2
-		);
-	}
-
-	public function testFailAmount(){
-
-		$termid = self::CORRECT_TERMID;
-
-		$amount = 'asd';
-		$invoice = self::CORRECT_INVOICE;
-		$condition = self::CORRECT_CONDITION;
-		$pan = self::CORRECT_PAN;
-		$expdate = self::CORRECT_EXPDATE;
-		$cvv2 = self::CORRECT_CVV2;
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new PreauthRequestBuilder(
-			$termid,
-			$amount,
-			$invoice,
-			$condition,
-			$pan,
-			DateTime::createFromFormat('ym', $expdate),
-			$cvv2
-		);
-	}
-
-	public function testFailInvoice(){
-
-		$termid = self::CORRECT_TERMID;
-
-		$amount = self::CORRECT_AMOUNT;
-		$invoice = str_repeat('a', 17);
-		$condition = self::CORRECT_CONDITION;
-		$pan = self::CORRECT_PAN;
-		$expdate = self::CORRECT_EXPDATE;
-		$cvv2 = self::CORRECT_CVV2;
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new PreauthRequestBuilder(
-			$termid,
-			$amount,
-			$invoice,
-			$condition,
-			$pan,
-			DateTime::createFromFormat('ym', $expdate),
-			$cvv2
-		);
-	}
-
-	public function testFailCondition(){
-
-		$termid = self::CORRECT_TERMID;
-
-		$amount = self::CORRECT_AMOUNT;
-		$invoice = self::CORRECT_INVOICE;
-		$condition = 123;
-		$pan = self::CORRECT_PAN;
-		$expdate = self::CORRECT_EXPDATE;
-		$cvv2 = self::CORRECT_CVV2;
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new PreauthRequestBuilder(
-			$termid,
-			$amount,
-			$invoice,
-			$condition,
-			$pan,
-			DateTime::createFromFormat('ym', $expdate),
-			$cvv2
-		);
-	}
-
-	public function testFailPan(){
-
-		$termid = self::CORRECT_TERMID;
-
-		$amount = self::CORRECT_AMOUNT;
-		$invoice = self::CORRECT_INVOICE;
-		$condition = self::CORRECT_CONDITION;
-		$pan = '12345678901234567890';
-		$expdate = self::CORRECT_EXPDATE;
-		$cvv2 = self::CORRECT_CVV2;
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new PreauthRequestBuilder(
-			$termid,
-			$amount,
-			$invoice,
-			$condition,
-			$pan,
-			DateTime::createFromFormat('ym', $expdate),
-			$cvv2
-		);
-	}
-
-	public function testFailCvv(){
-
-		$termid = self::CORRECT_TERMID;
-
-		$amount = self::CORRECT_AMOUNT;
-		$invoice = self::CORRECT_INVOICE;
-		$condition = self::CORRECT_CONDITION;
-		$pan = self::CORRECT_PAN;
-		$expdate = self::CORRECT_EXPDATE;
-		$cvv2 = 12345;
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new PreauthRequestBuilder(
-			$termid,
-			$amount,
-			$invoice,
-			$condition,
-			$pan,
-			DateTime::createFromFormat('ym', $expdate),
-			$cvv2
-		);
-	}
-
-	public function testFailTdsdata(){
-
-		$termid = self::CORRECT_TERMID;
-
-		$amount = self::CORRECT_AMOUNT;
-		$tdsdata = str_repeat('a', 81);
-		$condition = self::CORRECT_CONDITION;
-		$pan = self::CORRECT_PAN;
-		$expdate = self::CORRECT_EXPDATE;
-		$cvv2 = self::CORRECT_CVV2;
-		$invoice = self::CORRECT_INVOICE;
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new PreauthRequestBuilder(
-			$termid,
-			$amount,
-			$invoice,
-			$condition,
-			$pan,
-			DateTime::createFromFormat('ym', $expdate),
-			$cvv2
-		);
-		$builder->setTdsdata($tdsdata);
 	}
 }

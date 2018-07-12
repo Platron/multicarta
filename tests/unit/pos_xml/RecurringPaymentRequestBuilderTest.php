@@ -38,11 +38,11 @@ class RecurringPaymentRequestBuilderTest extends RequestBuilderTest {
 		$builder = new RecurringPaymentRequestBuilder(
 			$termid,
 			$amount,
+			new CurrencyCode($currency),
 			$invoice,
 			$condition,
 			$id
 		);
-		$builder->setCurrency(new CurrencyCode($currency));
 
 		$actualRequest = $builder->getRequest();
 
@@ -57,105 +57,5 @@ class RecurringPaymentRequestBuilderTest extends RequestBuilderTest {
 			'CURRENCY' => $currency
 		];
 		$this->assertArrayEquals($expectedRequest, $actualRequest);
-	}
-
-	public function testFailTermid(){
-
-		$termid = str_repeat('a', 17);
-
-		$amount = self::CORRECT_AMOUNT;
-		$invoice = self::CORRECT_INVOICE;
-		$condition = self::CORRECT_CONDITION;
-		$id = self::CORRECT_ID;
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new RecurringPaymentRequestBuilder(
-			$termid,
-			$amount,
-			$invoice,
-			$condition,
-			$id
-		);
-	}
-
-	public function testFailAmount(){
-
-		$termid = self::CORRECT_TERMID;
-
-		$amount = 'asd';
-		$invoice = self::CORRECT_INVOICE;
-		$condition = self::CORRECT_CONDITION;
-		$id = self::CORRECT_ID;
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new RecurringPaymentRequestBuilder(
-			$termid,
-			$amount,
-			$invoice,
-			$condition,
-			$id
-		);
-	}
-
-	public function testFailInvoice(){
-
-		$termid = self::CORRECT_TERMID;
-
-		$amount = self::CORRECT_AMOUNT;
-		$invoice = str_repeat('a', 17);
-		$condition = self::CORRECT_CONDITION;
-		$id = self::CORRECT_ID;
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new RecurringPaymentRequestBuilder(
-			$termid,
-			$amount,
-			$invoice,
-			$condition,
-			$id
-		);
-	}
-
-	public function testFailCondition(){
-
-		$termid = self::CORRECT_TERMID;
-
-		$amount = self::CORRECT_AMOUNT;
-		$invoice = self::CORRECT_INVOICE;
-		$condition = 123;
-		$id = self::CORRECT_ID;
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new RecurringPaymentRequestBuilder(
-			$termid,
-			$amount,
-			$invoice,
-			$condition,
-			$id
-		);
-	}
-
-	public function testFailId(){
-
-		$termid = self::CORRECT_TERMID;
-
-		$amount = self::CORRECT_AMOUNT;
-		$invoice = self::CORRECT_INVOICE;
-		$condition = self::CORRECT_CONDITION;
-		$id = str_repeat('a', 13);;
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new RecurringPaymentRequestBuilder(
-			$termid,
-			$amount,
-			$invoice,
-			$condition,
-			$id
-		);
 	}
 }

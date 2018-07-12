@@ -41,42 +41,4 @@ class ReversalRequestBuilderTest extends RequestBuilderTest {
 		];
 		$this->assertArrayEquals($expectedRequest, $actualRequest);
 	}
-
-	public function testFailId(){
-
-		$version = self::CORRECT_VERSION;
-		$command = self::CORRECT_COMMAND;
-
-		$termid = self::CORRECT_TERMID;
-
-		$id = '1234567890123';
-		$session = self::CORRECT_SESSION;
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new ReversalRequestBuilder(
-			$termid,
-			$id,
-			$session
-		);
-	}
-
-	public function testFailSession(){
-
-		$version = self::CORRECT_VERSION;
-		$command = self::CORRECT_COMMAND;
-
-		$termid = self::CORRECT_TERMID;
-
-		$id = self::CORRECT_ID;
-		$session = str_repeat('a', 39);
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new ReversalRequestBuilder(
-			$termid,
-			$id,
-			$session
-		);
-	}
 }

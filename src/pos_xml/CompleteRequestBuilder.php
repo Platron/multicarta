@@ -3,12 +3,14 @@
 namespace Platron\multicarta\pos_xml;
 
 use Platron\multicarta\Error;
+use Platron\multicarta\CurrencyCode;
 
 class CompleteRequestBuilder extends AuthRequestBuilder {
 
 	/**
 	 * @param string $termid
 	 * @param string $amount
+	 * @param CurrencyCode $currency
 	 * @param string $invoice
 	 * @param int $condition
 	 * @param string $id
@@ -18,6 +20,7 @@ class CompleteRequestBuilder extends AuthRequestBuilder {
 	public function __construct(
 		string $termid,
 		string $amount,
+		CurrencyCode $currency,
 		string $invoice,
 		int $condition,
 		string $id,
@@ -27,6 +30,7 @@ class CompleteRequestBuilder extends AuthRequestBuilder {
 		parent::__construct(
 			$termid,
 			$amount,
+			$currency,
 			$invoice,
 			$condition
 		);

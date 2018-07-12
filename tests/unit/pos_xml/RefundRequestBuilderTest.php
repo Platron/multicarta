@@ -36,9 +36,9 @@ class RefundRequestBuilderTest extends RequestBuilderTest {
 			$termid,
 			$id,
 			$session,
-			$amount
+			$amount,
+			new CurrencyCode($currency)
 		);
-		$builder->setCurrency(new CurrencyCode($currency));
 		$builder->setSln($sln);
 
 		$actualRequest = $builder->getRequest();
@@ -54,91 +54,5 @@ class RefundRequestBuilderTest extends RequestBuilderTest {
 			'SLN' => $sln
 		];
 		$this->assertArrayEquals($expectedRequest, $actualRequest);
-	}
-
-	public function testFailId(){
-
-		$version = self::CORRECT_VERSION;
-		$command = self::CORRECT_COMMAND;
-
-		$termid = self::CORRECT_TERMID;
-
-		$id = '1234567890123';
-		$session = self::CORRECT_SESSION;
-		$amount = self::CORRECT_AMOUNT;
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new RefundRequestBuilder(
-			$termid,
-			$id,
-			$session,
-			$amount
-		);
-	}
-
-	public function testFailSession(){
-
-		$version = self::CORRECT_VERSION;
-		$command = self::CORRECT_COMMAND;
-
-		$termid = self::CORRECT_TERMID;
-
-		$id = self::CORRECT_ID;
-		$session = str_repeat('a', 39);
-		$amount = self::CORRECT_AMOUNT;
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new RefundRequestBuilder(
-			$termid,
-			$id,
-			$session,
-			$amount
-		);
-	}
-
-	public function testFailSln(){
-
-		$version = self::CORRECT_VERSION;
-		$command = self::CORRECT_COMMAND;
-
-		$termid = self::CORRECT_TERMID;
-
-		$id = self::CORRECT_ID;
-		$session = self::CORRECT_SESSION;
-		$amount = self::CORRECT_AMOUNT;
-		$sln = str_repeat('a', 284);
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new RefundRequestBuilder(
-			$termid,
-			$id,
-			$session,
-			$amount
-		);
-		$builder->setSln($sln);
-	}
-
-	public function testFailAmount(){
-
-		$version = self::CORRECT_VERSION;
-		$command = self::CORRECT_COMMAND;
-
-		$termid = self::CORRECT_TERMID;
-
-		$id = self::CORRECT_ID;
-		$session = self::CORRECT_SESSION;
-		$amount = 'asd';
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new RefundRequestBuilder(
-			$termid,
-			$id,
-			$session,
-			$amount
-		);
 	}
 }

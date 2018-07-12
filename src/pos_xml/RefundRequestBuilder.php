@@ -12,24 +12,20 @@ class RefundRequestBuilder extends TerminalRequestBuilder {
 	 * @param string $id
 	 * @param string $session
 	 * @param string $amount
+	 * @param CurrencyCode $currency
 	 */
 	public function __construct(
 		string $termid,
 		string $id,
 		string $session,
-		string $amount
+		string $amount,
+		CurrencyCode $currency
 	) {
 		parent::__construct($termid);
 		$this->setId($id);
 		$this->setSession($session);
 		$this->setAmount($amount);
-	}
-
-	/**
-	 * @param CurrencyCode $currency
-	 */
-	public function setCurrency(CurrencyCode $currency) {
-		$this->request['CURRENCY'] = (string)$currency;
+		$this->setCurrency($currency);
 	}
 
 	/**
@@ -44,7 +40,6 @@ class RefundRequestBuilder extends TerminalRequestBuilder {
 
 	protected function initDefaultValues() {
 		parent::initDefaultValues();
-		$this->setCurrency(CurrencyCode::RUBLE());
 	}
 
 	/**
@@ -81,6 +76,13 @@ class RefundRequestBuilder extends TerminalRequestBuilder {
 			);
 		}
 		$this->request['AMOUNT'] = $amount;
+	}
+
+	/**
+	 * @param CurrencyCode $currency
+	 */
+	protected function setCurrency(CurrencyCode $currency) {
+		$this->request['CURRENCY'] = (string)$currency;
 	}
 
 	/**

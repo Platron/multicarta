@@ -40,13 +40,13 @@ class CompleteRequestBuilderTest extends RequestBuilderTest {
 		$builder = new CompleteRequestBuilder(
 			$termid,
 			$amount,
+			new CurrencyCode($currency),
 			$invoice,
 			$condition,
 			$id,
 			$authcode,
 			$invoiceorig
 		);
-		$builder->setCurrency(new CurrencyCode($currency));
 
 		$actualRequest = $builder->getRequest();
 
@@ -63,172 +63,5 @@ class CompleteRequestBuilderTest extends RequestBuilderTest {
 			'CURRENCY' => $currency
 		];
 		$this->assertArrayEquals($expectedRequest, $actualRequest);
-	}
-
-	public function testFailTermid(){
-
-		$termid = str_repeat('a', 17);
-
-		$amount = self::CORRECT_AMOUNT;
-		$invoice = self::CORRECT_INVOICE;
-		$condition = self::CORRECT_CONDITION;
-		$id = self::CORRECT_ID;
-		$authcode = self::CORRECT_AUTHCODE;
-		$invoiceorig = self::CORRECT_INVOICEORIG;
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new CompleteRequestBuilder(
-			$termid,
-			$amount,
-			$invoice,
-			$condition,
-			$id,
-			$authcode,
-			$invoiceorig
-		);
-	}
-
-	public function testFailAmount(){
-
-		$termid = self::CORRECT_TERMID;
-
-		$amount = 'asd';
-		$invoice = self::CORRECT_INVOICE;
-		$condition = self::CORRECT_CONDITION;
-		$id = self::CORRECT_ID;
-		$authcode = self::CORRECT_AUTHCODE;
-		$invoiceorig = self::CORRECT_INVOICEORIG;
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new CompleteRequestBuilder(
-			$termid,
-			$amount,
-			$invoice,
-			$condition,
-			$id,
-			$authcode,
-			$invoiceorig
-		);
-	}
-
-	public function testFailInvoice(){
-
-		$termid = self::CORRECT_TERMID;
-
-		$amount = self::CORRECT_AMOUNT;
-		$invoice = str_repeat('a', 17);
-		$condition = self::CORRECT_CONDITION;
-		$id = self::CORRECT_ID;
-		$authcode = self::CORRECT_AUTHCODE;
-		$invoiceorig = self::CORRECT_INVOICEORIG;
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new CompleteRequestBuilder(
-			$termid,
-			$amount,
-			$invoice,
-			$condition,
-			$id,
-			$authcode,
-			$invoiceorig
-		);
-	}
-
-	public function testFailCondition(){
-
-		$termid = self::CORRECT_TERMID;
-
-		$amount = self::CORRECT_AMOUNT;
-		$invoice = self::CORRECT_INVOICE;
-		$condition = 123;
-		$id = self::CORRECT_ID;
-		$authcode = self::CORRECT_AUTHCODE;
-		$invoiceorig = self::CORRECT_INVOICEORIG;
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new CompleteRequestBuilder(
-			$termid,
-			$amount,
-			$invoice,
-			$condition,
-			$id,
-			$authcode,
-			$invoiceorig
-		);
-	}
-
-	public function testFailId() {
-		$termid = self::CORRECT_TERMID;
-
-		$amount = self::CORRECT_AMOUNT;
-		$invoice = self::CORRECT_INVOICE;
-		$condition = self::CORRECT_CONDITION;
-		$id = str_repeat('a', 13);
-		$authcode = self::CORRECT_AUTHCODE;
-		$invoiceorig = self::CORRECT_INVOICEORIG;
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new CompleteRequestBuilder(
-			$termid,
-			$amount,
-			$invoice,
-			$condition,
-			$id,
-			$authcode,
-			$invoiceorig
-		);
-	}
-
-	public function testFailAuthcode() {
-
-		$termid = self::CORRECT_TERMID;
-
-		$amount = self::CORRECT_AMOUNT;
-		$invoice = self::CORRECT_INVOICE;
-		$condition = self::CORRECT_CONDITION;
-		$id = self::CORRECT_ID;
-		$authcode = str_repeat('a', 9);
-		$invoiceorig = self::CORRECT_INVOICEORIG;
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new CompleteRequestBuilder(
-			$termid,
-			$amount,
-			$invoice,
-			$condition,
-			$id,
-			$authcode,
-			$invoiceorig
-		);
-	}
-
-	public function testFailInvoiceorig() {
-
-		$termid = self::CORRECT_TERMID;
-
-		$amount = self::CORRECT_AMOUNT;
-		$invoice = self::CORRECT_INVOICE;
-		$condition = self::CORRECT_CONDITION;
-		$id = self::CORRECT_ID;
-		$authcode = self::CORRECT_AUTHCODE;
-		$invoiceorig = str_repeat('a', 17);
-
-		$this->setExpectedException('Platron\multicarta\Error');
-
-		$builder = new CompleteRequestBuilder(
-			$termid,
-			$amount,
-			$invoice,
-			$condition,
-			$id,
-			$authcode,
-			$invoiceorig
-		);
 	}
 }

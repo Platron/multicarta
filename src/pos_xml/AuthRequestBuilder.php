@@ -10,122 +10,52 @@ abstract class AuthRequestBuilder extends TerminalRequestBuilder {
 	/**
 	 * @param string $termid
 	 * @param string $amount
+	 * @param CurrencyCode $currency
 	 * @param string $invoice
 	 * @param int $condition
 	 */
 	public function __construct(
 		string $termid,
 		string $amount,
+		CurrencyCode $currency,
 		string $invoice,
 		int $condition
 	) {
 		parent::__construct($termid);
 		$this->setAmount($amount);
+		$this->setCurrency($currency);
 		$this->setInvoice($invoice);
 		$this->setCondition($condition);
 	}
 
 	/**
-	 * @param CurrencyCode $currency
+	 * @param RecurringData $recurringData
 	 */
-	public function setCurrency(CurrencyCode $currency) {
-		$this->request['CURRENCY'] = (string)$currency;
-	}
+	public function setRecurringData(RecurringData $recurringData) {
+		$mita = $recurringData->getMita();
+		$etid = $recurringData->getEtid();
+		$origrrn = $recurringData->getOrigrrn();
 
-	/**
-	 * @param Mita $mita
-	 */
-	public function setMita(Mita $mita) {
 		$this->request['MITA'] = (string)$mita;
-	}
-
-	/**
-	 * @param string $etid
-	 */
-	public function setEtid(string $etid) {
-		if (strlen($etid) > 20) {
-			throw new Error("Excess of maximum length (20 characters) in etid");
-		}
 		$this->request['ETID'] = $etid;
-	}
-
-	/**
-	 * @param string $origrrn
-	 */
-	public function setOrigrrn(string $origrrn) {
-		if (strlen($origrrn) > 12) {
-			throw new Error("Excess of maximum length (12 characters) in origrrn");
-		}
 		$this->request['ORIGRRN'] = $origrrn;
 	}
 
-	/**
-	 * @param string $pfsname
-	 */
-	public function setPfsname(string $pfsname) {
-		if (strlen($pfsname) > 18) {
-			throw new Error("Excess of maximum length (18 characters) in pfsname");
-		}
+	public function setPaymentFacilitatorData(PaymentFacilitatorData $paymentFacilitatorData) {
+		$pfsname = $paymentFacilitatorData->getPfsname();
+		$smid = $paymentFacilitatorData->getSmid();
+		$smmcc = $paymentFacilitatorData->getSmmcc();
+		$smaddress = $paymentFacilitatorData->getSmaddress();
+		$smcountry = $paymentFacilitatorData->getSmcountry();
+		$smcity = $paymentFacilitatorData->getSmcity();
+		$smpostcode = $paymentFacilitatorData->getSmpostcode();
+
 		$this->request['PFSNAME'] = $pfsname;
-	}
-
-	/**
-	 * @param string $smid
-	 */
-	public function setSmid(string $smid) {
-		if (strlen($smid) > 15) {
-			throw new Error("Excess of maximum length (15 characters) in smid");
-		}
 		$this->request['SMID'] = $smid;
-	}
-
-	/**
-	 * @param int $smmcc
-	 */
-	public function setSmmcc(int $smmcc) {
-		if (strlen($smmcc) > 4) {
-			throw new Error("Excess of maximum length (4 digits) in smmcc");
-		}
 		$this->request['SMMCC'] = (string)$smmcc;
-	}
-
-	/**
-	 * @param string $smaddress
-	 */
-	public function setSmaddress(string $smaddress) {
-		if (strlen($smaddress) > 48) {
-			throw new Error("Excess of maximum length (48 characters) in smaddress");
-		}
 		$this->request['SMADDRESS'] = $smaddress;
-	}
-
-	/**
-	 * @param string $smcountry
-	 */
-	public function setSmcountry(string $smcountry) {
-		if (strlen($smcountry) > 3) {
-			throw new Error("Excess of maximum length (3 characters) in smcountry");
-		}
 		$this->request['SMCOUNTRY'] = $smcountry;
-	}
-
-	/**
-	 * @param string $smcity
-	 */
-	public function setSmcity(string $smcity) {
-		if (strlen($smcity) > 13) {
-			throw new Error("Excess of maximum length (13 characters) in smcity");
-		}
 		$this->request['SMCITY'] = $smcity;
-	}
-
-	/**
-	 * @param string $smpostcode
-	 */
-	public function setSmpostcode(string $smpostcode) {
-		if (strlen($smpostcode) > 10) {
-			throw new Error("Excess of maximum length (10 characters) in smpostcode");
-		}
 		$this->request['SMPOSTCODE'] = $smpostcode;
 	}
 
@@ -165,6 +95,13 @@ abstract class AuthRequestBuilder extends TerminalRequestBuilder {
 			);
 		}
 		$this->request['AMOUNT'] = $amount;
+	}
+
+	/**
+	 * @param CurrencyCode $currency
+	 */
+	protected function setCurrency(CurrencyCode $currency) {
+		$this->request['CURRENCY'] = (string)$currency;
 	}
 
 	/**
