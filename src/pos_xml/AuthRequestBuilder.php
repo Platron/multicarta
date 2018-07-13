@@ -81,7 +81,6 @@ abstract class AuthRequestBuilder extends TerminalRequestBuilder {
 
 	protected function initDefaultValues() {
 		parent::initDefaultValues();
-		$this->setCurrency(CurrencyCode::RUBLE());
 	}
 
 	/**
