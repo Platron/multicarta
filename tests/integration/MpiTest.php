@@ -9,14 +9,14 @@ use Platron\multicarta\CurrencyCode;
 use Platron\multicarta\mpi\Client;
 use Platron\multicarta\mpi\InterfaceLanguage;
 
-use Platron\multicarta\mpi\CreateOrderRequestBuilder;
-use Platron\multicarta\mpi\CreateOrderResponseParser;
+use Platron\multicarta\mpi\CreateOrderRequest;
+use Platron\multicarta\mpi\CreateOrderResponse;
 
-use Platron\multicarta\mpi\EnrollCheckingRequestBuilder;
-use Platron\multicarta\mpi\EnrollCheckingResponseParser;
+use Platron\multicarta\mpi\EnrollCheckingRequest;
+use Platron\multicarta\mpi\EnrollCheckingResponse;
 
-use Platron\multicarta\mpi\GetPaReqRequestBuilder;
-use Platron\multicarta\mpi\GetPaReqResponseParser;
+use Platron\multicarta\mpi\GetPaReqRequest;
+use Platron\multicarta\mpi\GetPaReqResponse;
 
 class MpiTest extends TestCase {
 
@@ -58,23 +58,22 @@ class MpiTest extends TestCase {
 		$TDSVendorMerID = $this->TDSVendorMerID;
 		$TDSVendorName = $this->TDSVendorName;
 
-		$builder = new CreateOrderRequestBuilder(
+		$request = new CreateOrderRequest(
 			$Merchant,
 			$Amount,
 			$Description,
+			new CurrencyCode($Currency),
+			new InterfaceLanguage($Language),
 			$TDSVendorMerID,
 			$TDSVendorName
 		);
-		$builder->setCurrency(new CurrencyCode($Currency));
-		$builder->setLanguage(new InterfaceLanguage($Language));
-		$request = $builder->getRequest();
-		$response = $this->sendRequest($request);
-		$parser = new CreateOrderResponseParser($response);
-		$this->assertTrue($parser->isValid());
-		$this->assertTrue($parser->isSuccess());
+		$simpleXmlResponse = $this->send($request->asSimpleXml());
+		$response = new CreateOrderResponse($simpleXmlResponse);
+		$this->assertTrue($response->isValid());
+		$this->assertTrue($response->isSuccess());
 
-		$this->OrderID = $parser->getOrderID();
-		$this->SessionID = $parser->getSessionID();
+		$this->OrderID = $response->getOrderID();
+		$this->SessionID = $response->getSessionID();
 	}
 
 	protected function startEnrollCheckingOperation() {
@@ -83,17 +82,16 @@ class MpiTest extends TestCase {
 		$OrderID = $this->OrderID;
 		$SessionID = $this->SessionID;
 
-		$builder = new EnrollCheckingRequestBuilder(
+		$request = new EnrollCheckingRequest(
 			$Merchant,
 			$PAN,
 			$OrderID,
 			$SessionID
 		);
-		$request = $builder->getRequest();
-		$response = $this->sendRequest($request);
-		$parser = new EnrollCheckingResponseParser($response);
-		$this->assertTrue($parser->isValid());
-		$this->assertTrue($parser->isSuccess());
+		$simpleXmlResponse = $this->send($request->asSimpleXml());
+		$response = new EnrollCheckingResponse($simpleXmlResponse);
+		$this->assertTrue($response->isValid());
+		$this->assertTrue($response->isSuccess());
 	}
 
 	protected function startGetPaReqOperation() {
@@ -103,31 +101,34 @@ class MpiTest extends TestCase {
 		$SessionID = $this->SessionID;
 		$ExpDate = $this->ExpDate;
 
-		$builder = new GetPaReqRequestBuilder(
+		$request = new GetPaReqRequest(
 			$Merchant,
 			$PAN,
 			$OrderID,
 			$SessionID,
 			DateTime::createFromFormat('ym', $ExpDate)
 		);
-		$request = $builder->getRequest();
-		$response = $this->sendRequest($request);
-		$parser = new GetPaReqResponseParser($response);
-		$this->assertTrue($parser->isValid());
-		$this->assertTrue($parser->isSuccess());
+		$simpleXmlResponse = $this->send($request->asSimpleXml());
+		$response = new GetPaReqResponse($simpleXmlResponse);
+		$this->assertTrue($response->isValid());
+		$this->assertTrue($response->isSuccess());
 	}
 
-	protected function sendRequest($request) {
+	protected function send($simpleXmlRequest) {
 		$url = $this->url;
 		$certificatePath = $this->certificatePath;
 		$privateKeyPath = $this->privateKeyPath;
+		$headers = ['Content-type: text/xml'];
 		$client = new Client();
-		$response = $client->sendRequest(
+		$result = $client->send(
 			$url,
-			$request,
+			$simpleXmlRequest->asXML(),
 			$certificatePath,
-			$privateKeyPath
+			$privateKeyPath,
+			$headers
 		);
-		return $response;
+		$returnMessage = $result->getReturnMessage();
+		$simpleXmlRequest = simplexml_load_string($returnMessage);
+		return $simpleXmlRequest;
 	}
 }

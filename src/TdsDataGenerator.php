@@ -5,18 +5,18 @@ namespace Platron\multicarta;
 class TdsDataGenerator {
 
 	/**
-	 * @param PaymentSystemBrand $paymentSystemBrand
+	 * @param BankCardBrand $bankCardBrand
 	 * @param string $cavv
 	 * @param string $xid
 	 * @return string
 	 */
 	public function generate(
-		PaymentSystemBrand $paymentSystemBrand,
+		BankCardBrand $bankCardBrand,
 		string $cavv,
 		string $xid
 	) {
 		$firstSubField = $this->getFirstSubField($xid);
-		$secondSubField = $this->getSecondSubField($paymentSystemBrand, $cavv);
+		$secondSubField = $this->getSecondSubField($bankCardBrand, $cavv);
 
 		return $firstSubField . $secondSubField;
 	}
@@ -31,23 +31,23 @@ class TdsDataGenerator {
 	}
 
 	/**
-	 * @param PaymentSystemBrand $paymentSystemBrand
+	 * @param BankCardBrand $bankCardBrand
 	 * @param string $cavv
 	 * @return string
 	 */
 	private function getSecondSubField(
-		PaymentSystemBrand $paymentSystemBrand,
+		BankCardBrand $bankCardBrand,
 		string $cavv
 	) {
-		switch ($paymentSystemBrand->getValue()) {
-			case PaymentSystemBrand::VISA:
-			case PaymentSystemBrand::MIR:
+		switch ($bankCardBrand->getValue()) {
+			case BankCardBrand::VISA:
+			case BankCardBrand::MIR:
 				$result = $this->convertBase64ToUpperCaseHex(
 					$cavv
 				);
 				break;
 
-			case PaymentSystemBrand::MASTERCARD:
+			case BankCardBrand::MASTERCARD:
 				$result = $this->replaceSymbolListToHex(
 					$cavv,
 					['+', '/', '=']
