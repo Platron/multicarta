@@ -5,6 +5,8 @@ namespace Platron\multicarta\pos_xml\auth;
 use Platron\multicarta\pos_xml\terminal\Request as TerminalRequest;
 use Platron\multicarta\Error;
 use Platron\multicarta\CurrencyCode;
+use Platron\multicarta\Mita;
+use Platron\multicarta\AdditionalRecurringData;
 
 abstract class Request extends TerminalRequest {
 
@@ -30,16 +32,23 @@ abstract class Request extends TerminalRequest {
 	}
 
 	/**
+	 * @param Mita $mita
+	 */
+	public function setMita(
+		Mita $mita
+	) {
+		$this->request['MITA'] = (string)$mita;
+	}
+
+	/**
 	 * @param AdditionalRecurringData $additionalRecurringData
 	 */
 	public function setAdditionalRecurringData(
 		AdditionalRecurringData $additionalRecurringData
 	) {
-		$mita = $additionalRecurringData->getMita();
 		$etid = $additionalRecurringData->getEtid();
 		$origrrn = $additionalRecurringData->getOrigrrn();
 
-		$this->request['MITA'] = (string)$mita;
 		$this->request['ETID'] = $etid;
 		$this->request['ORIGRRN'] = $origrrn;
 	}

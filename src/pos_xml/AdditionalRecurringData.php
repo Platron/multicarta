@@ -5,11 +5,6 @@ namespace Platron\multicarta\pos_xml;
 class AdditionalRecurringData {
 
 	/**
-	 * @var Mita $mita
-	 */
-	private $mita;
-
-	/**
 	 * @var string $etid
 	 */
 	private $etid;
@@ -20,25 +15,15 @@ class AdditionalRecurringData {
 	private $origrrn;
 
 	/**
-	 * @param Mita $mita
 	 * @param string $etid
 	 * @param string $origrrn
 	 */
 	public function __construct(
-		Mita $mita,
 		string $etid,
 		string $origrrn
 	) {
-		$this->setMita($mita);
 		$this->setEtid($etid);
 		$this->setOrigrrn($origrrn);
-	}
-
-	/**
-	 * @return Mita
-	 */
-	public function getMita() {
-		return $this->mita;
 	}
 
 	/**
@@ -53,13 +38,6 @@ class AdditionalRecurringData {
 	 */
 	public function getOrigrrn() {
 		return $this->origrrn;
-	}
-
-	/**
-	 * @param Mita $mita
-	 */
-	protected function setMita(Mita $mita) {
-		$this->mita = $mita;
 	}
 
 	/**
