@@ -17,16 +17,6 @@ class Response extends AuthResponse {
 	}
 
 	/**
-	 * @return SimpleXMLElement
-	 */
-	protected function getAuthinfo() {
-		$result = $this->getResult();
-		if ($result) {
-			return $result->authinfo;
-		}
-	}
-
-	/**
 	 * @return string
 	 */
 	protected function getValidCommand() {
