@@ -45,14 +45,4 @@ abstract class Response extends TerminalResponse {
 			return (string)$authInfo->session;
 		}
 	}
-
-	/**
-	 * @return SimpleXMLElement
-	 */
-	protected function getAuthinfo() {
-		$result = $this->getResult();
-		if ($result) {
-			return $result->authinfo;
-		}
-	}
 }
