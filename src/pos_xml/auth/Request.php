@@ -4,7 +4,6 @@ namespace Platron\multicarta\pos_xml\auth;
 
 use Platron\multicarta\pos_xml\terminal\Request as TerminalRequest;
 use Platron\multicarta\pos_xml\FacilitatorData;
-use Platron\multicarta\pos_xml\StartingRecurringData;
 use Platron\multicarta\pos_xml\Mita;
 use Platron\multicarta\Error;
 use Platron\multicarta\CurrencyCode;
@@ -42,15 +41,22 @@ abstract class Request extends TerminalRequest {
 	}
 
 	/**
-	 * @param StartingRecurringData $startingRecurringData
+	 * @param string $etid
 	 */
-	public function setStartingRecurringData(
-		StartingRecurringData $startingRecurringData
-	) {
-		$etid = $startingRecurringData->getEtid();
-		$origrrn = $startingRecurringData->getOrigrrn();
-
+	public function setEtid(string $etid) {
+		if (strlen($etid) > 20) {
+			throw new Error("Excess of maximum length (20 characters) in etid");
+		}
 		$this->request['ETID'] = $etid;
+	}
+
+	/**
+	 * @param string $origrrn
+	 */
+	public function setOrigrrn(string $origrrn) {
+		if (strlen($origrrn) > 12) {
+			throw new Error("Excess of maximum length (12 characters) in origrrn");
+		}
 		$this->request['ORIGRRN'] = $origrrn;
 	}
 
