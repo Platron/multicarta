@@ -4,7 +4,7 @@ namespace Platron\multicarta\pos_xml\auth;
 
 use Platron\multicarta\pos_xml\terminal\Request as TerminalRequest;
 use Platron\multicarta\pos_xml\FacilitatorData;
-use Platron\multicarta\pos_xml\AdditionalRecurringData;
+use Platron\multicarta\pos_xml\StartingRecurringData;
 use Platron\multicarta\pos_xml\Mita;
 use Platron\multicarta\Error;
 use Platron\multicarta\CurrencyCode;
@@ -42,13 +42,13 @@ abstract class Request extends TerminalRequest {
 	}
 
 	/**
-	 * @param AdditionalRecurringData $additionalRecurringData
+	 * @param StartingRecurringData $startingRecurringData
 	 */
-	public function setAdditionalRecurringData(
-		AdditionalRecurringData $additionalRecurringData
+	public function setStartingRecurringData(
+		StartingRecurringData $startingRecurringData
 	) {
-		$etid = $additionalRecurringData->getEtid();
-		$origrrn = $additionalRecurringData->getOrigrrn();
+		$etid = $startingRecurringData->getEtid();
+		$origrrn = $startingRecurringData->getOrigrrn();
 
 		$this->request['ETID'] = $etid;
 		$this->request['ORIGRRN'] = $origrrn;

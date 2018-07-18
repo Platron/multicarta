@@ -2,7 +2,7 @@
 
 namespace Platron\multicarta\pos_xml;
 
-class AdditionalRecurringData {
+class StartingRecurringData {
 
 	/**
 	 * @var string $etid
