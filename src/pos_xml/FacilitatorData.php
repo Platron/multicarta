@@ -139,7 +139,7 @@ class FacilitatorData {
 	 * @param int $smmcc
 	 */
 	protected function setSmmcc(int $smmcc) {
-		if (strlen($smmcc) > 4) {
+		if (strlen($smmcc) != 4) {
 			throw new Error("Excess of maximum length (4 digits) in smmcc");
 		}
 		$this->smmcc = $smmcc;
@@ -159,7 +159,7 @@ class FacilitatorData {
 	 * @param string $smcountry
 	 */
 	protected function setSmcountry(string $smcountry) {
-		if (strlen($smcountry) > 3) {
+		if (strlen($smcountry) != 3) {
 			throw new Error("Excess of maximum length (3 characters) in smcountry");
 		}
 		$this->smcountry = $smcountry;
