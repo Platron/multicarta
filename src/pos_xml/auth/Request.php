@@ -3,10 +3,11 @@
 namespace Platron\multicarta\pos_xml\auth;
 
 use Platron\multicarta\pos_xml\terminal\Request as TerminalRequest;
+use Platron\multicarta\pos_xml\FacilitatorData;
+use Platron\multicarta\pos_xml\AdditionalRecurringData;
+use Platron\multicarta\pos_xml\Mita;
 use Platron\multicarta\Error;
 use Platron\multicarta\CurrencyCode;
-use Platron\multicarta\Mita;
-use Platron\multicarta\AdditionalRecurringData;
 
 abstract class Request extends TerminalRequest {
 
