@@ -33,8 +33,8 @@ class MpiTest extends TestCase {
 
 	public function __construct(){
 		$this->url = Config::URL;
-		$this->certificatePath = Config::CERTIFICATE_PATH;
-		$this->privateKeyPath = Config::PRIVATE_KEY_PATH;
+		$this->certificatePath = __DIR__.Config::CERTIFICATE_PATH;
+		$this->privateKeyPath = __DIR__.Config::PRIVATE_KEY_PATH;
 		$this->Merchant = Config::MERCHANT;
 		$this->TDSVendorMerID = Config::TDS_VENDOR_MER_ID;
 		$this->TDSVendorName = Config::TDS_VENDOR_NAME;
