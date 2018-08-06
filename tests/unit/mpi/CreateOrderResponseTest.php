@@ -30,22 +30,15 @@ class CreateOrderResponseTest extends ResponseTest {
 
 	public function testSuccessResponse(){
 
-		$Status = self::CORRECT_STATUS;
-		$Operation = self::CORRECT_OPERATION;
-
-		$OrderID = self::CORRECT_ORDER_ID;
-		$SessionID = self::CORRECT_SESSION_ID;
-		$URL = self::CORRECT_URL;
-
 		$xml = '<?xml version="1.0" encoding="UTF-8"?>
 			<TKKPG>
 				<Response>
-					<Operation>'.$Operation.'</Operation>
-					<Status>'.$Status.'</Status>
+					<Operation>'.self::CORRECT_OPERATION.'</Operation>
+					<Status>'.self::CORRECT_STATUS.'</Status>
 					<Order>
-						<OrderID>'.$OrderID.'</OrderID>
-						<SessionID>'.$SessionID.'</SessionID>
-						<URL>'.$URL.'</URL>
+						<OrderID>'.self::CORRECT_ORDER_ID.'</OrderID>
+						<SessionID>'.self::CORRECT_SESSION_ID.'</SessionID>
+						<URL>'.self::CORRECT_URL.'</URL>
 					</Order>
 				</Response>
 			</TKKPG>';
@@ -54,10 +47,10 @@ class CreateOrderResponseTest extends ResponseTest {
 
 		$this->assertTrue($response->isValid());
 		$this->assertTrue($response->isSuccess());
-		$this->assertEquals($Status, $response->getStatus());
-		$this->assertEquals($Operation, $response->getOperation());
+		$this->assertEquals(self::CORRECT_STATUS, $response->getStatus());
+		$this->assertEquals(self::CORRECT_OPERATION, $response->getOperation());
 
-		$this->assertEquals($OrderID, $response->getOrderID());
-		$this->assertEquals($SessionID, $response->getSessionID());
+		$this->assertEquals(self::CORRECT_ORDER_ID, $response->getOrderID());
+		$this->assertEquals(self::CORRECT_SESSION_ID, $response->getSessionID());
 	}
 }

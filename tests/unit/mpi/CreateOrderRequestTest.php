@@ -39,22 +39,14 @@ class CreateOrderRequestTest extends RequestTest {
 
 	public function testSuccessRequest(){
 
-		$Language = self::CORRECT_LANGUAGE;
-		$Merchant = self::CORRECT_MERCHANT;
-		$Amount = self::CORRECT_AMOUNT;
-		$Currency = self::CORRECT_CURRENCY;
-		$Description = self::CORRECT_DESCRIPTION;
-		$TDSVendorMerID = self::CORRECT_TDS_VENDORMER_ID;
-		$TDSVendorName = self::CORRECT_TDS_VENDOR_NAME;
-
 		$request = new CreateOrderRequest(
-			$Merchant,
-			$Amount,
-			$Description,
-			new CurrencyCode($Currency),
-			new InterfaceLanguage($Language),
-			$TDSVendorMerID,
-			$TDSVendorName
+			self::CORRECT_MERCHANT,
+			self::CORRECT_AMOUNT,
+			self::CORRECT_DESCRIPTION,
+			new CurrencyCode(self::CORRECT_CURRENCY),
+			new InterfaceLanguage(self::CORRECT_LANGUAGE),
+			self::CORRECT_TDS_VENDORMER_ID,
+			self::CORRECT_TDS_VENDOR_NAME
 		);
 
 		$expectedVersion = '1.0';
@@ -68,20 +60,20 @@ class CreateOrderRequestTest extends RequestTest {
 								<xs:complexType>
 									<xs:all>
 										<xs:element name="Operation" fixed="CreateOrder"/>
-										<xs:element name="Language" fixed="'.$Language.'"/>
+										<xs:element name="Language" fixed="'.self::CORRECT_LANGUAGE.'"/>
 										<xs:element name="Order">
 											<xs:complexType>
 												<xs:all>
-													<xs:element name="Merchant" fixed="'.$Merchant.'"/>
-													<xs:element name="Amount" fixed="'.$Amount.'"/>
-													<xs:element name="Currency" fixed="'.$Currency.'"/>
-													<xs:element name="Description" fixed="'.$Description.'"/>
+													<xs:element name="Merchant" fixed="'.self::CORRECT_MERCHANT.'"/>
+													<xs:element name="Amount" fixed="'.self::CORRECT_AMOUNT.'"/>
+													<xs:element name="Currency" fixed="'.self::CORRECT_CURRENCY.'"/>
+													<xs:element name="Description" fixed="'.self::CORRECT_DESCRIPTION.'"/>
 													<xs:element name="OrderType" fixed="3DSOnly"/>
 													<xs:element name="AddParams">
 														<xs:complexType>
 															<xs:all>
-																<xs:element name="TDSVendorMerID" fixed="'.$TDSVendorMerID.'"/>
-																<xs:element name="TDSVendorName" fixed="'.$TDSVendorName.'"/>
+																<xs:element name="TDSVendorMerID" fixed="'.self::CORRECT_TDS_VENDORMER_ID.'"/>
+																<xs:element name="TDSVendorName" fixed="'.self::CORRECT_TDS_VENDOR_NAME.'"/>
 															</xs:all>
 														</xs:complexType>
 													</xs:element>

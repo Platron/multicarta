@@ -30,18 +30,12 @@ class ProcessPaResRequestTest extends RequestTest {
 
 	public function testSuccess(){
 
-		$Merchant = self::CORRECT_MERCHANT;
-		$PAN = self::CORRECT_PAN;
-		$OrderID = self::CORRECT_ORDER_ID;
-		$SessionID = self::CORRECT_SESSION_ID;
-		$PARes = self::CORRECT_PARES;
-
 		$request = new ProcessPaResRequest(
-			$Merchant,
-			$PAN,
-			$OrderID,
-			$SessionID,
-			$PARes
+			self::CORRECT_MERCHANT,
+			self::CORRECT_PAN,
+			self::CORRECT_ORDER_ID,
+			self::CORRECT_SESSION_ID,
+			self::CORRECT_PARES
 		);
 
 		$expectedVersion = '1.0';
@@ -55,14 +49,14 @@ class ProcessPaResRequestTest extends RequestTest {
 								<xs:complexType>
 									<xs:all>
 										<xs:element name="Operation" fixed="ProcessPARes"/>
-										<xs:element name="SessionID" fixed="'.$SessionID.'"/>
-										<xs:element name="PARes" fixed="'.$PARes.'"/>
-										<xs:element name="PAN" fixed="'.$PAN.'"/>
+										<xs:element name="SessionID" fixed="'.self::CORRECT_SESSION_ID.'"/>
+										<xs:element name="PARes" fixed="'.self::CORRECT_PARES.'"/>
+										<xs:element name="PAN" fixed="'.self::CORRECT_PAN.'"/>
 										<xs:element name="Order">
 											<xs:complexType>
 												<xs:all>
-													<xs:element name="Merchant" fixed="'.$Merchant.'"/>
-													<xs:element name="OrderID" fixed="'.$OrderID.'"/>
+													<xs:element name="Merchant" fixed="'.self::CORRECT_MERCHANT.'"/>
+													<xs:element name="OrderID" fixed="'.self::CORRECT_ORDER_ID.'"/>
 												</xs:all>
 											</xs:complexType>
 										</xs:element>

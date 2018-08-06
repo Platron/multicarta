@@ -43,33 +43,22 @@ class ProcessPaResResponseTest extends ResponseTest {
 
 	public function testSuccessResponse(){
 
-		$Status = self::CORRECT_STATUS;
-		$Operation = self::CORRECT_OPERATION;
-
-		$OrderID = self::CORRECT_ORDER_ID;
-		$Brand = self::CORRECT_BRAND;
-		$OrderStatus = self::CORRECT_ORDER_STATUS;
-		$eci = self::CORRECT_ECI;
-		$ThreeDSVerificaion = self::CORRECT_THREE_D_S_VERIFICAION;
-		$CAVV = self::CORRECT_CAVV;
-		$xid = self::CORRECT_XID;
-
 		$xml = '<?xml version="1.0" encoding="UTF-8"?>
 			<TKKPG>
 				<Response>
-					<Operation>'.$Operation.'</Operation>
-					<Status>'.$Status.'</Status>
+					<Operation>'.self::CORRECT_OPERATION.'</Operation>
+					<Status>'.self::CORRECT_STATUS.'</Status>
 					<XMLOut>
 						<Message date="19/10/2015 12:28:56">
-							<OrderID>'.$OrderID.'</OrderID>
-							<Brand>'.$Brand.'</Brand>
-							<OrderStatus>'.$OrderStatus.'</OrderStatus>
+							<OrderID>'.self::CORRECT_ORDER_ID.'</OrderID>
+							<Brand>'.self::CORRECT_BRAND.'</Brand>
+							<OrderStatus>'.self::CORRECT_ORDER_STATUS.'</OrderStatus>
 							<ThreeDSVars>
 								<AnswerVars>
-									<eci>'.$eci.'</eci>
-									<ThreeDSVerificaion>'.$ThreeDSVerificaion.'</ThreeDSVerificaion>
-									<CAVV>'.$CAVV.'</CAVV>
-									<xid>'.$xid.'</xid>
+									<eci>'.self::CORRECT_ECI.'</eci>
+									<ThreeDSVerificaion>'.self::CORRECT_THREE_D_S_VERIFICAION.'</ThreeDSVerificaion>
+									<CAVV>'.self::CORRECT_CAVV.'</CAVV>
+									<xid>'.self::CORRECT_XID.'</xid>
 								</AnswerVars>
 							</ThreeDSVars>
 						</Message>
@@ -81,15 +70,15 @@ class ProcessPaResResponseTest extends ResponseTest {
 
 		$this->assertTrue($response->isValid());
 		$this->assertTrue($response->isSuccess());
-		$this->assertEquals($Status, $response->getStatus());
-		$this->assertEquals($Operation, $response->getOperation());
+		$this->assertEquals(self::CORRECT_STATUS, $response->getStatus());
+		$this->assertEquals(self::CORRECT_OPERATION, $response->getOperation());
 
-		$this->assertEquals($OrderID, $response->getOrderID());
-		$this->assertEquals($Brand, $response->getBrand());
-		$this->assertEquals($OrderStatus, $response->getOrderStatus());
-		$this->assertEquals($eci, $response->getEci());
-		$this->assertEquals($ThreeDSVerificaion, $response->getThreeDSVerificaion());
-		$this->assertEquals($CAVV, $response->getCAVV());
-		$this->assertEquals($xid, $response->getXid());
+		$this->assertEquals(self::CORRECT_ORDER_ID, $response->getOrderID());
+		$this->assertEquals(self::CORRECT_BRAND, $response->getBrand());
+		$this->assertEquals(self::CORRECT_ORDER_STATUS, $response->getOrderStatus());
+		$this->assertEquals(self::CORRECT_ECI, $response->getEci());
+		$this->assertEquals(self::CORRECT_THREE_D_S_VERIFICAION, $response->getThreeDSVerificaion());
+		$this->assertEquals(self::CORRECT_CAVV, $response->getCAVV());
+		$this->assertEquals(self::CORRECT_XID, $response->getXid());
 	}
 }

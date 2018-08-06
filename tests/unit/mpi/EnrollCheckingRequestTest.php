@@ -28,16 +28,11 @@ class EnrollCheckingRequestTest extends RequestTest {
 
 	public function testSuccess(){
 
-		$Merchant = self::CORRECT_MERCHANT;
-		$PAN = self::CORRECT_PAN;
-		$OrderID = self::CORRECT_ORDER_ID;
-		$SessionID = self::CORRECT_SESSION_ID;
-
 		$request = new EnrollCheckingRequest(
-			$Merchant,
-			$PAN,
-			$OrderID,
-			$SessionID
+			self::CORRECT_MERCHANT,
+			self::CORRECT_PAN,
+			self::CORRECT_ORDER_ID,
+			self::CORRECT_SESSION_ID
 		);
 
 		$expectedVersion = '1.0';
@@ -51,13 +46,13 @@ class EnrollCheckingRequestTest extends RequestTest {
 								<xs:complexType>
 									<xs:all>
 										<xs:element name="Operation" fixed="Check3DSEnrolled"/>
-										<xs:element name="SessionID" fixed="'.$SessionID.'"/>
-										<xs:element name="PAN" fixed="'.$PAN.'"/>
+										<xs:element name="SessionID" fixed="'.self::CORRECT_SESSION_ID.'"/>
+										<xs:element name="PAN" fixed="'.self::CORRECT_PAN.'"/>
 										<xs:element name="Order">
 											<xs:complexType>
 												<xs:all>
-													<xs:element name="Merchant" fixed="'.$Merchant.'"/>
-													<xs:element name="OrderID" fixed="'.$OrderID.'"/>
+													<xs:element name="Merchant" fixed="'.self::CORRECT_MERCHANT.'"/>
+													<xs:element name="OrderID" fixed="'.self::CORRECT_ORDER_ID.'"/>
 												</xs:all>
 											</xs:complexType>
 										</xs:element>

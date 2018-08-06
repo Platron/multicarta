@@ -32,18 +32,12 @@ class GetPaReqRequestTest extends RequestTest {
 
 	public function testSuccess(){
 
-		$Merchant = self::CORRECT_MERCHANT;
-		$PAN = self::CORRECT_PAN;
-		$OrderID = self::CORRECT_ORDER_ID;
-		$SessionID = self::CORRECT_SESSION_ID;
-		$ExpDate = self::CORRECT_EXP_DATE;
-
 		$request = new GetPaReqRequest(
-			$Merchant,
-			$PAN,
-			$OrderID,
-			$SessionID,
-			DateTime::createFromFormat('ym', $ExpDate)
+			self::CORRECT_MERCHANT,
+			self::CORRECT_PAN,
+			self::CORRECT_ORDER_ID,
+			self::CORRECT_SESSION_ID,
+			DateTime::createFromFormat('ym', self::CORRECT_EXP_DATE)
 		);
 
 		$expectedVersion = '1.0';
@@ -58,14 +52,14 @@ class GetPaReqRequestTest extends RequestTest {
 									<xs:all>
 										<xs:element name="EncodedPAReq" fixed="true"/>
 										<xs:element name="Operation" fixed="GetPAReqForm"/>
-										<xs:element name="SessionID" fixed="'.$SessionID.'"/>
-										<xs:element name="PAN" fixed="'.$PAN.'"/>
-										<xs:element name="ExpDate" fixed="'.$ExpDate.'"/>
+										<xs:element name="SessionID" fixed="'.self::CORRECT_SESSION_ID.'"/>
+										<xs:element name="PAN" fixed="'.self::CORRECT_PAN.'"/>
+										<xs:element name="ExpDate" fixed="'.self::CORRECT_EXP_DATE.'"/>
 										<xs:element name="Order">
 											<xs:complexType>
 												<xs:all>
-													<xs:element name="Merchant" fixed="'.$Merchant.'"/>
-													<xs:element name="OrderID" fixed="'.$OrderID.'"/>
+													<xs:element name="Merchant" fixed="'.self::CORRECT_MERCHANT.'"/>
+													<xs:element name="OrderID" fixed="'.self::CORRECT_ORDER_ID.'"/>
 												</xs:all>
 											</xs:complexType>
 										</xs:element>

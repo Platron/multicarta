@@ -30,23 +30,15 @@ class GetPaReqResponseTest extends ResponseTest {
 
 	public function testSuccessResponse(){
 
-		$Status = self::CORRECT_STATUS;
-		$Operation = self::CORRECT_OPERATION;
-
-		$url = self::CORRECT_URL;
-		$MD = self::CORRECT_MD;
-		$termURL = self::CORRECT_TERM_URL;
-		$pareq = self::CORRECT_PAREQ;
-
 		$xml = '<?xml version="1.0" encoding="UTF-8"?>
 			<TKKPG>
 				<Response>
-					<Operation>'.$Operation.'</Operation>
-					<Status>'.$Status.'</Status>
-					<url>'.$url.'</url>
-					<MD>'.$MD.'</MD>
-					<termURL>'.$termURL.'</termURL>
-					<pareq>'.$pareq.'</pareq>
+					<Operation>'.self::CORRECT_OPERATION.'</Operation>
+					<Status>'.self::CORRECT_STATUS.'</Status>
+					<url>'.self::CORRECT_URL.'</url>
+					<MD>'.self::CORRECT_MD.'</MD>
+					<termURL>'.self::CORRECT_TERM_URL.'</termURL>
+					<pareq>'.self::CORRECT_PAREQ.'</pareq>
 				</Response>
 			</TKKPG>';
 
@@ -54,10 +46,10 @@ class GetPaReqResponseTest extends ResponseTest {
 
 		$this->assertTrue($response->isValid());
 		$this->assertTrue($response->isSuccess());
-		$this->assertEquals($Status, $response->getStatus());
-		$this->assertEquals($Operation, $response->getOperation());
+		$this->assertEquals(self::CORRECT_STATUS, $response->getStatus());
+		$this->assertEquals(self::CORRECT_OPERATION, $response->getOperation());
 
-		$this->assertEquals($url, $response->getUrl());
-		$this->assertEquals($pareq, $response->getPareq());
+		$this->assertEquals(self::CORRECT_URL, $response->getUrl());
+		$this->assertEquals(self::CORRECT_PAREQ, $response->getPareq());
 	}
 }
